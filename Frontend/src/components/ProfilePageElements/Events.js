@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import { Container, Content, List, ListItem, Thumbnail, Text, Body, Right, Button } from 'native-base';
 import { Image, StyleSheet, Modal } from 'react-native';
-import { View, DeckSwiper, Container, Card, CardItem, Thumbnail, Text, Left, Right, Body, Button, List, ListItem, Icon} from 'native-base';
+import { View, DeckSwiper, Container, Card, CardItem, Thumbnail, Text, Left, Right, Body, Button, List, ListItem, Icon, ScrollView} from 'native-base';
 
 export default class Events extends Component {
 
@@ -94,7 +94,7 @@ setModalVisible(visible) {
       
                         
                     </Modal>
-
+       
           <List>
             <ListItem>
               <Thumbnail  source={{ uri: 'https://instagram.fhkg4-1.fna.fbcdn.net/vp/695935bde748f019008741abd712ba67/5B619350/t51.2885-19/s150x150/29095781_584119315300112_866345554152521728_n.jpg' }} />
@@ -184,10 +184,12 @@ setModalVisible(visible) {
               </Right>
             </ListItem>
           </List>
+        
           
        
        </View>
       </Container>
+   
     );
   }
 }

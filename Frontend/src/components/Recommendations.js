@@ -15,28 +15,28 @@ const RecommendArray = [
         Location: 'Instagram Pier',
         Photographer: 'By Hugo Cheng',
         Distance: '1.5K',
-        Description: 'One of the best open area in the city, you will meet a lot of instagrammers there, best to shoot during golden hour'
+        Description: 'Sometimes Crowded Urban City have a lack of open spaces, Instagram Pier is a great place to relax after work or school, you will meet a lot of instagrammers there, best to shoot during golden hour.'
     },
     {
         Photo: require('../../assets/Images/test.jpg'),
         Location: 'Hopewell Center Elavator',
         Photographer: 'By Gordan Chung',
         Distance: '7.6K',
-        Description: 'From the 17th floor to the 64th floor, you will be able to get some awesome footage, best to bring a wide angle lens'
+        Description: ' The elevator will take you from the 17th floor to the 64th floor, you will be able to get some awesome footage of Hong Kong Island, best to bring a wide angle lens.'
     },
     {
         Photo: require('../../assets/Images/mansion.jpg'),
         Location: 'Montane Mansion',
         Photographer: 'By Thomas Lee',
         Distance: '4.6K',
-        Description: 'Also known as the monster buidling, you will see a lot of photographer haning around and waiting to shoot long exposure during night time '
+        Description: 'Also known as the monster buidling, you will see a lot of photographers with tripods wondering around. Highly recommened to take a wide angel lens and a portriat lens'
     },
     {
         Photo: require('../../assets/Images/test.jpg'),
         Location: 'Dragon\'s Back',
         Photographer: 'By Erik Hendenfalk',
         Distance: '8.6K',
-        Description: 'A relatively easy hike, the view is sensational, seriosuly bring a drone!'
+        Description: 'A relatively easy hike, the view is sensational on the top of the hill, oh yes remember to bring a drone!'
 
     },
     {
@@ -44,7 +44,7 @@ const RecommendArray = [
         Location: 'Mong Kok Streets',
         Photographer: 'By Rex Wong',
         Distance: '3.6K',
-        Description: 'The heart of urban streets, you will able to find a lot of local culture and one of the best place for street photography'
+        Description: 'The heart of urban streets, you will able to find a lot of local cultures and one of the best place for street photography'
 
     },
     {
@@ -52,14 +52,14 @@ const RecommendArray = [
         Location: 'Temple Street',
         Photographer: 'By Tim Ching',
         Distance: '1.6K',
-        Description: 'There are a couple of rooftops,carpark opposite the temple street allow you to capture some beautiful street photography'
+        Description: 'There are a couple of rooftops and carpark opposite the temple street which allow you to capture some beautiful street photography at night'
     },
     {
         Photo: require('../../assets/Images/central.jpg'),
         Location: 'Central District',
         Photographer: 'By Hugo Cheng',
         Distance: '2.6K',
-        Description:'There are so many places that you can shoot in central, we highly recommend to go to Tamar Park during sunset and night hour'
+        Description: 'There are so many places that you can shoot in Central District, we highly recommend you to go to Tamar Park during sunset and night hour'
     },
     {
         Photo: require('../../assets/Images/chinacitybuilding.jpg'),
@@ -73,7 +73,7 @@ const RecommendArray = [
         Location: 'Jockey Club Innovation Tower',
         Photographer: 'By Rex Wong',
         Distance: '3.2K',
-        Description: 'A great place for interior and portriat photography, the architecture of the buidling is simply amazing '
+        Description: 'A great place for interior and portriat photography, the architecture of the buidling is simply amazing, you should spend at least an hour walking around and inside the building '
     },
     {
         Photo: require('../../assets/Images/midlevel.jpg'),
@@ -88,7 +88,7 @@ const RecommendArray = [
         Location: 'Choi Hung Estates',
         Photographer: 'By Hugo Cheng',
         Distance: '6.6K',
-        Description: 'Located on the top of the carpark. This is usually a very crowded place, try to go during weekdays.'
+        Description: 'Located on the top of the carpark. with the colorful buildings and basketball courts which made it one of the most popular place for photography in Hong Kong.'
     },
     {
         Photo: require('../../assets/Images/swimmingshed.jpg'),
@@ -102,20 +102,16 @@ const RecommendArray = [
         Location: 'Repluse Bay',
         Photographer: 'By Denise Cheng',
         Distance: '4.6K',
-        Description: 'A great place for relexation and portrait photography, best to bring a 50mm lens'
+        Description: 'A great place for relexation and portrait photography, best to bring a portriat lens'
     },
     {
         Photo: require('../../assets/Images/lugardroad.jpg'),
         Location: 'Lugard Road',
         Photographer: ' By Erik Hendenfalk',
         Distance: '3.1K',
-        Description: 'Breath-taking view of Hong Kong city, try to stay there until it gets dark, you wont regret it!'
+        Description: 'Breath-taking view of Hong Kong city, try to stay there until it gets dark, it will be a unforgettable moment for you!'
     }
 ]
-
-
-
-
 
 export default class Recommendations extends Component {
 
@@ -145,8 +141,6 @@ export default class Recommendations extends Component {
             );
         }, this);
     }
-
-
     render() {
         return (
             <View>
@@ -172,7 +166,7 @@ export default class Recommendations extends Component {
                             </Right>
                         </CardItem>
                         <CardItem>
-                            <Text style={{textAlign: 'center'}}>{RecommendArray[this.state.Objnumber].Description}</Text>
+                            <Text style={{ textAlign: 'center' }}>{RecommendArray[this.state.Objnumber].Description}</Text>
                         </CardItem>
                     </Card>
                     <Button style={styles.modalbutton} full info onPress={() => {
@@ -220,7 +214,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     modalimage: {
-        height: 450,
+        height: 400,
         flex: 1
     },
     modaltext: {
