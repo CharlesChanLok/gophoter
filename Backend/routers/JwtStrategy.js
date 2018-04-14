@@ -8,7 +8,7 @@ module.exports = function(userService){
         secretOrKey     : config.jwtSecret,
         jwtFromRequest  : PassportJWT.ExtractJwt.fromAuthHeaderAsBearerToken()
     }, async (payload, done) => { 
-        console.log(payload);
+        console.log('^^^^^^^^^^^^^^^^^^^^payload', payload);
         // const user = await userService.findByEmail(payload.id);
         // return (user) ? done(null, {id: user.id}) : done(new Error("User not found"), null);
     });

@@ -20,7 +20,7 @@ module.exports = class UserRouter{
     get(req, res) {
         return this.userService.list()
                 .then((data) => {
-                    console.log(data);
+                    console.log('^^^^^^^^^^^^^^data', data);
                     res.json(data)
                 })
                 .catch((err) => {
