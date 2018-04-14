@@ -9,22 +9,22 @@ import {
 } from 'react-native';
 import {StackNavigator} from 'react-navigation';
 import { connect } from 'react-redux';
-// import MainScreen from './src/components/MainScreen';
-// import LoginScreen from './src/components/LoginScreen';
-import { addNum, minNum } from './src/store/actions/numberExport'
+import { Testing } from './src/components/test';
+
 
 
 class App extends Component {
 
   render() {
     return (
+      <Testing/>
       // <AppStackNavigator/>
       // <LoginScreen/>
-      <View>
-      <Text>{this.props.displaynumber}</Text>
-      <Button title="Add" onPress={this.props.OnAdd} />
-      <Button title="Min" onPress={this.props.OnMin} />
-      </View>
+      // <View>
+      // <Text>{this.props.displaynumber}</Text>
+      // <Button title="Add" onPress={this.props.OnAdd} />
+      // <Button title="Min" onPress={this.props.OnMin} />
+      // </View>
     );
   }
 }
@@ -45,17 +45,3 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => {
-  return {
-    displaynumber: state.numbers.counter
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return{
-    OnAdd: () => dispatch({type: 'ADD_NUM'}),
-    OnMin: () => dispatch({type: 'MIN_NUM'})
-  }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(App)
