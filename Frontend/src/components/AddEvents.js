@@ -93,13 +93,8 @@ export default class Events extends Component {
               <Body style={styles.body}>
                 <Text style={styles.text}>Add A Location</Text>
                 <TextInput style={styles.textinput}
-<<<<<<< HEAD
                   placeholder="type your location here!"
                   onChangeText={(location) => this.setState({ location: location })}
-=======
-                  placeholder="Type your location here!"
-                  onChangeText={(text) => this.setState({ text })}
->>>>>>> eb24d8efe2591551f67b8b097497845d99aca746
                 />
               </Body>
               <Right style={{ borderBottomWidth: 0 }}>
