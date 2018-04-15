@@ -25,25 +25,11 @@ export default class Events extends Component {
   _handleDatePicked = (datetime) => {
 
     this.setState({
-    chosenDate: moment(datetime).format('MMM, Do YYYY HH:mm')}),
+    chosenDate: moment(datetime).format('MMM, Do YYYY HH:mm'),
+    datetime: datetime})
     //alert('A date has been picked: ' + datetime);
-    axios.post('http://10.0.2.2:3000/events', {
-      hostId: 1,
-      datetime: this.state.datetime,
-      location: this.state.location,
-      title: this.state.title
-    })
-      .then((response) => {
-        console.log(response)
-        alert('Event created')
-        this.setState({
-          datetime: '',
-          location: '',
-          title: ''})
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this._hideDateTimePicker();
+    
 
   };
   
