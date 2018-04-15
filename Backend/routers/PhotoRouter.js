@@ -53,7 +53,7 @@ module.exports = class PhotoRouter {
     }
 
     post(req, res) {
-        req.file.path += `http://locahost:3000/${req.file.path}`
+        req.file.path = `http://locahost:3000/${req.params.id}/${req.file.filename}`
         console.log('file', req.file)
         return this.photoService.create(req.file)
             .then((photo) => {

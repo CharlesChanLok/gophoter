@@ -9,7 +9,7 @@ module.exports = class PhotoService {
 
     create(photo) {
         return this.knex
-            .insert({img_url: photo.path)
+            .insert({img_url: photo.path})
             .into(PHOTOS)
             .returning("img_url");
     }
