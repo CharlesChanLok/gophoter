@@ -12,7 +12,7 @@ module.exports = class EventService {
             .insert({host_id: event.hostId, 
                 date: event.datetime, 
                 event_title: event.title,
-                location: event.location,
+                location: event.location
             })
             .into(EVENTS)
             .returning("id");

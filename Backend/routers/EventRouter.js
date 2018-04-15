@@ -6,6 +6,7 @@ module.exports = class EventRouter {
     }
 
     router() {
+        console.log('router')
         let router = express.Router();
         router.get('/', this.get.bind(this));
         router.get('/:eventId', this.findEvent.bind(this));
