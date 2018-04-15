@@ -25,7 +25,7 @@ import { connect } from 'react-redux';
 // import LoginScreen from './src/components/LoginScreen';
 
 
-class App extends Component {
+export default class App extends Component {
   
 //   static navigationOptions = {
 //     header: null
@@ -90,15 +90,15 @@ const styles = StyleSheet.create({
 
 
 // * * * * Uncomment all lines below to activate the Redux Trial * * * *
-const mapStateToProps = state => {
-  return {
-    displaynumber: state.numbers.id
-  }
-}
-
-// const mapDispatchToProps = dispatch => {
+// const mapStateToProps = state => {
 //   return {
+//     displaynumber: state.numbers.id
 //   }
 // }
 
-export default connect(mapStateToProps)(App)
+// // const mapDispatchToProps = dispatch => {
+// //   return {
+// //   }
+// // }
+
+// export default connect(mapStateToProps)(App)

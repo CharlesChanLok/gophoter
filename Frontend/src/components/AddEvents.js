@@ -10,6 +10,8 @@ export default class Events extends Component {
   }
 
   state = {
+
+    chosenDate: '',
     timeStart: 0,
     timeEnd: 0,
     isDateTimePickerVisible: false,
@@ -23,8 +25,9 @@ export default class Events extends Component {
   _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
 
   _handleDatePicked = (datetime) => {
-    this.setState
-    chosenDate: moment(datetime).format('MMM, Do YYYY HH:mm')
+
+    this.setState({
+    chosenDate: moment(datetime).format('MMM, Do YYYY HH:mm')}),
     //alert('A date has been picked: ' + datetime);
     axios.post('http://10.0.2.2:3000/events', {
       hostId: 1,
@@ -37,6 +40,7 @@ export default class Events extends Component {
       .catch((error) => {
         console.log(error);
       });
+
   };
   render() {
     return (
@@ -51,7 +55,7 @@ export default class Events extends Component {
                 <TouchableOpacity onPress={this._showDateTimePicker}>
                   <View>
                     <Text style={styles.text}>Date And Time Picker</Text>
-                    <Text note>{this.state.chosenDate}</Text>
+                    <Text note style={styles.textinput}>{this.state.chosenDate}</Text>
                   </View>
                 </TouchableOpacity>
                 <DateTimePicker
@@ -137,7 +141,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: "#ff8396",
     fontSize: 20
-  }
+  },
+  
 
 
 });
