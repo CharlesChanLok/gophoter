@@ -8,7 +8,7 @@ module.exports = class EventService {
 
     create(event) {
         return this.knex
-            .insert(event)
+            .insert({host_id: event.hostd, date: event.datetime})
             .into(EVENTS)
             .returning("id");
     }
