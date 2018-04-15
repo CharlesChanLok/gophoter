@@ -9,11 +9,11 @@ import {
 } from 'react-native';
 import {StackNavigator} from 'react-navigation';
 import { connect } from 'react-redux';
-import { Testing } from './src/components/test';
+import Testing from './src/components/test';
 
 
 
-class App extends Component {
+export default class App extends Component {
 
   render() {
     return (

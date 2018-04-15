@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 import { addNum, minNum } from '../store/actions/numberExport'
 
 
-export class Testing extends Component {
+class Testing extends Component {
 
   render() {
     return (
