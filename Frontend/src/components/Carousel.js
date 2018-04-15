@@ -66,11 +66,12 @@ export default class DeckSwiperExample extends Component {
 
                             <Text style={styles.logo}>Go Photer</Text>
                             <Icon name="ios-navigate" style={{ alignSelf: 'center', color: '#ff8396' }} />
-                            <Text style={{ alignSelf: 'center', fontSize: 20 }}>
+                            <Text style={styles.title}>
                                 Central-Shootout
                              </Text>
 
-                            <Text style={{ alignSelf: 'center', fontSize: 20 }}>Attenders</Text>
+                            <Text style={styles.secondline}>Attenders</Text>
+                            <Text note style={styles.datetime}>15th May 21:15</Text>
 
 
                             <View style={{ marginTop: 40, alignSelf: 'center', }}>
@@ -139,6 +140,7 @@ export default class DeckSwiperExample extends Component {
                                     </Left>
                                     <Right>
                                         <Icon style={styles.icon} name="ios-navigate" />
+                                        <Text note>15th May 21:15</Text>
                                     </Right>
                                 </CardItem>
                                 <Button full info style={{ backgroundColor: '#ff8396', marginTop: 5 }} onPress={() => this.setModalVisible(true)}>
@@ -173,13 +175,29 @@ const styles = StyleSheet.create({
 
     },
 
+    title: {
+        alignSelf: 'center',
+        fontSize: 20,
+        marginTop: 10
+    },
+
+
     attenders: {
         marginLeft: 10,
         width: 100
     },
     icon: {
-        color: '#DC143C',
+        color: '#ff8396',
         fontSize: 35,
-        marginRight: 10
+        marginRight: 25
+    },
+    secondline: {
+        alignSelf: 'center',
+        fontSize: 20
+    },
+    datetime: {
+        alignSelf: 'center',
+        marginTop: 10
     }
+
 });
