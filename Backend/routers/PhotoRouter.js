@@ -4,8 +4,8 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = class PhotoRouter {
-    constructor() {
-        // this.photoService = photoService;
+    constructor(photoService) {
+        this.photoService = photoService;
         this.upload = multer({
             storage: multer.diskStorage({
                 destination: function (req, file, cb) {
@@ -53,7 +53,14 @@ module.exports = class PhotoRouter {
     }
 
     post(req, res) {
-        console.log(req.file)
+        req.file.path += `http://locahost:3000/${req.file.path}`
+        console.log('file', req.file)
+        return this.photoService.create(req.file)
+            .then((photo) => {
+                console.log(photo); 
+                console.log(typeof photo);
+                return res.json(photo)})
+            .catch((err) => res.status(500).json(err));
         return res.status(201).send('success')
     }
 } 
