@@ -7,8 +7,13 @@ module.exports = class EventService {
     }
 
     create(event) {
+        console.log('event');
         return this.knex
-            .insert(event)
+            .insert({host_id: event.hostId, 
+                date: event.datetime, 
+                event_title: event.title,
+                location: event.location,
+            })
             .into(EVENTS)
             .returning("id");
     }
