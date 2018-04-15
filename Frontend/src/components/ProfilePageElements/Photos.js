@@ -91,7 +91,7 @@ class Photos extends Component {
   render() {
     return (
       <View>
-        <Modal
+        <Modal 
           animationType="slide"
           transparent={false}
           visible={this.state.modalVisible}
