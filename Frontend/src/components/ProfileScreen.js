@@ -15,11 +15,21 @@ import Spots from './ProfilePageElements/Spots';
 
 class ProfileScreen extends Component {
   state = { userInfo : {} };
+  urls = [`http://10.0.2.2:3000/users/${1}`
+    // `http://10.0.2.2:3000/photos/${1}`
+];
   componentWillMount() {
-    axios.get(`http://10.0.2.2:3000/users/${1}`)
-      .then(res => {
-        this.setState({ userInfo: res.data})}
-    );
+    console.log(this.urls);
+   Promise.all(this.urls.map(url => {
+     return axios.get(url).then(res => res)
+   })).then(res => {
+     this.setState({userInfo: res[0].data})
+   }) 
+   
+  //  axios.get(`http://10.0.2.2:3000/users/${1}`)
+  //     .then(res => {
+  //       this.setState({ userInfo: res.data})}
+  //   );
   }
   render() {
     return (
