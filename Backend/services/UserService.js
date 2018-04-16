@@ -13,9 +13,9 @@ module.exports = class userservice {
         return query.then((u) => {
             if (!u) {
                 return this.knex
-                .insert({gmail: user.email, profile_image: user.picture, first_name: user.given_name, last_name: user.family_name})
-                .into(users)
-                .returning("id");
+                    .insert({ gmail: user.email, profile_image: user.picture, first_name: user.given_name, last_name: user.family_name })
+                    .into(users)
+                    .returning("id");
             } else {
                 return null;
             }
@@ -47,7 +47,8 @@ module.exports = class userservice {
             .from(users)
             .where('id', userId)
     }
-    findid(email){
+    
+    findid(email) {
         return this.knex
             .select("user.id")
             .from(users)

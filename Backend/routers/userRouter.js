@@ -6,31 +6,22 @@ const user = require('../services/UserService');
  * -------------------------
  * Handle requests from /users
  */
-module.exports = class UserRouter{
-    constructor(userService){
+module.exports = class UserRouter {
+    constructor(userService) {
         this.userService = userService;
     }
-
-    getRouter(){
+    
+    getRouter() {
         console.log("USERS ROUTER")
         let router = express.Router();
         router.get("/test", this.get.bind(this));
         router.get('/:id', this.getUser.bind(this));
         return router;
     }
+
     get(req, res) {
         return this.userService.list()
-                .then((data) => {
-                    res.json(data)
-                })
-                .catch((err) => {
-                    res.status(500).json(err)
-                });
-    }
-    getUser(req, res) {
-        return this.userService.findUserById(req.params.id)
             .then((data) => {
-                console.log(data)
                 res.json(data)
             })
             .catch((err) => {
@@ -38,6 +29,15 @@ module.exports = class UserRouter{
             });
     }
 
+    getUser(req, res) {
+        return this.userService.findUserById(req.params.id)
+            .then((data) => {
+                res.json(data)
+            })
+            .catch((err) => {
+                res.status(500).json(err)
+            });
+    }
 }
 
 
