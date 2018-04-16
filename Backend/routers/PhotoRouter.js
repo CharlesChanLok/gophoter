@@ -59,7 +59,7 @@ module.exports = class PhotoRouter {
     }
 
     getPhotosByUser(req, res) {
-        return this.photoService.listPhotosByUser()
+        return this.photoService.listPhotosByUser(req.params.id)
             .then((photos) => {
                 console.log(photos); 
                 return res.json(photos)
