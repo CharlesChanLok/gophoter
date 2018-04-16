@@ -117,18 +117,18 @@ export default class DeckSwiperExample extends Component {
                         </ScrollView>
                     </Modal>
 
-
                     <DeckSwiper
                         dataSource={cards}
 
                         renderItem={item =>
 
 
-                            <Card style={{ elevation: 6 }}>
+                            <Card style={{ elevation: 6, borderRadius: 30 }}>
+                                <Text style={styles.logo2}>Go Photer</Text>
 
 
                                 <CardItem cardBody>
-                                    <Image style={{ height: 450, flex: 1 }} source={item.image} />
+                                    <Image style={{ height: 400, flex: 1 }} source={item.image} />
                                 </CardItem>
                                 <CardItem>
                                     <Left>
@@ -144,7 +144,7 @@ export default class DeckSwiperExample extends Component {
                                     </Right>
                                 </CardItem>
 
-                                <Button full info style={{ backgroundColor: '#ff8396', marginTop: 5 }} onPress={() => this.setModalVisible(true)}>
+                                <Button full info style={styles.button} onPress={() => this.setModalVisible(true)}>
                                     <Text>Info</Text>
                                 </Button>
                             </Card>
@@ -171,6 +171,7 @@ const styles = StyleSheet.create({
         color: '#ff8396',
         paddingTop: 30,
         paddingBottom: 30,
+        
 
     },
 
@@ -178,6 +179,12 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         fontSize: 20,
         marginTop: 10
+    },
+    button:{
+        borderBottomLeftRadius: 30,
+        borderBottomRightRadius: 30,
+        backgroundColor: '#ff8396',
+        padding: 5
     },
 
 
@@ -197,6 +204,13 @@ const styles = StyleSheet.create({
     datetime: {
         alignSelf: 'center',
         marginTop: 10
+    },
+    logo2: {
+        textAlign: 'center',
+        fontFamily: 'Pacifico',
+        color: '#ff8396',
+        fontSize: 50,
+        paddingBottom: 10
     }
 
 });

@@ -125,8 +125,9 @@ const styles = StyleSheet.create({
   logo: {
     textAlign: 'center',
     fontFamily: 'Pacifico',
-    fontSize: 60,
+    fontSize: 50,
     color: '#ff8396',
+    paddingTop: 10
   },
 
   text: {
