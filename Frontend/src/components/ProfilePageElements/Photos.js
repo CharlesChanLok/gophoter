@@ -90,23 +90,32 @@ class Photos extends Component {
     )
   render() {
     return (
+
       <View>
-        <Modal 
+        <Modal
           animationType="slide"
           transparent={false}
           visible={this.state.modalVisible}
         >
           <AutoHeightImage width={width} source={images[this.state.Objnumber]} />
+          <Left>
+            <Text style={styles.modaltext2}>
+              Photo Taken By
+          </Text>
+            <Text note style={styles.textnote2}>Hugo Cheng</Text>
+            <Thumbnail style={styles.thumbnail} source={{ uri: 'https://instagram.fhkg4-1.fna.fbcdn.net/vp/944372c1764fed4a4af10f77f485e5b0/5B5239F8/t51.2885-19/s150x150/29090546_2048000892105923_8489793387929534464_n.jpg' }} />
+          </Left>
           <Button style={styles.modalbutton} full info onPress={() => {
             this.setModalVisible(false, 0);
           }}>
             <Icon name="arrow-back" />
             <Text>Profile</Text>
           </Button>
-          <Text style={styles.logo}>Go Photer</Text>
+
 
 
         </Modal>
+
         <ScrollView style={{ flexGrow: 1 }}>
 
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', flex: 1 }}>
@@ -115,6 +124,7 @@ class Photos extends Component {
 
         </ScrollView>
       </View>
+
 
 
     );
@@ -144,26 +154,19 @@ const styles = StyleSheet.create({
     height: 450,
     flex: 1,
   },
-  modaltext: {
-    paddingTop: 20,
-    fontSize: 20
-  },
-  direction: {
-    fontSize: 20,
-    color: "#ff8396",
+  modaltext2: {
+    alignSelf: 'center',
     paddingTop: 20
+  },
+  textnote2: {
+    alignSelf: 'center'
   },
   modalbutton: {
     backgroundColor: '#ff8396',
-
-
   },
-  logo: {
-      textAlign: 'center',
-      fontFamily: 'Pacifico',
-      fontSize: 60,
-      color: '#ff8396',
-      paddingTop: 30
-  
+  thumbnail: {
+
+    marginLeft: 30,
+    marginTop: 10
   }
 });
