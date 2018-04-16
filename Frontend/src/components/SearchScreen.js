@@ -5,9 +5,9 @@ export default class SearchScreen extends Component {
   render() {
     return (
      
-        <Container style={{ backgroundColor: "#F2F2F2" }} >
+        <Container style={{ backgroundColor: "#FFF" }} >
           <Text style={styles.logo}>Go Photer</Text>
-          <Header noBorder searchBar rounded style={{ backgroundColor: "#F2F2F2", paddingTop: 40 }}>
+          <Header noBorder searchBar rounded style={{ backgroundColor: "#FFF", borderRadius: 2, marginTop: 10 }}>
             <Item>
               <Icon name="ios-search" />
               <Input placeholder="Search" />
