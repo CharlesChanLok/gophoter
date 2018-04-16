@@ -89,13 +89,8 @@ export default class Events extends Component {
               <Icon name="ios-navigate" style={styles.icon} />
 
               <Body style={styles.body}>
-<<<<<<< HEAD
-                <TextInput style={styles.textinput}
-                  placeholder="type your location here!"
-=======
                 <TextInput style={styles.textinput} underlineColorAndroid={'rgba(0,0,0,0)'}
                   placeholder="Loction"
->>>>>>> 6658a7d45d0311e7945ef019bd62a13f90b866f4
                   onChangeText={(location) => this.setState({ location: location })}
                 />
               </Body>
