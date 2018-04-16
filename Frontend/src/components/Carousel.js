@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, StyleSheet, Modal, ScrollView } from 'react-native';
+import { Image, ImageBackground, StyleSheet, Modal, ScrollView } from 'react-native';
 import { View, DeckSwiper, Container, Card, CardItem, Thumbnail, Text, Left, Right, Body, Button, List, ListItem, Icon } from 'native-base';
 const cards = [
     {
@@ -53,9 +53,8 @@ export default class DeckSwiperExample extends Component {
 
     render() {
         return (
-
+           
             <Container>
-
                 <View>
                     <Modal
                         animationType="slide"
@@ -116,6 +115,7 @@ export default class DeckSwiperExample extends Component {
                             </View>
                         </ScrollView>
                     </Modal>
+
 
                     <DeckSwiper
                         dataSource={cards}

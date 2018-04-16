@@ -109,7 +109,7 @@ const RecommendArray = [
         Location: 'High West Peak',
         Photographer: 'By Ammr Eltilib',
         Distance: '2.6K',
-        Description: 'To photograph the splendid night scene of Hong Kong, Braemar Hill is a nice place where you can take nightscape photos, remember to bring a tripod.'
+        Description: 'To photograph the splendid sunset scene of Hong Kong, High West is a nice place where you can take sunset photos, remember to bring a tripod.'
     },
 ]
 
