@@ -18,7 +18,7 @@ module.exports = class PhotoRouter {
                                     cb(null, path.join(`uploads/${req.params.id}`))
                             })
                         } else {                        // directory already exist
-                        cb(null, path.join(`uploads/${req.params.id}`))
+                            cb(null, path.join(`uploads/${req.params.id}`))
                         }
                     })
                 },
@@ -29,23 +29,6 @@ module.exports = class PhotoRouter {
         })
     }
 
-    //this.upload = multer({dest: "uploads/"})
-
-    // check if the directory existed 
-    // isDirExist (req, res, next) {
-    //     fs.stat(path.join(__dirname, `../uploads/${req.params.id}`), (err) => {
-    //         if (!err) {
-    //             next();
-    //         }
-    //         fs.mkdir(path.join(__dirname, `../uploads/${req.params.id}`), (err) => {
-    //             if (err) {
-    //                 console.log('2', err)
-    //             }
-    //             next();
-    //         })
-    //     })
-    // }
-
     router() {
         let router = express.Router();
         router.get('/', this.upload.single('image'), this.post.bind(this));
@@ -55,12 +38,12 @@ module.exports = class PhotoRouter {
 
     post(req, res) {
         req.file.path = `${process.env.HOST_ADDRESS}:${process.env.PORT}/${req.params.id}/${req.file.filename}`
-        console.log('file', req.file)
+        // console.log('file', req.file)
         return this.photoService.create(req.file)
             .then((photo) => {
-                console.log(photo); 
-                console.log(typeof photo);
-                return res.json(photo)})
+                // console.log(photo); 
+                return res.json(photo)
+            })
             .catch((err) => res.status(500).json(err));
     }
 } 

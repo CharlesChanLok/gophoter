@@ -18,7 +18,6 @@ class ProfileScreen extends Component {
   componentWillMount() {
     axios.get(`http://10.0.2.2:3000/users/${1}`)
       .then(res => {
-        console.log(res.data);
         this.setState({ userInfo: res.data})}
     );
   }
