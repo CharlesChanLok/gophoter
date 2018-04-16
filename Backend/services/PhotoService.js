@@ -8,8 +8,9 @@ module.exports = class PhotoService {
     }
 
     create(photo) {
+        console.log(photo)
         return this.knex
-            .insert({img_url: photo.path})
+            .insert({user_id: photo.userId, img_url: photo.path})
             .into(PHOTOS)
             .returning("img_url");
     }
