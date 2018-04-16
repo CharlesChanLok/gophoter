@@ -83,8 +83,6 @@ class Photos extends Component {
 
           </View>
         </TouchableHighlight>
-
-
       )
     }
     )
@@ -102,8 +100,10 @@ class Photos extends Component {
             <Text style={styles.modaltext2}>
               Photo Taken By
           </Text>
-            <Text note style={styles.textnote2}>Hugo Cheng</Text>
-            <Thumbnail style={styles.thumbnail} source={{ uri: 'https://instagram.fhkg4-1.fna.fbcdn.net/vp/944372c1764fed4a4af10f77f485e5b0/5B5239F8/t51.2885-19/s150x150/29090546_2048000892105923_8489793387929534464_n.jpg' }} />
+            <Text note style={styles.textnote2}>
+              {this.props.userInfo.first_name} {this.props.userInfo.last_name}
+            </Text>
+            <Thumbnail style={styles.thumbnail} source={{ uri: this.props.userInfo.profile_image }} />
           </Left>
           <Button style={styles.modalbutton} full info onPress={() => {
             this.setModalVisible(false, 0);

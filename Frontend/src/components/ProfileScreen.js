@@ -28,7 +28,7 @@ class ProfileScreen extends Component {
         <Container style={{ flex: 1 }}>
           <Tabs>
             <Tab heading={<TabHeading style={styles.heading}><Icon name="ios-camera" style={styles.icon} /><Text style={styles.text}>Photos</Text></TabHeading>}>
-              <Photos />
+              <Photos userInfo={this.state.userInfo}/>
             </Tab>
             <Tab heading={<TabHeading style={styles.heading}><Icon name="ios-bookmarks" style={styles.icon} /><Text style={styles.text}>Events</Text></TabHeading>}>
               <Events />
