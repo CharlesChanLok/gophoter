@@ -15,6 +15,7 @@ module.exports = class UserRouter{
         console.log("USERS ROUTER")
         let router = express.Router();
         router.get("/test", this.get.bind(this));
+        router.get('/:id', this.getUser.bind(this));
         return router;
     }
     get(req, res) {
@@ -26,6 +27,17 @@ module.exports = class UserRouter{
                     res.status(500).json(err)
                 });
     }
+    getUser(req, res) {
+        return this.userService.findUserById(req.params.id)
+            .then((data) => {
+                console.log(data)
+                res.json(data)
+            })
+            .catch((err) => {
+                res.status(500).json(err)
+            });
+    }
+
 }
 
 

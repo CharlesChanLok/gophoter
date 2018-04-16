@@ -41,12 +41,11 @@ module.exports = class userservice {
             .where("id", id);
     }
 
-    search(searchCriteria, limit = 100, offset = 0) {
+    findUserById(userId) {
         return this.knex
-            .select("*")
+            .first()
             .from(users)
-            .where(searchCriteria)
-            .limit(limit).offset(offset);
+            .where('id', userId)
     }
     findid(email){
         return this.knex
