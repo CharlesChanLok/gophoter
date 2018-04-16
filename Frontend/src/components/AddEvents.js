@@ -30,8 +30,6 @@ export default class Events extends Component {
     })
     alert('A date has been picked: ' + datetime);
     this._hideDateTimePicker();
-
-
   };
 
   handleSubmit = () => {
@@ -56,7 +54,6 @@ export default class Events extends Component {
   };
   render() {
     return (
-
       <Container style={{ backgroundColor: '#fff' }}>
         <View>
           <Text style={styles.logo}>Go Photer</Text>
@@ -65,17 +62,17 @@ export default class Events extends Component {
           <Card style={{ flex: 1 }} >
 
             <CardItem style={{ alignSelf: 'stretch' }}>
-           
-                <Icon name="ios-time" style={styles.icon} />
-          
+
+              <Icon name="ios-time" style={styles.icon} />
+
               <Body style={styles.body}>
                 <TouchableOpacity onPress={this._showDateTimePicker}>
                   <View>
                     <Text style={styles.text}>DateTimePicker</Text>
-
                     <Text note style={styles.textinput}>{this.state.chosenDate}</Text>
                   </View>
                 </TouchableOpacity>
+
                 <DateTimePicker
                   isVisible={this.state.isDateTimePickerVisible}
                   mode='datetime'
@@ -84,38 +81,41 @@ export default class Events extends Component {
                   is24Hour={false}
                 />
               </Body>
-             
+
             </CardItem>
 
             <CardItem style={{ alignSelf: 'stretch' }}>
-             
-                <Icon name="ios-navigate" style={styles.icon} />
-          
+
+              <Icon name="ios-navigate" style={styles.icon} />
+
               <Body style={styles.body}>
+<<<<<<< HEAD
                 <TextInput style={styles.textinput}
                   placeholder="type your location here!"
+=======
+                <TextInput style={styles.textinput} underlineColorAndroid={'rgba(0,0,0,0)'}
+                  placeholder="Loction"
+>>>>>>> 6658a7d45d0311e7945ef019bd62a13f90b866f4
                   onChangeText={(location) => this.setState({ location: location })}
                 />
               </Body>
-             
+
             </CardItem>
 
-
             <CardItem style={{ alignSelf: 'stretch' }}>
-         
-                <Icon name="ios-paper" style={styles.icon} />
-             
+
+              <Icon name="ios-paper" style={styles.icon} />
+
               <Body>
-                <TextInput style={styles.textinput}
+                <TextInput style={styles.textinput} underlineColorAndroid={'rgba(0,0,0,0)'}
                   placeholder="Event's Title"
                   onChangeText={(title) => this.setState({ title: title })}
                 />
               </Body>
-             
+
             </CardItem>
           </Card>
         </Content>
-
 
         <Button full info style={styles.button} onPress={() => this.handleSubmit()}>
           <Text>Submit</Text>
@@ -127,15 +127,12 @@ export default class Events extends Component {
 }
 
 const styles = StyleSheet.create({
-
-
   logo: {
     textAlign: 'center',
     fontFamily: 'Pacifico',
-    fontSize: 60,
+    fontSize: 50,
     color: '#ff8396',
-
-
+    paddingTop: 10
   },
 
   text: {
@@ -152,7 +149,7 @@ const styles = StyleSheet.create({
   icon: {
     color: '#ff8396',
     marginLeft: 80
-     
+
   },
   button: {
     backgroundColor: "#ff8396",
@@ -161,9 +158,6 @@ const styles = StyleSheet.create({
   textinput: {
     color: "#ff8396",
     fontSize: 20,
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
   },
-
-
-
 });

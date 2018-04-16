@@ -33,7 +33,7 @@ DB_PASSWORD=
 
 NODE_ENV=development
 PORT=
----default=3000---
+HOST_ADDRESS=
 
 1. npm install
 2. npm start

@@ -105,8 +105,8 @@ const RecommendArray = [
         Description: 'A great place for relexation and portrait photography, best to bring a portriat lens'
     },
     {
-        Photo: require('../../assets/Images/test.jpg'),
-        Location: 'Braemar Hill',
+        Photo: require('../../assets/Images/highwest.jpg'),
+        Location: 'High West Peak',
         Photographer: 'By Ammr Eltilib',
         Distance: '2.6K',
         Description: 'To photograph the splendid night scene of Hong Kong, Braemar Hill is a nice place where you can take nightscape photos, remember to bring a tripod.'
@@ -128,7 +128,7 @@ export default class Recommendations extends Component {
     render_Recommendation() {
         return RecommendArray.map(function (rec, i) {
             return (
-                <Card key={i}>
+                <Card key={i} style={styles.card}>
                     <CardItem cardBody button onPress={() => this.setModalVisible(true, i)}>
                         <ImageBackground source={rec.Photo} style={styles.imagebackground}>
                             <View style={styles.middle}>
@@ -152,7 +152,7 @@ export default class Recommendations extends Component {
                     visible={this.state.modalVisible}
                 >
                     <ScrollView>
-                        <Card>
+                        <Card >
                             <CardItem cardBody>
                                 <Image style={styles.modalimage} source={RecommendArray[this.state.Objnumber].Photo} />
                             </CardItem>
@@ -213,15 +213,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-
     imagebackground: {
         height: 200,
         flex: 1,
-        opacity: 0.9
+        opacity: 0.9,
+        borderRadius: 30
     },
     modalimage: {
         height: 450,
-        flex: 1
+        flex: 1,
+        borderRadius: 30
     },
     modaltext: {
         paddingTop: 20,
@@ -234,9 +235,11 @@ const styles = StyleSheet.create({
     },
     modalbutton: {
         backgroundColor: '#ff8396',
-        marginBottom: 30
-
-    }
+        marginBottom: 40
+    },
+    card: {
+        borderRadius: 30
+    },
 
 });
 

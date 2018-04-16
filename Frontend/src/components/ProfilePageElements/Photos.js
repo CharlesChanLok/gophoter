@@ -163,6 +163,7 @@ const styles = StyleSheet.create({
       fontFamily: 'Pacifico',
       fontSize: 60,
       color: '#ff8396',
+      paddingTop: 30
   
   }
 });
