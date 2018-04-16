@@ -65,7 +65,7 @@ export default class Events extends Component {
           <Card style={{ flex: 1 }} >
 
             <CardItem style={{ alignSelf: 'stretch' }}>
-           
+        
                 <Icon name="ios-time" style={styles.icon} />
           
               <Body style={styles.body}>
@@ -101,8 +101,7 @@ export default class Events extends Component {
             </CardItem>
 
 
-            <CardItem style={{ alignSelf: 'stretch' }}>
-         
+            <CardItem style={{ alignSelf: 'stretch' }}>     
                 <Icon name="ios-paper" style={styles.icon} />
              
               <Body>
