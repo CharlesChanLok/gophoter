@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 import {
   Platform,
@@ -13,10 +14,18 @@ import HeaderStatic from './ProfilePageElements/HeaderStatic';
 import Spots from './ProfilePageElements/Spots';
 
 class ProfileScreen extends Component {
+  state = { userInfo : {} };
+  componentWillMount() {
+    axios.get(`http://10.0.2.2:3000/users/${1}`)
+      .then(res => {
+        console.log(res.data);
+        this.setState({ userInfo: res.data})}
+    );
+  }
   render() {
     return (
       <View style={{ flexGrow: 1 }}>
-        <HeaderStatic />
+        <HeaderStatic userInfo = {this.state.userInfo}/>
         <Container style={{ flex: 1 }}>
           <Tabs>
             <Tab heading={<TabHeading style={styles.heading}><Icon name="ios-camera" style={styles.icon} /><Text style={styles.text}>Photos</Text></TabHeading>}>
@@ -31,7 +40,6 @@ class ProfileScreen extends Component {
           </Tabs>
         </Container>
       </View>
-
     );
   }
 }
@@ -47,8 +55,5 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#000000",
-
-
   }
-
 });
