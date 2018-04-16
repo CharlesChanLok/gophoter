@@ -143,12 +143,11 @@ export default class DeckSwiperExample extends Component {
                                         <Text note>15th May 21:15</Text>
                                     </Right>
                                 </CardItem>
+
                                 <Button full info style={{ backgroundColor: '#ff8396', marginTop: 5 }} onPress={() => this.setModalVisible(true)}>
                                     <Text>Info</Text>
                                 </Button>
-
                             </Card>
-
                         }
                     />
                 </View>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, List, ListItem, Text, Icon, Left, Body, Right, Switch, Button } from 'native-base';
+import { Container, Header, Content, List, ListItem, Text, Icon, Left, Body, Right, Switch, Button, Card, CardItem, } from 'native-base';
 import { TouchableOpacity, View, TextInput, StyleSheet } from "react-native";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import axios from 'axios';
@@ -25,14 +25,15 @@ export default class Events extends Component {
   _handleDatePicked = (datetime) => {
 
     this.setState({
-    chosenDate: moment(datetime).format('MMM, Do YYYY HH:mm'),
-    datetime: datetime})
+      chosenDate: moment(datetime).format('MMM, Do YYYY HH:mm'),
+      datetime: datetime
+    })
     //alert('A date has been picked: ' + datetime);
     this._hideDateTimePicker();
-    
+
 
   };
-  
+
   handleSubmit = () => {
     axios.post('http://10.0.2.2:3000/events', {
       hostId: 1,
@@ -55,17 +56,23 @@ export default class Events extends Component {
   };
   render() {
     return (
-      <Container style={{ backgroundColor: '#fff', paddingTop: 70 }}>
-        <Content>
-          <List>
-            <ListItem icon noBorder>
-              <Left>
+
+      <Container style={{ backgroundColor: '#fff' }}>
+        <View>
+          <Text style={styles.logo}>Go Photer</Text>
+        </View>
+        <Content style={{ marginTop: 50 }}>
+          <Card style={{ flex: 1 }} >
+
+            <CardItem style={{ alignSelf: 'stretch' }}>
+           
                 <Icon name="ios-time" style={styles.icon} />
-              </Left>
+          
               <Body style={styles.body}>
                 <TouchableOpacity onPress={this._showDateTimePicker}>
                   <View>
-                    <Text style={styles.text}>Date And Time Picker</Text>
+                    <Text style={styles.text}>DateTimePicker</Text>
+
                     <Text note style={styles.textinput}>{this.state.chosenDate}</Text>
                   </View>
                 </TouchableOpacity>
@@ -77,88 +84,86 @@ export default class Events extends Component {
                   is24Hour={false}
                 />
               </Body>
-              <Right style={styles.body}>
-                <Icon name="arrow-forward" />
-              </Right>
-            </ListItem>
-          </List>
-        </Content>
+             
+            </CardItem>
 
-        <Content>
-          <List>
-            <ListItem icon noBorder>
-              <Left>
+            <CardItem style={{ alignSelf: 'stretch' }}>
+             
                 <Icon name="ios-navigate" style={styles.icon} />
-              </Left>
+          
               <Body style={styles.body}>
-                <Text style={styles.text}>Add A Location</Text>
                 <TextInput style={styles.textinput}
-<<<<<<< HEAD
-                  placeholder="type your location here!"
-                  onChangeText={(location) => this.setState({ location: location })}
-=======
-                  placeholder="Type your location here!"
+                  placeholder="Loction"
                   onChangeText={(text) => this.setState({ text })}
->>>>>>> eb24d8efe2591551f67b8b097497845d99aca746
                 />
               </Body>
-              <Right style={{ borderBottomWidth: 0 }}>
-                <Icon name="arrow-forward" />
-              </Right>
-            </ListItem>
-          </List>
-        </Content>
+             
+            </CardItem>
 
-        <Content>
-          <List>
-            <ListItem icon noBorder>
-              <Left>
+
+            <CardItem style={{ alignSelf: 'stretch' }}>
+         
                 <Icon name="ios-paper" style={styles.icon} />
-              </Left>
-              <Body style={styles.body}>
-                <Text style={styles.text}>Add Event's Title</Text>
-
+             
+              <Body>
                 <TextInput style={styles.textinput}
-                  placeholder="Type your event's title here!"
+                  placeholder="Event's Title"
                   onChangeText={(title) => this.setState({ title: title })}
                 />
               </Body>
-              <Right style={styles.body}>
-                <Icon name="arrow-forward" />
-              </Right>
-            </ListItem>
-          </List>
+             
+            </CardItem>
+          </Card>
         </Content>
+
 
         <Button full info style={styles.button} onPress={() => this.handleSubmit()}>
           <Text>Submit</Text>
         </Button>
+
       </Container>
     );
   }
 }
 
 const styles = StyleSheet.create({
+
+
+  logo: {
+    textAlign: 'center',
+    fontFamily: 'Pacifico',
+    fontSize: 60,
+    color: '#ff8396',
+
+
+  },
+
   text: {
-    alignSelf: 'center',
+    alignSelf: 'stretch',
     fontSize: 20,
+    marginTop: 10
   },
   body: {
-    borderBottomWidth: 0
+    borderBottomWidth: 0,
+    margin: 0,
+    padding: 0,
+    alignSelf: 'stretch'
   },
   icon: {
-    color: '#ff8396'
+    color: '#ff8396',
+    marginLeft: 80
+     
   },
   button: {
     backgroundColor: "#ff8396",
-    marginBottom: 40
+    marginBottom: 0
   },
   textinput: {
-    alignSelf: 'center',
     color: "#ff8396",
-    fontSize: 20
+    fontSize: 20,
+    alignSelf: 'stretch'
   },
-  
+
 
 
 });
