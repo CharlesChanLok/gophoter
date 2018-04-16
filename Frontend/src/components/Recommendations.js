@@ -105,8 +105,8 @@ const RecommendArray = [
         Description: 'A great place for relexation and portrait photography, best to bring a portriat lens'
     },
     {
-        Photo: require('../../assets/Images/test.jpg'),
-        Location: 'Braemar Hill',
+        Photo: require('../../assets/Images/highwest.jpg'),
+        Location: 'High West Peak',
         Photographer: 'By Ammr Eltilib',
         Distance: '2.6K',
         Description: 'To photograph the splendid night scene of Hong Kong, Braemar Hill is a nice place where you can take nightscape photos, remember to bring a tripod.'
