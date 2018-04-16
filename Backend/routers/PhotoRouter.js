@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const multer = require('multer');
 const fs = require('fs');
@@ -16,9 +17,9 @@ module.exports = class PhotoRouter {
                                 err ? new Error('Cannot create dir') :
                                     cb(null, path.join(`uploads/${req.params.id}`))
                             })
-                        }
-                        // directory already exist
+                        } else {                        // directory already exist
                         cb(null, path.join(`uploads/${req.params.id}`))
+                        }
                     })
                 },
                 filename: function (req, file, cb) {
@@ -53,7 +54,7 @@ module.exports = class PhotoRouter {
     }
 
     post(req, res) {
-        req.file.path = `http://locahost:3000/${req.params.id}/${req.file.filename}`
+        req.file.path = `${process.env.HOST_ADDRESS}:${process.env.PORT}/${req.params.id}/${req.file.filename}`
         console.log('file', req.file)
         return this.photoService.create(req.file)
             .then((photo) => {
@@ -61,6 +62,5 @@ module.exports = class PhotoRouter {
                 console.log(typeof photo);
                 return res.json(photo)})
             .catch((err) => res.status(500).json(err));
-        return res.status(201).send('success')
     }
 } 
