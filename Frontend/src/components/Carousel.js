@@ -78,9 +78,8 @@ export default class DeckSwiperExample extends Component {
 
     render() {
         return (
-
+           
             <Container>
-
                 <View>
                     <Modal
                         animationType="slide"
@@ -141,6 +140,7 @@ export default class DeckSwiperExample extends Component {
                             </View>
                         </ScrollView>
                     </Modal>
+
 
                     <DeckSwiper
                         dataSource={cards}

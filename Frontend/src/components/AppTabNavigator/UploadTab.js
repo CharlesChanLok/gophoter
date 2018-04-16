@@ -59,6 +59,7 @@ class UploadTab extends Component {
   }
 
   uploadPhoto() {
+    console.log('upload')
     if (this.state.data != null) {
       this.setState({ loading: true });
       RNFetchBlob.fetch('POST', `http://10.0.2.2:3000/photos/${1}`, {
@@ -68,6 +69,7 @@ class UploadTab extends Component {
       }, [
           { name: 'image', filename: this.state.data.fileName, type: this.state.data.type, data: this.state.data.data }
         ]).then((resp) => {
+          console.log(resp);
           this.setState({
             loading: false,
             imageSource: null,

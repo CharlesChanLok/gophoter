@@ -31,15 +31,23 @@ module.exports = class PhotoRouter {
 
     router() {
         let router = express.Router();
-        router.get('/', this.upload.single('image'), this.post.bind(this));
+        router.get('/', this.upload.single('image'), this.get.bind(this));
         router.post('/:id', this.upload.single('image'), this.post.bind(this));
         return router;
     }
 
+    get(req, res) {
+        return this.photoService.list()
+            .then((photo) => res.json(photo))
+            .catch((err) => res.status(500).json(err));
+    }
+    
     post(req, res) {
-        req.file.path = `${process.env.HOST_ADDRESS}:${process.env.PORT}/${req.params.id}/${req.file.filename}`
-        // console.log('file', req.file)
-        return this.photoService.create(req.file)
+        let data = { userId: req.params.id,
+            path: `${process.env.HOST_ADDRESS}:${process.env.PORT}/${req.params.id}/${req.file.filename}`
+        }
+        console.log('file', data)
+        return this.photoService.create(data)
             .then((photo) => {
                 // console.log(photo); 
                 return res.json(photo)
