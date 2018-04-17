@@ -204,8 +204,8 @@ const styles = StyleSheet.create({
     carouselimage: {
         height: 500,
         flex: 1,
-        borderTopRightRadius: 30,
-        borderTopLeftRadius: 30
+        borderTopRightRadius: 50,
+        borderTopLeftRadius: 50
     },
 
 
@@ -216,8 +216,8 @@ const styles = StyleSheet.create({
         fontFamily: 'Montserrat-SemiBold',
     },
     button: {
-        borderBottomLeftRadius: 30,
-        borderBottomRightRadius: 30,
+        borderBottomLeftRadius: 50,
+        borderBottomRightRadius: 50,
         backgroundColor: '#ff8396',
         padding: 5,
         fontFamily: 'Montserrat-SemiBold'
