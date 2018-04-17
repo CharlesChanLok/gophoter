@@ -95,7 +95,8 @@ class Photos extends Component {
           transparent={false}
           visible={this.state.modalVisible}
         >
-          <AutoHeightImage width={width} source={images[this.state.Objnumber]} />
+          <AutoHeightImage width={width} source={
+            images[this.state.Objnumber]} />
           <Left>
             <Text style={styles.modaltext2}>
               Photo Taken By
