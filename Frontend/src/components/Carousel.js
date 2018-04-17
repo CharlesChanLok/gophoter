@@ -10,8 +10,6 @@ const cards = [
         image: require('../../assets/Images/image4.jpg'),
         latitude: 22.279453,
         longitude: 114.166283
-
-
     },
     {
         text: 'Virginia Nirgo',
@@ -152,7 +150,7 @@ export default class DeckSwiperExample extends Component {
                                 {/* <Text style={styles.logo2}>Go Photer</Text> */}
 
 
-                                <CardItem style={{borderTopLeftRadius: 30, borderBottomRightRadius:30}}cardBody>
+                                <CardItem style={{ borderTopLeftRadius: 30, borderBottomRightRadius: 30 }} cardBody>
                                     <Image style={styles.carouselimage} source={item.image} />
                                 </CardItem>
                                 <CardItem>
@@ -207,7 +205,7 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 30,
         borderTopLeftRadius: 30
     },
-    
+
 
     title: {
         alignSelf: 'center',
