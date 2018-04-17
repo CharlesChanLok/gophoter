@@ -28,7 +28,7 @@ export default class Events extends Component {
       chosenDate: moment(datetime).format('MMM, Do YYYY HH:mm'),
       datetime: datetime
     })
-    //alert('A date has been picked: ' + datetime);
+    alert('A date has been picked: ' + datetime);
     this._hideDateTimePicker();
   };
 

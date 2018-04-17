@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
-import { Image, ImageBackground, StyleSheet, Modal, ScrollView } from 'react-native';
+import { Image, StyleSheet, Modal, ScrollView, TouchableHighlight } from 'react-native';
 import { View, DeckSwiper, Container, Card, CardItem, Thumbnail, Text, Left, Right, Body, Button, List, ListItem, Icon } from 'native-base';
+import getDirections from './ViewMap'
 const cards = [
     {
         text: 'Steve Divish',
         description: 'Central Long Exposure',
         name: 'One',
         image: require('../../assets/Images/image4.jpg'),
+        latitude: 22.279453,
+        longitude: 114.166283
+
 
     },
     {
@@ -14,30 +18,40 @@ const cards = [
         description: 'East Shinjuku Shootout ',
         name: 'Two',
         image: require('../../assets/Images/image5.jpg'),
+        latitude: 35.695256,
+        longitude: 139.699706
     },
     {
         text: 'Cloe Ferrnando',
         description: 'Central Urban Shootout',
         name: 'Three',
         image: require('../../assets/Images/image6.jpg'),
+        latitude: 22.279626,
+        longitude: 114.160563
     },
     {
         text: 'Jonathan Doku',
         description: 'Victoria Habour Shootout',
         name: 'Four',
         image: require('../../assets/Images/image7.jpg'),
+        latitude: 22.282998,
+        longitude: 114.166177
     },
     {
         text: 'Tommy Worden',
         description: 'High West Peak Shootout',
         name: 'Five',
         image: require('../../assets/Images/image8.jpg'),
+        latitude: 22.269196,
+        longitude: 114.134274
     },
     {
         text: 'Emily Boreel',
         description: 'Roppongi Hills, Tokyo',
         name: 'Six',
         image: require('../../assets/Images/image9.jpg'),
+        latitude: 35.660464,
+        longitude: 139.729249
     },
 
 ];
@@ -51,9 +65,20 @@ export default class DeckSwiperExample extends Component {
         this.setState({ modalVisible: visible });
     }
 
+    handleGetDirections = (latitude, longitude) => {
+        const data = {
+            destination: {
+                latitude: latitude,
+                longitude: longitude
+            }
+        }
+
+        getDirections(data)
+    }
+
     render() {
         return (
-           
+
             <Container>
                 <View>
                     <Modal
@@ -123,12 +148,12 @@ export default class DeckSwiperExample extends Component {
                         renderItem={item =>
 
 
-                            <Card style={{ elevation: 6, borderRadius: 30 }}>
-                                <Text style={styles.logo2}>Go Photer</Text>
+                            <Card style={{ elevation: 6, }}>
+                                {/* <Text style={styles.logo2}>Go Photer</Text> */}
 
 
-                                <CardItem cardBody>
-                                    <Image style={{ height: 400, flex: 1 }} source={item.image} />
+                                <CardItem style={{borderTopLeftRadius: 30, borderBottomRightRadius:30}}cardBody>
+                                    <Image style={styles.carouselimage} source={item.image} />
                                 </CardItem>
                                 <CardItem>
                                     <Left>
@@ -139,7 +164,9 @@ export default class DeckSwiperExample extends Component {
                                         </Body>
                                     </Left>
                                     <Right>
-                                        <Icon style={styles.icon} name="ios-navigate" />
+                                        <TouchableHighlight onPress={() => { this.handleGetDirections(item.latitude, item.longitude) }}>
+                                            <Icon style={styles.icon} name="ios-navigate" />
+                                        </TouchableHighlight>
                                         <Text note>15th May 21:15</Text>
                                     </Right>
                                 </CardItem>
@@ -171,16 +198,23 @@ const styles = StyleSheet.create({
         color: '#ff8396',
         paddingTop: 30,
         paddingBottom: 30,
-        
+
 
     },
+    carouselimage: {
+        height: 500,
+        flex: 1,
+        borderTopRightRadius: 30,
+        borderTopLeftRadius: 30
+    },
+    
 
     title: {
         alignSelf: 'center',
         fontSize: 20,
         marginTop: 10
     },
-    button:{
+    button: {
         borderBottomLeftRadius: 30,
         borderBottomRightRadius: 30,
         backgroundColor: '#ff8396',
