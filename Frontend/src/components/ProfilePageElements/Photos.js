@@ -11,45 +11,45 @@ import {
 import { Content, Card, CardItem, Text, Icon, Button, Thumbnail, Body, Left } from 'native-base';
 import AutoHeightImage from 'react-native-auto-height-image'
 
-let images = [
-  require('../../../assets/Images/image1.jpg'),
-  require('../../../assets/Images/image2.jpg'),
-  require('../../../assets/Images/image3.jpg'),
-  require('../../../assets/Images/image4.jpg'),
-  require('../../../assets/Images/image5.jpg'),
-  require('../../../assets/Images/image6.jpg'),
-  require('../../../assets/Images/image7.jpg'),
-  require('../../../assets/Images/image8.jpg'),
-  require('../../../assets/Images/image9.jpg'),
-  require('../../../assets/Images/image1.jpg'),
-  require('../../../assets/Images/image2.jpg'),
-  require('../../../assets/Images/image3.jpg'),
-  require('../../../assets/Images/image4.jpg'),
-  require('../../../assets/Images/image5.jpg'),
-  require('../../../assets/Images/image6.jpg'),
-  require('../../../assets/Images/image7.jpg'),
-  require('../../../assets/Images/image8.jpg'),
-  require('../../../assets/Images/image9.jpg'),
-  require('../../../assets/Images/image1.jpg'),
-  require('../../../assets/Images/image2.jpg'),
-  require('../../../assets/Images/image3.jpg'),
-  require('../../../assets/Images/image4.jpg'),
-  require('../../../assets/Images/image5.jpg'),
-  require('../../../assets/Images/image6.jpg'),
-  require('../../../assets/Images/image7.jpg'),
-  require('../../../assets/Images/image8.jpg'),
-  require('../../../assets/Images/image9.jpg'),
-  require('../../../assets/Images/image1.jpg'),
-  require('../../../assets/Images/image2.jpg'),
-  require('../../../assets/Images/image3.jpg'),
-  require('../../../assets/Images/image4.jpg'),
-  require('../../../assets/Images/image5.jpg'),
-  require('../../../assets/Images/image6.jpg'),
-  require('../../../assets/Images/image7.jpg'),
-  require('../../../assets/Images/image8.jpg'),
-  require('../../../assets/Images/image9.jpg'),
+// let images = [
+//   require('../../../assets/Images/image1.jpg'),
+//   require('../../../assets/Images/image2.jpg'),
+//   require('../../../assets/Images/image3.jpg'),
+//   require('../../../assets/Images/image4.jpg'),
+//   require('../../../assets/Images/image5.jpg'),
+//   require('../../../assets/Images/image6.jpg'),
+//   require('../../../assets/Images/image7.jpg'),
+//   require('../../../assets/Images/image8.jpg'),
+//   require('../../../assets/Images/image9.jpg'),
+//   require('../../../assets/Images/image1.jpg'),
+//   require('../../../assets/Images/image2.jpg'),
+//   require('../../../assets/Images/image3.jpg'),
+//   require('../../../assets/Images/image4.jpg'),
+//   require('../../../assets/Images/image5.jpg'),
+//   require('../../../assets/Images/image6.jpg'),
+//   require('../../../assets/Images/image7.jpg'),
+//   require('../../../assets/Images/image8.jpg'),
+//   require('../../../assets/Images/image9.jpg'),
+//   require('../../../assets/Images/image1.jpg'),
+//   require('../../../assets/Images/image2.jpg'),
+//   require('../../../assets/Images/image3.jpg'),
+//   require('../../../assets/Images/image4.jpg'),
+//   require('../../../assets/Images/image5.jpg'),
+//   require('../../../assets/Images/image6.jpg'),
+//   require('../../../assets/Images/image7.jpg'),
+//   require('../../../assets/Images/image8.jpg'),
+//   require('../../../assets/Images/image9.jpg'),
+//   require('../../../assets/Images/image1.jpg'),
+//   require('../../../assets/Images/image2.jpg'),
+//   require('../../../assets/Images/image3.jpg'),
+//   require('../../../assets/Images/image4.jpg'),
+//   require('../../../assets/Images/image5.jpg'),
+//   require('../../../assets/Images/image6.jpg'),
+//   require('../../../assets/Images/image7.jpg'),
+//   require('../../../assets/Images/image8.jpg'),
+//   require('../../../assets/Images/image9.jpg'),
 
-]
+// ]
 
 let { width, height } = Dimensions.get('window');
 
@@ -68,8 +68,8 @@ class Photos extends Component {
 
   imageRender = () =>
 
-    images.map((image, index) => {
-
+    this.props.userImages.map((image, index) => {
+      console.log(image);
       return (
 
         <TouchableHighlight onPress={() => this.setModalVisible(true, index)}>
@@ -79,7 +79,7 @@ class Photos extends Component {
           ]} >
 
             <Image style={{ flex: 1, width: undefined, height: undefined }}
-              source={image} />
+              source={{uri: image.img_url}} />
 
           </View>
         </TouchableHighlight>
