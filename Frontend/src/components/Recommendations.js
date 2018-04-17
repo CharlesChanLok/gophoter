@@ -160,17 +160,17 @@ export default class Recommendations extends Component {
                                 <Left>
                                     <Body>
                                         <Text style={styles.modaltext}>{RecommendArray[this.state.Objnumber].Location}</Text>
-                                        <Text note>  {RecommendArray[this.state.Objnumber].Photographer}</Text>
+                                        <Text note style={{fontFamily: 'Montserrat-Regular' }}>  {RecommendArray[this.state.Objnumber].Photographer}</Text>
                                     </Body>
                                 </Left>
                                 <Right>
                                     <Text style={styles.direction}>Directions</Text>
-                                    <Text note>{RecommendArray[this.state.Objnumber].Distance}</Text>
+                                    <Text note style={{fontFamily: 'Montserrat-Regular' }}>{RecommendArray[this.state.Objnumber].Distance}</Text>
                                 </Right>
                             </CardItem>
 
                             <CardItem>
-                                <Text style={{ textAlign: 'center' }}>{RecommendArray[this.state.Objnumber].Description}</Text>
+                                <Text style={{ textAlign: 'center',fontFamily: 'Montserrat-Regular', }}>{RecommendArray[this.state.Objnumber].Description}</Text>
                             </CardItem>
 
                         </Card>
@@ -179,7 +179,7 @@ export default class Recommendations extends Component {
                         this.setModalVisible(false, 0);
                     }}>
                         <Icon name="arrow-back" />
-                        <Text>Recommendations</Text>
+                        <Text style={{fontFamily: 'Montserrat-Regular' }} >Recommendations</Text>
                     </Button>
 
                 </Modal>
@@ -226,12 +226,14 @@ const styles = StyleSheet.create({
     },
     modaltext: {
         paddingTop: 20,
-        fontSize: 20
+        fontSize: 20,
+        fontFamily: 'Montserrat-SemiBold',
     },
     direction: {
         fontSize: 20,
         color: "#ff8396",
-        paddingTop: 20
+        paddingTop: 20,
+        fontFamily: 'Montserrat-Regular',
     },
     modalbutton: {
         backgroundColor: '#ff8396',
