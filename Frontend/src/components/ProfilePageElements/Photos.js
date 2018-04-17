@@ -156,13 +156,16 @@ const styles = StyleSheet.create({
   },
   modaltext2: {
     alignSelf: 'center',
-    paddingTop: 20
+    paddingTop: 20,
+    fontFamily: 'Montserrat-Regular'
   },
   textnote2: {
     alignSelf: 'center'
+
   },
   modalbutton: {
     backgroundColor: '#ff8396',
+    fontFamily: 'Montserrat-SemiBold'
   },
   thumbnail: {
 

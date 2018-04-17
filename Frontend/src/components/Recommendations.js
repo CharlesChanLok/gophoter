@@ -160,17 +160,17 @@ export default class Recommendations extends Component {
                                 <Left>
                                     <Body>
                                         <Text style={styles.modaltext}>{RecommendArray[this.state.Objnumber].Location}</Text>
-                                        <Text note style={{fontFamily: 'Montserrat-Regular' }}>  {RecommendArray[this.state.Objnumber].Photographer}</Text>
+                                        <Text note style={styles.note}>  {RecommendArray[this.state.Objnumber].Photographer}</Text>
                                     </Body>
                                 </Left>
                                 <Right>
                                     <Text style={styles.direction}>Directions</Text>
-                                    <Text note style={{fontFamily: 'Montserrat-Regular' }}>{RecommendArray[this.state.Objnumber].Distance}</Text>
+                                    <Text note style={styles.textnote}>{RecommendArray[this.state.Objnumber].Distance}</Text>
                                 </Right>
                             </CardItem>
 
                             <CardItem>
-                                <Text style={{ textAlign: 'center',fontFamily: 'Montserrat-Regular', }}>{RecommendArray[this.state.Objnumber].Description}</Text>
+                                <Text style={{ textAlign: 'center', fontFamily: 'Montserrat-Regular', }}>{RecommendArray[this.state.Objnumber].Description}</Text>
                             </CardItem>
 
                         </Card>
@@ -179,7 +179,7 @@ export default class Recommendations extends Component {
                         this.setModalVisible(false, 0);
                     }}>
                         <Icon name="arrow-back" />
-                        <Text style={{fontFamily: 'Montserrat-Regular' }} >Recommendations</Text>
+                        <Text style={{ fontFamily: 'Montserrat-Regular' }} >Recommendations</Text>
                     </Button>
 
                 </Modal>
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
         height: 200,
         flex: 1,
         opacity: 0.9,
-       
+
     },
     modalimage: {
         height: 450,
@@ -243,6 +243,10 @@ const styles = StyleSheet.create({
     card: {
         borderRadius: 30
     },
+    textnote: {
+        fontFamily: 'Montserrat-Regular'
+    }
+
 
 });
 

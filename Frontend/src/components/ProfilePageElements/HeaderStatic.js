@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 20,
     color: '#fff',
-    fontWeight: 'bold'
+    fontFamily: 'Montserrat-SemiBold'
   },
   mydescribe: {
     fontSize: 15,
