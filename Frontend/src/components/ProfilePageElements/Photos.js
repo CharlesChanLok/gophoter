@@ -79,7 +79,7 @@ class Photos extends Component {
           ]} >
 
             <Image style={{ flex: 1, width: undefined, height: undefined }}
-              source={{uri: image.img_url}} />
+              source={{ uri: image.img_url }} />
 
           </View>
         </TouchableHighlight>
@@ -95,8 +95,12 @@ class Photos extends Component {
           transparent={false}
           visible={this.state.modalVisible}
         >
-          <AutoHeightImage width={width} source={
-            images[this.state.Objnumber]} />
+          <AutoHeightImage width={width}
+            source={this.props.userImages.length > 0 ?
+              { uri: this.props.userImages[this.state.Objnumber].img_url } :
+              { uri: '' }
+            }
+          />
           <Left>
             <Text style={styles.modaltext2}>
               Photo Taken By
