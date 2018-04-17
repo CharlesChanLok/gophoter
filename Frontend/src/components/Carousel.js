@@ -129,7 +129,7 @@ export default class DeckSwiperExample extends Component {
                             <View style={{ flexDirection: "row", alignSelf: "center", paddingTop: 30, paddingBottom: 30, marginTop: 50 }}>
 
                                 <Button block info style={{ width: 150 }}>
-                                    <Text>Join</Text>
+                                    <Text >Join</Text>
                                 </Button>
 
                                 <Button block danger onPress={() => { this.setModalVisible(false) }} style={{ width: 150 }}>
@@ -147,18 +147,18 @@ export default class DeckSwiperExample extends Component {
 
 
                             <Card style={{ elevation: 6, }}>
-                                {/* <Text style={styles.logo2}>Go Photer</Text> */}
 
 
-                                <CardItem style={{ borderTopLeftRadius: 30, borderBottomRightRadius: 30 }} cardBody>
+
+                                <CardItem cardBody>
                                     <Image style={styles.carouselimage} source={item.image} />
                                 </CardItem>
                                 <CardItem>
                                     <Left>
                                         <Thumbnail source={{ uri: 'https://instagram.fhkg3-1.fna.fbcdn.net/vp/ca75e7c9e0471c5ca6a6d1182670e19d/5B5CD445/t51.2885-19/s150x150/14262883_301061306925458_1843307609_a.jpg' }} />
                                         <Body>
-                                            <Text>{item.text}</Text>
-                                            <Text note>{item.description}</Text>
+                                            <Text style={styles.name}>{item.text}</Text>
+                                            <Text note style={styles.location}>{item.description}</Text>
                                         </Body>
                                     </Left>
                                     <Right>
@@ -170,7 +170,7 @@ export default class DeckSwiperExample extends Component {
                                 </CardItem>
 
                                 <Button full info style={styles.button} onPress={() => this.setModalVisible(true)}>
-                                    <Text>Info</Text>
+                                    <Text style={{fontFamily: 'Montserrat-SemiBold'}}>Info</Text>
                                 </Button>
                             </Card>
                         }
@@ -210,19 +210,29 @@ const styles = StyleSheet.create({
     title: {
         alignSelf: 'center',
         fontSize: 20,
-        marginTop: 10
+        marginTop: 10,
+        fontFamily: 'Montserrat-SemiBold',
     },
     button: {
         borderBottomLeftRadius: 30,
         borderBottomRightRadius: 30,
         backgroundColor: '#ff8396',
-        padding: 5
+        padding: 5,
+        fontFamily: 'Montserrat-SemiBold'
     },
 
+    name: {
+        fontFamily: 'Montserrat-SemiBold'
+    },
+
+    location: {
+        fontFamily: 'Montserrat-Regular'
+    },
 
     attenders: {
         marginLeft: 10,
-        width: 100
+        width: 100,
+        fontFamily: 'Montserrat-SemiBold',
     },
     icon: {
         color: '#ff8396',
@@ -231,11 +241,13 @@ const styles = StyleSheet.create({
     },
     secondline: {
         alignSelf: 'center',
-        fontSize: 20
+        fontSize: 20,
+        fontFamily: 'Montserrat-SemiBold',
     },
     datetime: {
         alignSelf: 'center',
-        marginTop: 10
+        marginTop: 10,
+        fontFamily: 'Montserrat-SemiBold'
     },
     logo2: {
         textAlign: 'center',

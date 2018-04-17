@@ -264,8 +264,8 @@ const styles = StyleSheet.create({
     modalimage: {
         height: 450,
         flex: 1,
-        borderTopRightRadius: 30,
-        borderTopLeftRadius: 30
+        borderTopRightRadius: 50,
+        borderTopLeftRadius: 50
     },
     modaltext: {
         paddingTop: 20,
@@ -290,6 +290,10 @@ const styles = StyleSheet.create({
         fontSize: 35,
         marginRight: 25
     },
+    textnote: {
+        fontFamily: 'Montserrat-Regular'
+    }
+
 
 });
 
