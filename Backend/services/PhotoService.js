@@ -28,6 +28,14 @@ module.exports = class PhotoService {
             .limit(limit).offset(offset);
     }
 
+    listPhotosByUser(userId) {
+        return this.knex
+        .select('*')
+        .from(PHOTOS)
+            .join('users', { 'users.id': 'photos.user_id' })
+            .where('users.id', userId)
+    }
+
     tag(photoId, tagId) {
         return this.knex
             .insert({

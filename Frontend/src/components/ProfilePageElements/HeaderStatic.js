@@ -22,7 +22,7 @@ class HeaderStatic extends Component {
           </View>
 
           <Text style={styles.myname}>
-            {this.props.userInfo.first_name} {this.props.userInfo.last_name}
+            {this.props.userInfo.first_name} {this.props.userInfo.last_name} 
           </Text>
 
           <Text style={styles.mydescribe}>

@@ -10,8 +10,6 @@ const cards = [
         image: require('../../assets/Images/image4.jpg'),
         latitude: 22.279453,
         longitude: 114.166283
-
-
     },
     {
         text: 'Virginia Nirgo',
@@ -144,7 +142,7 @@ export default class DeckSwiperExample extends Component {
 
                     <DeckSwiper
                         dataSource={cards}
-
+                        
                         renderItem={item =>
 
 
