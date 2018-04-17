@@ -65,20 +65,20 @@ export default class DeckSwiperExample extends Component {
         this.setState({ modalVisible: visible });
     }
 
-    handleGetDirections = (latitude,longitude) => {
+    handleGetDirections = (latitude, longitude) => {
         const data = {
-          destination: {
-            latitude: latitude,
-            longitude: longitude
-          }
+            destination: {
+                latitude: latitude,
+                longitude: longitude
+            }
         }
-     
+
         getDirections(data)
-      }
+    }
 
     render() {
         return (
-           
+
             <Container>
                 <View>
                     <Modal
@@ -148,12 +148,12 @@ export default class DeckSwiperExample extends Component {
                         renderItem={item =>
 
 
-                            <Card style={{ elevation: 6, borderRadius: 30 }}>
-                                <Text style={styles.logo2}>Go Photer</Text>
+                            <Card style={{ elevation: 6, }}>
+                                {/* <Text style={styles.logo2}>Go Photer</Text> */}
 
 
-                                <CardItem cardBody>
-                                    <Image style={{ height: 400, flex: 1 }} source={item.image} />
+                                <CardItem style={{borderTopLeftRadius: 30, borderBottomRightRadius:30}}cardBody>
+                                    <Image style={styles.carouselimage} source={item.image} />
                                 </CardItem>
                                 <CardItem>
                                     <Left>
@@ -164,8 +164,8 @@ export default class DeckSwiperExample extends Component {
                                         </Body>
                                     </Left>
                                     <Right>
-                                        <TouchableHighlight onPress={() => {this.handleGetDirections(item.latitude,item.longitude)}}>
-                                        <Icon style={styles.icon} name="ios-navigate" />
+                                        <TouchableHighlight onPress={() => { this.handleGetDirections(item.latitude, item.longitude) }}>
+                                            <Icon style={styles.icon} name="ios-navigate" />
                                         </TouchableHighlight>
                                         <Text note>15th May 21:15</Text>
                                     </Right>
@@ -198,16 +198,23 @@ const styles = StyleSheet.create({
         color: '#ff8396',
         paddingTop: 30,
         paddingBottom: 30,
-        
+
 
     },
+    carouselimage: {
+        height: 500,
+        flex: 1,
+        borderTopRightRadius: 30,
+        borderTopLeftRadius: 30
+    },
+    
 
     title: {
         alignSelf: 'center',
         fontSize: 20,
         marginTop: 10
     },
-    button:{
+    button: {
         borderBottomLeftRadius: 30,
         borderBottomRightRadius: 30,
         backgroundColor: '#ff8396',

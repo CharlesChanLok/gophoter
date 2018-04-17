@@ -217,12 +217,13 @@ const styles = StyleSheet.create({
         height: 200,
         flex: 1,
         opacity: 0.9,
-        borderRadius: 30
+       
     },
     modalimage: {
         height: 450,
         flex: 1,
-        borderRadius: 30
+        borderTopRightRadius: 30,
+        borderTopLeftRadius: 30
     },
     modaltext: {
         paddingTop: 20,
