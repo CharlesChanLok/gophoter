@@ -125,7 +125,8 @@ const styles = StyleSheet.create({
 
   button: {
     backgroundColor: "#ff8396",
-    marginBottom: 165
+    marginBottom: 165,
+    fontFamily: 'Montserrat-SemiBold'
     
   },
 
@@ -143,7 +144,8 @@ const styles = StyleSheet.create({
   text: {
     alignSelf: 'center',
     fontSize: 15,
-    color: "#fff"
+    color: "#fff",
+    fontFamily: 'Montserrat-SemiBold'
   },
 
   image: {

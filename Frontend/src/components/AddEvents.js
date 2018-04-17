@@ -113,7 +113,7 @@ export default class Events extends Component {
         </Content>
 
         <Button full info style={styles.button} onPress={() => this.handleSubmit()}>
-          <Text>Submit</Text>
+          <Text style={styles.submit}>Submit</Text>
         </Button>
 
       </Container>
@@ -133,7 +133,8 @@ const styles = StyleSheet.create({
   text: {
     alignSelf: 'stretch',
     fontSize: 20,
-    marginTop: 10
+    marginTop: 10,
+    fontFamily: 'Montserrat-SemiBold'
   },
   body: {
     borderBottomWidth: 0,
@@ -148,11 +149,17 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#ff8396",
-    marginBottom: 0
+    marginBottom: 0,
+    fontFamily: 'Montserrat-SemiBold'
   },
   textinput: {
     color: "#ff8396",
     fontSize: 20,
     alignSelf: 'stretch',
+    fontFamily: 'Montserrat-SemiBold'
   },
+
+  submit: {
+    fontFamily: 'Montserrat-SemiBold'
+  }
 });

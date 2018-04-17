@@ -68,5 +68,6 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#000000",
+    fontFamily: 'Montserrat-SemiBold'
   }
 });
