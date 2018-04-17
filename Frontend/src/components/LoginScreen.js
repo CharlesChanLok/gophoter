@@ -7,7 +7,7 @@ import {
   Alert,
   Linking
 } from 'react-native';
-import { connect } from 'react-redux';
+import { connect, dispatch } from 'react-redux';
 import { Button } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
@@ -17,7 +17,8 @@ import { TabNavigator, TabView, TabBarTop } from 'react-navigation';
 import MainScreen from './MainScreen';
 import ProfileScreen from './ProfileScreen';
 import SearchScreen from './SearchScreen';
-import { setjwtToken } from '../store/actions/actionTypes'
+import { setjwtToken } from '../store/actions/actionTypes';
+import { setemail, setid, setname, setpic } from '../store/actions/users';
 import configStore from '../store/configstore'
 class LoginScreen extends Component {
   state = {
@@ -30,29 +31,25 @@ class LoginScreen extends Component {
         this._handleURL(url);
       }
     });
-    Linking.addEventListener('url', this.test);
-    Linking.getInitialURL().then((url) => {
-      if (url) {
-        this._handleURL(url);
-      }
-    });
   }
 
   componentWillUnmount() {
     Linking.removeEventListener('url', this._handleURL);
-    Linking.removeEventListener('url', this.test);
   }
-  async _handleURL(event) {
+  _handleURL = async (event) => {
     try {
       var [, query] = event.match(/\#(.*)/)
       const jsonQuery = qs.parse(query);
       const response = await axios.post('http://10.0.2.2:3000/auth/verify/google', { accessToken: jsonQuery.access_token });
-      const serverReturn = response.data;
-      // this.dispatch(this.ReduxDispatch(respond.data.email));
+      const data = response.data;
+      this.setState({jwtToken:data.token});
+      this.props.setemail(data.UserProfile.email);
+      this.props.setname(data.UserProfile.name);
+      // mapDispatchToProps('setemail',data.UserProfile.email);
       this.props.navigation.navigate('Main');
     }
     catch (err) {
-      alert("Error ", err);
+      alert("Error " + err.message);
     }
   }
   
@@ -69,10 +66,6 @@ class LoginScreen extends Component {
     ].join('')
 
     Linking.openURL(GOOGLE_AUTH_URL);
-  }
-  ReduxDispatch = (email) => {
-    type: 'setemail',
-    email
   }
   render() {
     return (<ImageBackground source={require('../../DSC06107.jpg')} style={styles.backgroundImage}>
@@ -141,8 +134,20 @@ const styles = StyleSheet.create({
     color: '#fff'
   }
 });
+function mapDispatchToProps(dispatch) {
+  return {
+    setemail: (data) => dispatch(setemail(data)),
+    setname: (name) => dispatch(setname(name)),
+    setpic: (url) => dispatch(pic(url)),
+    setid: (num) => dispatch(num)
+  }
+}
 export default connect(
   state=>({
-  email: state.email
-  })
+  email: state.email,
+  setid: state.id,
+  pic: state.pic,
+  name:state.name
+  }),
+  mapDispatchToProps
 )(LoginScreen);

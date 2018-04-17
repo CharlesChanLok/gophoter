@@ -1,28 +1,33 @@
-import { setname, setemail, setjwtToken, setid } from '../actions/actionTypes'
+import { SETNAME, SETEMAIL, SETID, PIC } from '../actions/actionTypes'
 
 const initialState = {
     name: null,
     email: null,
-    jwtToken: null,
-    id: 0
+    id: null,
+    url: null
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case setname:
+        case SETNAME:
             return {
                 ...state,
-                name: state.name
+                name: action.name
             }
-        case setemail:
+        case SETEMAIL:
                 return {
                     ...state,
-                    email: state.email
+                    email: action.email
                 }
-        case setid:
+        case SETID:
             return {
                 ...state,
-                id: state.id
+                id: action.id
+        }
+        case PIC:
+        return {
+            ...state,
+            url: action.url
         }
         default:
             return state

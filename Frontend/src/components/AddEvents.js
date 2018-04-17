@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, List, ListItem, Text, Icon, Left, Body, Right, Switch, Button } from 'native-base';
+import { Container, Header, Content, List, ListItem, Text, Icon, Left, Body, Right, Switch, Button, Card, CardItem, } from 'native-base';
 import { TouchableOpacity, View, TextInput, StyleSheet } from "react-native";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import axios from 'axios';
@@ -7,32 +7,46 @@ import moment from 'moment'
 export default class Events extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      chosenDate: '',
+      timeStart: 0,
+      timeEnd: 0,
+      isDateTimePickerVisible: false,
+      datetime: '',
+      location: '',
+      title: ''
+    };
   }
-
-  state = {
-    timeStart: 0,
-    timeEnd: 0,
-    isDateTimePickerVisible: false,
-    text1: '',
-    text2: ''
-  };
-
 
   _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
 
   _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
 
   _handleDatePicked = (datetime) => {
-    this.setState
-    chosenDate: moment(datetime).format('MMM, Do YYYY HH:mm')
+
+    this.setState({
+      chosenDate: moment(datetime).format('MMM, Do YYYY HH:mm'),
+      datetime: datetime
+    })
     //alert('A date has been picked: ' + datetime);
+    this._hideDateTimePicker();
+  };
+
+  handleSubmit = () => {
     axios.post('http://10.0.2.2:3000/events', {
       hostId: 1,
-      datetime: datetime
+      datetime: this.state.datetime,
+      location: this.state.location,
+      title: this.state.title
     })
       .then((response) => {
         console.log(response)
-        this._hideDateTimePicker();
+        alert('Event created')
+        this.setState({
+          datetime: '',
+          location: '',
+          title: ''
+        })
       })
       .catch((error) => {
         console.log(error);
@@ -40,20 +54,25 @@ export default class Events extends Component {
   };
   render() {
     return (
-      <Container style={{ backgroundColor: '#fff', paddingTop: 70 }}>
-        <Content>
-          <List>
-            <ListItem icon noBorder>
-              <Left>
-                <Icon name="ios-time" style={styles.icon} />
-              </Left>
+      <Container style={{ backgroundColor: '#fff' }}>
+        <View>
+          <Text style={styles.logo}>Go Photer</Text>
+        </View>
+        <Content style={{ marginTop: 50 }}>
+          <Card style={{ flex: 1 }} >
+
+            <CardItem style={{ alignSelf: 'stretch' }}>
+
+              <Icon name="ios-time" style={styles.icon} />
+
               <Body style={styles.body}>
                 <TouchableOpacity onPress={this._showDateTimePicker}>
                   <View>
-                    <Text style={styles.text}>Date And Time Picker</Text>
-                    <Text note>{this.state.chosenDate}</Text>
+                    <Text style={styles.text}>DateTimePicker</Text>
+                    <Text note style={styles.textinput}>{this.state.chosenDate}</Text>
                   </View>
                 </TouchableOpacity>
+
                 <DateTimePicker
                   isVisible={this.state.isDateTimePickerVisible}
                   mode='datetime'
@@ -62,82 +81,78 @@ export default class Events extends Component {
                   is24Hour={false}
                 />
               </Body>
-              <Right style={styles.body}>
-                <Icon name="arrow-forward" />
-              </Right>
-            </ListItem>
-          </List>
-        </Content>
 
-        <Content>
-          <List>
-            <ListItem icon noBorder>
-              <Left>
-                <Icon name="ios-navigate" style={styles.icon} />
-              </Left>
+            </CardItem>
+
+            <CardItem style={{ alignSelf: 'stretch' }}>
+
+              <Icon name="ios-navigate" style={styles.icon} />
+
               <Body style={styles.body}>
-                <Text style={styles.text}>Add A Location</Text>
-                <TextInput style={styles.textinput}
-                  placeholder="type your location here!"
-                  onChangeText={(text) => this.setState({ text1: text })}
+                <TextInput style={styles.textinput} underlineColorAndroid={'rgba(0,0,0,0)'}
+                  placeholder="Loction"
+                  onChangeText={(location) => this.setState({ location: location })}
                 />
               </Body>
-              <Right style={{ borderBottomWidth: 0 }}>
-                <Icon name="arrow-forward" />
-              </Right>
-            </ListItem>
-          </List>
-        </Content>
 
-        <Content>
-          <List>
-            <ListItem icon noBorder>
-              <Left>
-                <Icon name="ios-paper" style={styles.icon} />
-              </Left>
-              <Body style={styles.body}>
-                <Text style={styles.text}>Add Event's Title</Text>
+            </CardItem>
 
-                <TextInput style={styles.textinput}
-                  placeholder="Type your event's title here!"
-                  onChangeText={(text) => this.setState({ text2: text })}
+            <CardItem style={{ alignSelf: 'stretch' }}>
+
+              <Icon name="ios-paper" style={styles.icon} />
+
+              <Body>
+                <TextInput style={styles.textinput} underlineColorAndroid={'rgba(0,0,0,0)'}
+                  placeholder="Event's Title"
+                  onChangeText={(title) => this.setState({ title: title })}
                 />
               </Body>
-              <Right style={styles.body}>
-                <Icon name="arrow-forward" />
-              </Right>
-            </ListItem>
-          </List>
+
+            </CardItem>
+          </Card>
         </Content>
 
-        <Button full info style={styles.button}>
+        <Button full info style={styles.button} onPress={() => this.handleSubmit()}>
           <Text>Submit</Text>
         </Button>
+
       </Container>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  logo: {
+    textAlign: 'center',
+    fontFamily: 'Pacifico',
+    fontSize: 50,
+    color: '#ff8396',
+    paddingTop: 10
+  },
+
   text: {
-    alignSelf: 'center',
+    alignSelf: 'stretch',
     fontSize: 20,
+    marginTop: 10
   },
   body: {
-    borderBottomWidth: 0
+    borderBottomWidth: 0,
+    margin: 0,
+    padding: 0,
+    alignSelf: 'stretch'
   },
   icon: {
-    color: '#ff8396'
+    color: '#ff8396',
+    marginLeft: 80
+
   },
   button: {
     backgroundColor: "#ff8396",
-    marginBottom: 40
+    marginBottom: 0
   },
   textinput: {
-    alignSelf: 'center',
     color: "#ff8396",
-    fontSize: 20
-  }
-
-
+    fontSize: 20,
+    alignSelf: 'stretch',
+  },
 });

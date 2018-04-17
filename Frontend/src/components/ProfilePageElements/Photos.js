@@ -91,7 +91,7 @@ class Photos extends Component {
   render() {
     return (
       <View>
-        <Modal
+        <Modal 
           animationType="slide"
           transparent={false}
           visible={this.state.modalVisible}
@@ -103,6 +103,7 @@ class Photos extends Component {
             <Icon name="arrow-back" />
             <Text>Profile</Text>
           </Button>
+          <Text style={styles.logo}>Go Photer</Text>
 
 
         </Modal>
@@ -156,5 +157,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#ff8396',
 
 
+  },
+  logo: {
+      textAlign: 'center',
+      fontFamily: 'Pacifico',
+      fontSize: 60,
+      color: '#ff8396',
+      paddingTop: 30
+  
   }
 });

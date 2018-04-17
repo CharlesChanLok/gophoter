@@ -97,7 +97,7 @@ class UploadTab extends Component {
           <View style={styles.container}>
             <TouchableOpacity onPress={() => this.selectPhoto()}>
               <Image style={styles.image}
-                source={this.state.imageSource == null ? require('../../../assets/Images/upload.png') : this.state.imageSource}
+                source={this.state.imageSource == null ? require('../../../assets/Images/upload2.png') : this.state.imageSource}
               />
             </TouchableOpacity>
 
@@ -132,7 +132,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Pacifico',
     fontSize: 60,
     color: '#ff8396',
-    backgroundColor: '#FFF'
+    backgroundColor: '#FFF',
+    paddingTop: 10
    
 
   },

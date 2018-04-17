@@ -70,7 +70,7 @@ const RecommendArray = [
     },
     {
         Photo: require('../../assets/Images/jockey.jpg'),
-        Location: 'Jockey Club Innovation Tower',
+        Location: 'Innovation Tower',
         Photographer: 'By Rex Wong',
         Distance: '3.2K',
         Description: 'A great place for interior and portriat photography, the architecture of the buidling is simply amazing. '
@@ -105,8 +105,8 @@ const RecommendArray = [
         Description: 'A great place for relexation and portrait photography, best to bring a portriat lens'
     },
     {
-        Photo: require('../../assets/Images/test.jpg'),
-        Location: 'Braemar Hill',
+        Photo: require('../../assets/Images/highwest.jpg'),
+        Location: 'High West Peak',
         Photographer: 'By Ammr Eltilib',
         Distance: '2.6K',
         Description: 'To photograph the splendid night scene of Hong Kong, Braemar Hill is a nice place where you can take nightscape photos, remember to bring a tripod.'
@@ -128,7 +128,7 @@ export default class Recommendations extends Component {
     render_Recommendation() {
         return RecommendArray.map(function (rec, i) {
             return (
-                <Card key={i}>
+                <Card key={i} style={styles.card}>
                     <CardItem cardBody button onPress={() => this.setModalVisible(true, i)}>
                         <ImageBackground source={rec.Photo} style={styles.imagebackground}>
                             <View style={styles.middle}>
@@ -151,29 +151,29 @@ export default class Recommendations extends Component {
                     transparent={false}
                     visible={this.state.modalVisible}
                 >
-                  <ScrollView>
-                    <Card>
-                        <CardItem cardBody>
-                            <Image style={styles.modalimage} source={RecommendArray[this.state.Objnumber].Photo} />
-                        </CardItem>
-                        <CardItem>
-                            <Left>
-                                <Body>
-                                    <Text style={styles.modaltext}>{RecommendArray[this.state.Objnumber].Location}</Text>
-                                    <Text note>  {RecommendArray[this.state.Objnumber].Photographer}</Text>
-                                </Body>
-                            </Left>
-                            <Right>
-                                <Text style={styles.direction}>Directions</Text>
-                                <Text note>{RecommendArray[this.state.Objnumber].Distance}</Text>
-                            </Right>
-                        </CardItem>
-                      
-                        <CardItem>
-                            <Text style={{ textAlign: 'center' }}>{RecommendArray[this.state.Objnumber].Description}</Text>
-                        </CardItem>
-                   
-                    </Card>
+                    <ScrollView>
+                        <Card >
+                            <CardItem cardBody>
+                                <Image style={styles.modalimage} source={RecommendArray[this.state.Objnumber].Photo} />
+                            </CardItem>
+                            <CardItem>
+                                <Left>
+                                    <Body>
+                                        <Text style={styles.modaltext}>{RecommendArray[this.state.Objnumber].Location}</Text>
+                                        <Text note>  {RecommendArray[this.state.Objnumber].Photographer}</Text>
+                                    </Body>
+                                </Left>
+                                <Right>
+                                    <Text style={styles.direction}>Directions</Text>
+                                    <Text note>{RecommendArray[this.state.Objnumber].Distance}</Text>
+                                </Right>
+                            </CardItem>
+
+                            <CardItem>
+                                <Text style={{ textAlign: 'center' }}>{RecommendArray[this.state.Objnumber].Description}</Text>
+                            </CardItem>
+
+                        </Card>
                     </ScrollView>
                     <Button style={styles.modalbutton} full info onPress={() => {
                         this.setModalVisible(false, 0);
@@ -210,18 +210,19 @@ const styles = StyleSheet.create({
         padding: 80
     },
     middle: {
-
         alignItems: 'center',
         justifyContent: 'center'
     },
-
     imagebackground: {
         height: 200,
-        flex: 1
+        flex: 1,
+        opacity: 0.9,
+        borderRadius: 30
     },
     modalimage: {
         height: 450,
-        flex: 1
+        flex: 1,
+        borderRadius: 30
     },
     modaltext: {
         paddingTop: 20,
@@ -234,119 +235,11 @@ const styles = StyleSheet.create({
     },
     modalbutton: {
         backgroundColor: '#ff8396',
-        marginBottom: 30
-        
-    }
+        marginBottom: 40
+    },
+    card: {
+        borderRadius: 30
+    },
 
 });
 
-{/* <Card>
-                        <CardItem cardBody button button onPress={()=>this.setModalVisible(true)}>
-                            <ImageBackground source={require('../../assets/Images/test.jpg')} style={styles.imagebackground}>
-                                <View style={styles.middle}>
-                                    <Text style={styles.context}>Braemar Hill</Text>
-                             
-                                </View>
-                            </ImageBackground>
-                        </CardItem>
-                    </Card>
-
-                    <Card>
-                        <CardItem cardBody button onPress={()=>this.setModalVisible(true)}>
-                            <ImageBackground source={require('../../assets/Images/instagrampeir.jpg')} style={styles.imagebackground}>
-                                <View style={styles.middle}>
-                                    <Text style={styles.context}>Instagram Pier</Text>
-                                </View>
-                            </ImageBackground>
-                        </CardItem>
-                        <CardItem>
-                            <Left>
-                                <Thumbnail source={{ uri: 'https://instagram.fhkg4-1.fna.fbcdn.net/vp/04697c22c18a6b9911e1789414581bf4/5B63C1A3/t51.2885-19/s150x150/20479307_259226047906088_8664596465227661312_a.jpg' }} />
-                                <Body>
-                                    <Text style={styles.modaltext}>Braemar Hill</Text>
-                                    <Text note> By Ashley Grait</Text>
-                                </Body>
-                            </Left>
-                            <Right>
-
-                                <Text style={styles.direction}>Directions</Text>
-                                <Text note>2.6K</Text>
-                            </Right>
-
-                        </CardItem>
-                    </Card>
-
-
-                    <Button style={styles.modalbutton} full info onPress={() => {
-                        this.setModalVisible(!this.state.modalVisible);
-                    }}>
-                        <Icon name="arrow-back" />
-                        <Text>Recommendations</Text>
-                    </Button>
-
-                </Modal>
-
-                <ScrollView style={{ flexGrow: 1 }}>
-
-                    <Content style={{ flex: 1 }}>
-                        <Card>
-                            <CardItem cardBody button button onPress={() => this.setModalVisible(true)}>
-                                <ImageBackground source={require('../../assets/Images/test.jpg')} style={styles.imagebackground}>
-                                    <View style={styles.middle}>
-                                        <Text style={styles.context}>Braemar Hill</Text>
-
-                                    </View>
-                                </ImageBackground>
-                            </CardItem>
-                        </Card>
-
-                        <Card>
-                            <CardItem cardBody button onPress={() => this.setModalVisible(true)}>
-                                <ImageBackground source={require('../../assets/Images/instagrampeir.jpg')} style={styles.imagebackground}>
-                                    <View style={styles.middle}>
-                                        <Text style={styles.context}>Instagram Pier</Text>
-                                        <Text note>10th May, Thursday</Text>
-                                    </View>
-                                </ImageBackground>
-                            </CardItem>
-                        </Card>
-
-                        <Card>
-                            <CardItem cardBody button onPress={() => this.setModalVisible(true)}>
-                                <ImageBackground source={require('../../assets/Images/test.jpg')} style={styles.imagebackground}>
-                                    <View style={styles.middle}>
-                                        <Text style={styles.context}>Hopewell Center Elavator</Text>
-                                    </View>
-                                </ImageBackground>
-                            </CardItem>
-                        </Card>
-
-                        <Card>
-                            <CardItem cardBody button onPress={() => this.setModalVisible(true)}>
-                                <ImageBackground source={require('../../assets/Images/mansion.jpg')} style={styles.imagebackground}>
-                                    <View style={styles.middle}>
-                                        <Text style={styles.context}>Montane Mansion</Text>
-                                    </View>
-                                </ImageBackground>
-                            </CardItem>
-                        </Card>
-
-                        <Card>
-                            <CardItem cardBody button onPress={() => this.setModalVisible(true)}>
-                                <ImageBackground source={require('../../assets/Images/test.jpg')} style={styles.imagebackground}>
-                                    <View style={styles.middle}>
-                                        <Text style={styles.context}>Dragon's Back</Text>
-                                    </View>
-                                </ImageBackground>
-                            </CardItem>
-                        </Card>
-
-                    <Card>
-                        <CardItem cardBody button onPress={()=>this.setModalVisible(true)}>
-                            <ImageBackground source={require('../../assets/Images/lugardroad.jpg')} style={styles.imagebackground}>
-                                <View style={styles.middle}>
-                                    <Text style={styles.context}>Lugard Road</Text>
-                                </View>
-                            </ImageBackground>
-                        </CardItem>
-                    </Card> */}

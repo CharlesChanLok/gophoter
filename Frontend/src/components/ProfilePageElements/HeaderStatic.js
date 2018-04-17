@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
-export class HeaderStatic extends Component {
+class HeaderStatic extends Component {
 
   render() {
     return (
@@ -19,16 +19,20 @@ export class HeaderStatic extends Component {
         <View style={styles.header}>
 
           <View style={styles.propicContainer}>
-            <Image style={styles.propic} source={{ uri: 'https://instagram.fhkg3-1.fna.fbcdn.net/vp/944372c1764fed4a4af10f77f485e5b0/5B5239F8/t51.2885-19/s150x150/29090546_2048000892105923_8489793387929534464_n.jpg' }} />
+            <Image style={styles.propic} source={{ uri: this.props.url }} />
           </View>
 
-          <Text style={styles.myname}>{this.props.email}</Text>
-          <Text style={styles.mydescribe}>21, Co-Founder of Go Photer</Text>
+          <Text style={styles.myname}>
+            {this.props.name}
+          </Text>
+
+          <Text style={styles.mydescribe}>
+            {this.props.email}
+          </Text>
 
         </View>
 
       </ImageBackground>
-
     );
   }
 }
@@ -51,7 +55,6 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 100,
-
   },
   propic: {
     flex: 1,
@@ -73,6 +76,9 @@ const styles = StyleSheet.create({
   }
 });
 const mapStateToProps = state => ({
-  email: numbers.email
+  name: state.numbers.name,
+  email: state.numbers.email,
+  url: state.numbers.url,
+  id: state.numbers.id
 });
 export default connect(mapStateToProps)(HeaderStatic)

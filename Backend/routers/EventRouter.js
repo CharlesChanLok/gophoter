@@ -6,6 +6,7 @@ module.exports = class EventRouter {
     }
 
     router() {
+        console.log('router')
         let router = express.Router();
         router.get('/', this.get.bind(this));
         router.get('/:eventId', this.findEvent.bind(this));
@@ -33,7 +34,12 @@ module.exports = class EventRouter {
 
     post(req, res) {
         console.log(req.body)
-        return res.json({success: true});
+        return this.eventService.create(req.body)
+            .then((event) => res.json(event))
+            .catch((err) => res.status(500).json(err));
+        // return this.eventService.create(req.body)
+        // console.log(req.body)
+        // return res.json({ success: true });
         // this.eventService.create(req.body)
         //     .then((event) => res.json(event))
         //     .catch((err) => res.status(500).json(err));
@@ -50,11 +56,4 @@ module.exports = class EventRouter {
             .then((event) => res.json(event))
             .catch((err) => res.status(500).json(err));
     }
-
-
-
-
-
-
-
 }

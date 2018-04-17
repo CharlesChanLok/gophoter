@@ -1,3 +1,4 @@
-export const setemail = 'setemail'
-export const setname = 'setname'
-export const setid = 'setid'
+export const SETEMAIL = 'setemail';
+export const SETNAME = 'setname';
+export const SETID = 'setid';
+export const SETPIC = 'pic'
