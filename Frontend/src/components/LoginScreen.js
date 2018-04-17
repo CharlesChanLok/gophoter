@@ -29,12 +29,12 @@ export default class LoginScreen extends Component {
         this._handleURL(url);
       }
     });
-    Linking.addEventListener('url', this.test);
-    Linking.getInitialURL().then((url) => {
-      if (url) {
-        this._handleURL(url);
-      }
-    });
+    // Linking.addEventListener('url', this.test);
+    // Linking.getInitialURL().then((url) => {
+    //   if (url) {
+    //     this._handleURL(url);
+    //   }
+    // });
   }
 
   componentWillUnmount() {

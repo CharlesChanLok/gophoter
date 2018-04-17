@@ -285,6 +285,11 @@ const styles = StyleSheet.create({
     card: {
         borderRadius: 30
     },
+    icon: {
+        color: '#ff8396',
+        fontSize: 35,
+        marginRight: 25
+    },
 
 });
 
