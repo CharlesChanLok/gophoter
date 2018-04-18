@@ -25,17 +25,23 @@ class AuthRouter{
         try {
             let Userservice = new UserService();
             const authResult  = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${accessToken}`);
-            if (authResult.data.error) {
+            if(authResult.data.error) {
                 res.sendStatus(401);
             }
-            if(Userservice.findid(authResult.data.email) != null || undefined){
+            else if(Userservice.findid(authResult.data.email) == null || undefined){
                 let userid = Userservice.create(authResult.data);
-                const token = jwtSimple.encode({ id: accessToken, info: authResult.data }, config.jwtSecret);
-                res.json({ token: token, UserProfile: authResult.data});
+                let token = jwtSimple.encode({ id: accessToken, info: authResult.data }, config.jwtSecret);
+                res.json({token: token , UserProfile: authResult.data, id: userid});
             }
-            
+            else if(Userservice.findid(authResult.data.email != null || undefined)){
+                let user = Userservice.findid(authResult.data.email)
+                user.then((id)=>{
+                let token = jwtSimple.encode({id: accessToken, info: authResult.data }, config.jwtSecret);
+                res.json({token: token , UserProfile: authResult.data, id: id});
+                })
+                }            
         } catch(err) {
-            console.log("ERROR " + err)
+            console.log("ERROR ", err);
             res.sendStatus(401);
         }
     }

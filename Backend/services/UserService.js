@@ -47,11 +47,10 @@ module.exports = class userservice {
             .from(users)
             .where('id', userId)
     }
-    
     findid(email) {
         return this.knex
-            .select("user.id")
+            .select("id")
             .from(users)
-            .where(email, "user.gmail")
+            .where("gmail", email)
     }
 }

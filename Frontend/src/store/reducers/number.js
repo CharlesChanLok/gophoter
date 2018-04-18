@@ -1,33 +1,21 @@
-import { SETNAME, SETEMAIL, SETID, PIC } from '../actions/actionTypes'
+import { SETPROFILE, SETID } from '../actions/actionTypes'
 
 const initialState = {
-    name: null,
-    email: null,
+    profile: null,
     id: null,
-    url: null
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case SETNAME:
+        case SETPROFILE:
             return {
                 ...state,
-                name: action.name
+                profile: action.profile
             }
-        case SETEMAIL:
-                return {
-                    ...state,
-                    email: action.email
-                }
         case SETID:
             return {
                 ...state,
                 id: action.id
-        }
-        case PIC:
-        return {
-            ...state,
-            url: action.url
         }
         default:
             return state

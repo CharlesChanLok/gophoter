@@ -1,4 +1,2 @@
-export const SETEMAIL = 'setemail';
-export const SETNAME = 'setname';
+export const SETEPROFILE = 'setprofile';
 export const SETID = 'setid';
-export const SETPIC = 'pic'

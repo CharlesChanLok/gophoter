@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component} from 'react';
 import {
   StyleSheet,
   Text,
   ImageBackground,
   View,
   Alert,
-  Linking
+  Linking,
+  AsyncStorage 
 } from 'react-native';
 import { connect, dispatch } from 'react-redux';
 import { Button } from 'native-base';
@@ -18,7 +19,7 @@ import MainScreen from './MainScreen';
 import ProfileScreen from './ProfileScreen';
 import SearchScreen from './SearchScreen';
 import { setjwtToken } from '../store/actions/actionTypes';
-import { setemail, setid, setname, setpic } from '../store/actions/users';
+import { setprofile, setid } from '../store/actions/users';
 import configStore from '../store/configstore'
 class LoginScreen extends Component {
   state = {
@@ -42,12 +43,11 @@ class LoginScreen extends Component {
       const jsonQuery = qs.parse(query);
       const response = await axios.post('http://10.0.2.2:3000/auth/verify/google', { accessToken: jsonQuery.access_token });
       const data = response.data;
-      this.setState({jwtToken:data.token});
-      this.props.setemail(data.UserProfile.email);
-      this.props.setname(data.UserProfile.name);
-      // mapDispatchToProps('setemail',data.UserProfile.email);
+      AsyncStorage.setItem('jwtToken', JSON.stringify(data.token));
+      this.props.setprofile(data.profile);
+      this.props.setid(data.id);
       this.props.navigation.navigate('Main');
-    }
+      }
     catch (err) {
       alert("Error " + err.message);
     }
@@ -136,18 +136,14 @@ const styles = StyleSheet.create({
 });
 function mapDispatchToProps(dispatch) {
   return {
-    setemail: (data) => dispatch(setemail(data)),
-    setname: (name) => dispatch(setname(name)),
-    setpic: (url) => dispatch(pic(url)),
-    setid: (num) => dispatch(num)
+    setprofile: (data) => dispatch(setprofile(data)),
+    setid: (num) => dispatch(setid(num))
   }
 }
 export default connect(
   state=>({
-  email: state.email,
-  setid: state.id,
-  pic: state.pic,
-  name:state.name
+  profile: state.profile,
+  id: state.id,
   }),
   mapDispatchToProps
 )(LoginScreen);

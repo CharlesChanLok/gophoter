@@ -19,15 +19,15 @@ class HeaderStatic extends Component {
         <View style={styles.header}>
 
           <View style={styles.propicContainer}>
-            <Image style={styles.propic} source={{ uri: this.props.url }} />
+            <Image style={styles.propic} source={{ uri: this.props.profile.picture }} />
           </View>
 
           <Text style={styles.myname}>
-            {this.props.name}
+            {this.props.profile.name}
           </Text>
 
           <Text style={styles.mydescribe}>
-            {this.props.email}
+            {this.props.profile.email}
           </Text>
 
         </View>
@@ -76,9 +76,7 @@ const styles = StyleSheet.create({
   }
 });
 const mapStateToProps = state => ({
-  name: state.numbers.name,
-  email: state.numbers.email,
-  url: state.numbers.url,
+  name: state.numbers.profile,
   id: state.numbers.id
 });
 export default connect(mapStateToProps)(HeaderStatic)
