@@ -73,41 +73,57 @@ export default class Events extends Component {
     });
   }
 
-
   async uploadPhoto() {
     console.log('upload')
+      
     if (this.state.data != null && this.state.location != null && this.state.title != null && this.state.chosenDate != null) {
       this.setState({ loading: true });
-      let promise = RNFetchBlob.fetch('POST', `http://10.0.2.2:3000/photos/${1}`, {
+      const resImage = await RNFetchBlob.fetch('POST', `http://10.0.2.2:3000/photos/${1}`, {
         Authorization: "Bearer access-token",
         otherHeader: "foo",
         'Content-Type': 'multipart/form-data',
       }, [
           { name: 'image', filename: this.state.data.fileName, type: this.state.data.type, data: this.state.data.data }
         ]);
-
-      let promise2 = axios.post('http://10.0.2.2:3000/events', {
+      const res2 = await axios.post('http://10.0.2.2:3000/events', {
         hostId: 1,
         datetime: this.state.datetime,
         location: this.state.location,
-        title: this.state.title
+        title: this.state.title,
+        imgUrl: resImage.json()
       });
-
-      Promise.all([promise, promise2])
-        .then(
-          this.setState({
-            loading: false,
-            imageSource: null,
-            data: null,
-            datetime: null,
-            location: null,
-            title: null
-          })
-        )
-        .catch((err) => {
-          console.log(err);
-          // ...
+      this.setState({
+          loading: false,
+          imageSource: null,
+          data: null,
+          datetime: null,
+          location: null,
+          title: null
         })
+      
+
+      // let promise2 = axios.post('http://10.0.2.2:3000/events', {
+      //   hostId: 1,
+      //   datetime: this.state.datetime,
+      //   location: this.state.location,
+      //   title: this.state.title
+      // });
+
+      //   .then((res) => {
+
+      //   this.setState({
+      //     loading: false,
+      //     imageSource: null,
+      //     data: null,
+      //     datetime: null,
+      //     location: null,
+      //     title: null
+      //   })
+      // })
+      //   .catch((err) => {
+      //     console.log(err);
+      //     // ...
+      //   })
       //   .then((resp) => {
 
       //   this.setState({
