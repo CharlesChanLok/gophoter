@@ -93,13 +93,54 @@ export default class DeckSwiperExample extends Component {
         getDirections(data)
     }
 
+    renderDeckSwiper =  () => {
+        if (this.state.cards.length > 0) {
+            return (
+                <DeckSwiper
+                dataSource={this.state.cards}
+                renderItem={item =>
+                    <Card style={{ elevation: this.state.cards.length }}>
+                        <CardItem cardBody>
+                            <Image style={styles.carouselimage} source={{ uri: item.img_url }} />
+                        </CardItem>
+
+                        <CardItem>
+                            <Left>
+                                <Thumbnail source={{ uri: this.state.userInfo.profile_image }} />
+                                <Body>
+                                    <Text style={styles.name}>{this.state.userInfo.first_name} {this.state.userInfo.last_name}</Text>
+                                    <Text note style={styles.location}>{item.location}</Text>
+                                </Body>
+                            </Left>
+                            <Right>
+                                <TouchableHighlight onPress={() => { this.handleGetDirections(item.latitude, item.longitude) }}>
+                                    <Icon style={styles.icon} name="ios-navigate" />
+                                </TouchableHighlight>
+                                <Text note>15th May 21:15</Text>
+                            </Right>
+                        </CardItem>
+        
+                        <Button full info style={styles.button} onPress={() => this.setModalVisible(true)}>
+                            <Text style={{ fontFamily: 'Montserrat-SemiBold' }}>Info</Text>
+                        </Button>
+                    </Card>
+                }
+            />
+            )
+        } else {
+            return ;
+        }
+       
+    }
     render() {
         console.log(this.state.cards);
+        
+
         return (
 
             <Container>
                 <View>
-                    {/* <Modal
+                    <Modal
                         animationType="slide"
                         transparent={false}
                         visible={this.state.modalVisible}
@@ -157,21 +198,21 @@ export default class DeckSwiperExample extends Component {
                                 </Button>
                             </View>
                         </ScrollView>
-                    </Modal> */}
+                    </Modal>
 
-
-                    <DeckSwiper
+                    {this.renderDeckSwiper()}
+                    {/* <DeckSwiper
                         dataSource={this.state.cards}
 
                         renderItem={item =>
 
 
-                            <Card style={{ elevation: this.state.cards.length, }}>
+                            <Card style={{ elevation: this.state.cards.length }}>
 
 
 
                                 <CardItem cardBody>
-                                    <Image style={styles.carouselimage} source={{uri: item.img_url}} />
+                                    <Image style={styles.carouselimage} source={{ uri: item.img_url }} />
                                 </CardItem>
                                 <CardItem>
                                     <Left>
@@ -194,7 +235,7 @@ export default class DeckSwiperExample extends Component {
                                 </Button>
                             </Card>
                         }
-                    />
+                    /> */}
                 </View>
             </Container>
         );
