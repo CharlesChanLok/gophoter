@@ -1,8 +1,8 @@
-import { SETEPROFILE, SETID } from './actionTypes'
+import { SETPROFILE, SETID } from './actionTypes'
 
 export const setprofile = (profile) => {
     return{
-    type: SETEPROFILE,
+    type: SETPROFILE,
     profile
     }
 }

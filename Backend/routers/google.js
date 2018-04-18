@@ -37,7 +37,8 @@ class AuthRouter{
                 let user = Userservice.findid(authResult.data.email)
                 user.then((id)=>{
                 let token = jwtSimple.encode({id: accessToken, info: authResult.data }, config.jwtSecret);
-                res.json({token: token , UserProfile: authResult.data, id: id});
+                console.log( authResult.data);
+                res.json({token: token , profile: authResult.data, id: id});
                 })
                 }            
         } catch(err) {

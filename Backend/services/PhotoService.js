@@ -8,8 +8,9 @@ module.exports = class PhotoService {
     }
 
     create(photo) {
+        console.log(photo)
         return this.knex
-            .insert({img_url: photo.path})
+            .insert({user_id: photo.userId, img_url: photo.path})
             .into(PHOTOS)
             .returning("img_url");
     }
@@ -25,6 +26,14 @@ module.exports = class PhotoService {
             .select("*")
             .from(PHOTOS)
             .limit(limit).offset(offset);
+    }
+
+    listPhotosByUser(userId) {
+        return this.knex
+        .select('*')
+        .from(PHOTOS)
+            .join('users', { 'users.id': 'photos.user_id' })
+            .where('users.id', userId)
     }
 
     tag(photoId, tagId) {

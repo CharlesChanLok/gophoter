@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
 import { Container, Header, Content, List, ListItem, Text, Icon, Left, Body, Right, Switch, Button, Card, CardItem, } from 'native-base';
-import { TouchableOpacity, View, TextInput, StyleSheet } from "react-native";
+import { TouchableOpacity, ActivityIndicator, View, TextInput, StyleSheet, Image } from "react-native";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import axios from 'axios';
 import moment from 'moment'
+import ImagePicker from 'react-native-image-picker';
+import RNFetchBlob from 'react-native-fetch-blob';
+
+const options = {
+  title: 'Select a photo',
+  takePhotoButtonTitle: 'Take a photo',
+  chooseFromLibraryButtonTitle: 'Choose from gallery',
+  qality: 1
+
+};
+
 export default class Events extends Component {
   constructor(props) {
     super(props);
@@ -14,8 +25,71 @@ export default class Events extends Component {
       isDateTimePickerVisible: false,
       datetime: '',
       location: '',
-      title: ''
+      title: '',
+      imageSource: null,
+      data: null,
+      loading: false
     };
+  }
+  selectPhoto() {
+    this.setState({ loading: false })
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      }
+      else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      }
+      else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      }
+      else {
+        let source = { uri: response.uri };
+
+        // You can also display the image using data:
+        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+        this.setState({
+          imageSource: source,
+          data: response
+        });
+      }
+    });
+  }
+
+  uploadPhoto() {
+    console.log('upload')
+    if (this.state.data != null) {
+      this.setState({ loading: true });
+      RNFetchBlob.fetch('POST', `http://10.0.2.2:3000/photos/${1}`, {
+        Authorization: "Bearer access-token",
+        otherHeader: "foo",
+        'Content-Type': 'multipart/form-data',
+      }, [
+          { name: 'image', filename: this.state.data.fileName, type: this.state.data.type, data: this.state.data.data }
+        ]).then((resp) => {
+    
+          this.setState({
+            loading: false,
+            imageSource: null,
+            data: null
+          })
+        }).catch((err) => {
+         
+        })
+    }
+  }
+
+  renderUpload() {
+    if (this.state.loading === false) {
+      return (
+        <Button style={styles.button} full info onPress={() => this.uploadPhoto()}>
+          <Text style={styles.text}>Upload</Text>
+        </Button>)
+    }
+    return <ActivityIndicator size="large" color="#00ff00" />;
   }
 
   _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
@@ -28,7 +102,7 @@ export default class Events extends Component {
       chosenDate: moment(datetime).format('MMM, Do YYYY HH:mm'),
       datetime: datetime
     })
-    //alert('A date has been picked: ' + datetime);
+    alert('A date has been picked: ' + datetime);
     this._hideDateTimePicker();
   };
 
@@ -52,9 +126,11 @@ export default class Events extends Component {
         console.log(error);
       });
   };
+
   render() {
     return (
       <Container style={{ backgroundColor: '#fff' }}>
+      
         <View>
           <Text style={styles.logo}>Go Photer</Text>
         </View>
@@ -110,11 +186,22 @@ export default class Events extends Component {
 
             </CardItem>
           </Card>
-        </Content>
 
+
+
+        </Content>
+        <TouchableOpacity onPress={() => this.selectPhoto()}>
+            <Image style={styles.image}
+              source={this.state.imageSource == null ? require('../../assets/Images/upload2.png') : this.state.imageSource}
+            />
+          </TouchableOpacity>
+         {this.renderUpload()}
         <Button full info style={styles.button} onPress={() => this.handleSubmit()}>
-          <Text>Submit</Text>
+          <Text style={styles.submit}>Submit</Text>
         </Button>
+  
+         
+      
 
       </Container>
     );
@@ -133,7 +220,8 @@ const styles = StyleSheet.create({
   text: {
     alignSelf: 'stretch',
     fontSize: 20,
-    marginTop: 10
+    marginTop: 10,
+    fontFamily: 'Montserrat-SemiBold'
   },
   body: {
     borderBottomWidth: 0,
@@ -148,11 +236,24 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#ff8396",
-    marginBottom: 0
+    marginBottom: 0,
+    fontFamily: 'Montserrat-SemiBold'
   },
   textinput: {
     color: "#ff8396",
     fontSize: 20,
     alignSelf: 'stretch',
+    fontFamily: 'Montserrat-SemiBold'
   },
+
+  submit: {
+    fontFamily: 'Montserrat-SemiBold'
+  },
+
+  image: {
+    width: 170,
+    height: 170,
+    alignSelf: 'center'
+
+  }
 });

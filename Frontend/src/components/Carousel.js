@@ -1,45 +1,55 @@
 import React, { Component } from 'react';
-import { Image, StyleSheet, Modal, ScrollView } from 'react-native';
+import { Image, StyleSheet, Modal, ScrollView, TouchableHighlight } from 'react-native';
 import { View, DeckSwiper, Container, Card, CardItem, Thumbnail, Text, Left, Right, Body, Button, List, ListItem, Icon } from 'native-base';
-import getDirections from 'react-native-google-maps-directions';
-
+import getDirections from './ViewMap'
 const cards = [
     {
         text: 'Steve Divish',
         description: 'Central Long Exposure',
         name: 'One',
         image: require('../../assets/Images/image4.jpg'),
-
+        latitude: 22.279453,
+        longitude: 114.166283
     },
     {
         text: 'Virginia Nirgo',
         description: 'East Shinjuku Shootout ',
         name: 'Two',
         image: require('../../assets/Images/image5.jpg'),
+        latitude: 35.695256,
+        longitude: 139.699706
     },
     {
         text: 'Cloe Ferrnando',
         description: 'Central Urban Shootout',
         name: 'Three',
         image: require('../../assets/Images/image6.jpg'),
+        latitude: 22.279626,
+        longitude: 114.160563
     },
     {
         text: 'Jonathan Doku',
         description: 'Victoria Habour Shootout',
         name: 'Four',
         image: require('../../assets/Images/image7.jpg'),
+        latitude: 22.282998,
+        longitude: 114.166177
     },
     {
         text: 'Tommy Worden',
         description: 'High West Peak Shootout',
         name: 'Five',
         image: require('../../assets/Images/image8.jpg'),
+        latitude: 22.269196,
+        longitude: 114.134274
     },
     {
         text: 'Emily Boreel',
         description: 'Roppongi Hills, Tokyo',
         name: 'Six',
         image: require('../../assets/Images/image9.jpg'),
+        latitude: 35.660464,
+        longitude: 139.729249
     },
 
 ];
@@ -52,21 +62,22 @@ export default class DeckSwiperExample extends Component {
     setModalVisible(visible) {
         this.setState({ modalVisible: visible });
     }
-    handleGetDirections = () => {
+
+    handleGetDirections = (latitude, longitude) => {
         const data = {
-          destination: {
-            latitude: -33.8600024,
-            longitude: 18.697459
-          }
+            destination: {
+                latitude: latitude,
+                longitude: longitude
+            }
         }
-     
+
         getDirections(data)
-      }
+    }
+
     render() {
         return (
 
             <Container>
-
                 <View>
                     <Modal
                         animationType="slide"
@@ -117,7 +128,7 @@ export default class DeckSwiperExample extends Component {
                             <View style={{ flexDirection: "row", alignSelf: "center", paddingTop: 30, paddingBottom: 30, marginTop: 50 }}>
 
                                 <Button block info style={{ width: 150 }}>
-                                    <Text>Join</Text>
+                                    <Text >Join</Text>
                                 </Button>
 
                                 <Button block danger onPress={() => { this.setModalVisible(false) }} style={{ width: 150 }}>
@@ -129,33 +140,35 @@ export default class DeckSwiperExample extends Component {
 
                     <DeckSwiper
                         dataSource={cards}
-
+                        
                         renderItem={item =>
 
 
-                            <Card style={{ elevation: 6, borderRadius: 30 }}>
-                                <Text style={styles.logo2}>Go Photer</Text>
+                            <Card style={{ elevation: 6, }}>
+
 
 
                                 <CardItem cardBody>
-                                    <Image style={{ height: 400, flex: 1 }} source={item.image} />
+                                    <Image style={styles.carouselimage} source={item.image} />
                                 </CardItem>
                                 <CardItem>
                                     <Left>
                                         <Thumbnail source={{ uri: 'https://instagram.fhkg3-1.fna.fbcdn.net/vp/ca75e7c9e0471c5ca6a6d1182670e19d/5B5CD445/t51.2885-19/s150x150/14262883_301061306925458_1843307609_a.jpg' }} />
                                         <Body>
-                                            <Text>{item.text}</Text>
-                                            <Text note>{item.description}</Text>
+                                            <Text style={styles.name}>{item.text}</Text>
+                                            <Text note style={styles.location}>{item.description}</Text>
                                         </Body>
                                     </Left>
                                     <Right>
-                                        <Icon onPress={this.handleGetDirections} style={styles.icon} name="ios-navigate" />
+                                        <TouchableHighlight onPress={() => { this.handleGetDirections(item.latitude, item.longitude) }}>
+                                            <Icon style={styles.icon} name="ios-navigate" />
+                                        </TouchableHighlight>
                                         <Text note>15th May 21:15</Text>
                                     </Right>
                                 </CardItem>
 
                                 <Button full info style={styles.button} onPress={() => this.setModalVisible(true)}>
-                                    <Text>Info</Text>
+                                    <Text style={{fontFamily: 'Montserrat-SemiBold'}}>Info</Text>
                                 </Button>
                             </Card>
                         }
@@ -183,6 +196,36 @@ const styles = StyleSheet.create({
         paddingBottom: 30,
         
 
+
+    },
+    carouselimage: {
+        height: 500,
+        flex: 1,
+        borderTopRightRadius: 50,
+        borderTopLeftRadius: 50
+    },
+
+
+    title: {
+        alignSelf: 'center',
+        fontSize: 20,
+        marginTop: 10,
+        fontFamily: 'Montserrat-SemiBold',
+    },
+    button: {
+        borderBottomLeftRadius: 50,
+        borderBottomRightRadius: 50,
+        backgroundColor: '#ff8396',
+        padding: 5,
+        fontFamily: 'Montserrat-SemiBold'
+    },
+
+    name: {
+        fontFamily: 'Montserrat-SemiBold'
+    },
+
+    location: {
+        fontFamily: 'Montserrat-Regular'
     },
 
     title: {
@@ -200,7 +243,8 @@ const styles = StyleSheet.create({
 
     attenders: {
         marginLeft: 10,
-        width: 100
+        width: 100,
+        fontFamily: 'Montserrat-SemiBold',
     },
     icon: {
         color: '#ff8396',
@@ -209,11 +253,13 @@ const styles = StyleSheet.create({
     },
     secondline: {
         alignSelf: 'center',
-        fontSize: 20
+        fontSize: 20,
+        fontFamily: 'Montserrat-SemiBold',
     },
     datetime: {
         alignSelf: 'center',
-        marginTop: 10
+        marginTop: 10,
+        fontFamily: 'Montserrat-SemiBold'
     },
     logo2: {
         textAlign: 'center',

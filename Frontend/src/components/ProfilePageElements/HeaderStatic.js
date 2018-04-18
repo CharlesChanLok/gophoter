@@ -11,7 +11,6 @@ import {
 import { connect } from 'react-redux';
 
 class HeaderStatic extends Component {
-
   render() {
     return (
       <ImageBackground style={styles.headerBackground} source={require('../../../assets/Images/choihung.jpg')}>
@@ -67,7 +66,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 20,
     color: '#fff',
-    fontWeight: 'bold'
+    fontFamily: 'Montserrat-SemiBold'
   },
   mydescribe: {
     fontSize: 15,
@@ -76,7 +75,7 @@ const styles = StyleSheet.create({
   }
 });
 const mapStateToProps = state => ({
-  name: state.numbers.profile,
+  profile: state.numbers.profile,
   id: state.numbers.id
 });
 export default connect(mapStateToProps)(HeaderStatic)

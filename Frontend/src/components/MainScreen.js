@@ -78,12 +78,12 @@ const AppTabNavigator = TabNavigator({
             tabBarIcon: ({ tintColor }) => { return (<Icon name="ios-paper" />) }
         }
     },
-    UploadTab: {
-        screen: UploadTab,
-        navigationOptions: {
-            tabBarIcon: ({ tintColor }) => { return (<Icon name="ios-camera" />) }
-        }
-    },
+    // UploadTab: {
+    //     screen: UploadTab,
+    //     navigationOptions: {
+    //         tabBarIcon: ({ tintColor }) => { return (<Icon name="ios-camera" />) }
+    //     }
+    // },
     RecommendationsTab: {
         screen: RecommendationsTab,
         navigationOptions: {

@@ -1,2 +1,2 @@
-export const SETEPROFILE = 'setprofile';
+export const SETPROFILE = 'setprofile';
 export const SETID = 'setid';
