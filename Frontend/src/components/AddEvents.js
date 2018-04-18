@@ -28,6 +28,7 @@ export default class Events extends Component {
       title: null,
       imageSource: null,
       data: null,
+      loading: false
     };
   }
 
