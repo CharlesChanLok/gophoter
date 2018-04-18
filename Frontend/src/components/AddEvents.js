@@ -19,18 +19,33 @@ export default class Events extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      chosenDate: '',
+      chosenDate: null,
       timeStart: 0,
       timeEnd: 0,
       isDateTimePickerVisible: false,
-      datetime: '',
-      location: '',
-      title: '',
+      datetime: null,
+      location: null,
+      title: null,
       imageSource: null,
       data: null,
       loading: false
     };
   }
+
+  _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
+
+  _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
+
+  _handleDatePicked = (datetime) => {
+
+    this.setState({
+      chosenDate: moment(datetime).format('MMM, Do YYYY HH:mm'),
+      datetime: datetime
+    })
+    alert('A date has been picked: ' + datetime);
+    this._hideDateTimePicker();
+  };
+
   selectPhoto() {
     this.setState({ loading: false })
     ImagePicker.showImagePicker(options, (response) => {
@@ -50,7 +65,6 @@ export default class Events extends Component {
 
         // You can also display the image using data:
         // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-
         this.setState({
           imageSource: source,
           data: response
@@ -59,26 +73,51 @@ export default class Events extends Component {
     });
   }
 
-  uploadPhoto() {
+
+  async uploadPhoto() {
     console.log('upload')
-    if (this.state.data != null) {
+    if (this.state.data != null && this.state.location != null && this.state.title != null && this.state.chosenDate != null) {
       this.setState({ loading: true });
-      RNFetchBlob.fetch('POST', `http://10.0.2.2:3000/photos/${1}`, {
+      let promise = RNFetchBlob.fetch('POST', `http://10.0.2.2:3000/photos/${1}`, {
         Authorization: "Bearer access-token",
         otherHeader: "foo",
         'Content-Type': 'multipart/form-data',
       }, [
           { name: 'image', filename: this.state.data.fileName, type: this.state.data.type, data: this.state.data.data }
-        ]).then((resp) => {
-    
+        ]);
+
+      let promise2 = axios.post('http://10.0.2.2:3000/events', {
+        hostId: 1,
+        datetime: this.state.datetime,
+        location: this.state.location,
+        title: this.state.title
+      });
+
+      Promise.all([promise, promise2])
+        .then(
           this.setState({
             loading: false,
             imageSource: null,
-            data: null
+            data: null,
+            datetime: null,
+            location: null,
+            title: null
           })
-        }).catch((err) => {
-         
+        )
+        .catch((err) => {
+          console.log(err);
+          // ...
         })
+      //   .then((resp) => {
+
+      //   this.setState({
+      //     loading: false,
+      //     imageSource: null,
+      //     data: null
+      //   })
+      // }).catch((err) => {
+
+      // })
     }
   }
 
@@ -86,51 +125,36 @@ export default class Events extends Component {
     if (this.state.loading === false) {
       return (
         <Button style={styles.button} full info onPress={() => this.uploadPhoto()}>
-          <Text style={styles.text}>Upload</Text>
+          <Text style={styles.text}>Submit</Text>
         </Button>)
     }
     return <ActivityIndicator size="large" color="#00ff00" />;
   }
-
-  _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
-
-  _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
-
-  _handleDatePicked = (datetime) => {
-
-    this.setState({
-      chosenDate: moment(datetime).format('MMM, Do YYYY HH:mm'),
-      datetime: datetime
-    })
-    alert('A date has been picked: ' + datetime);
-    this._hideDateTimePicker();
-  };
-
-  handleSubmit = () => {
-    axios.post('http://10.0.2.2:3000/events', {
-      hostId: 1,
-      datetime: this.state.datetime,
-      location: this.state.location,
-      title: this.state.title
-    })
-      .then((response) => {
-        console.log(response)
-        alert('Event created')
-        this.setState({
-          datetime: '',
-          location: '',
-          title: ''
-        })
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // handleSubmit = () => {
+  //   axios.post('http://10.0.2.2:3000/events', {
+  //     hostId: 1,
+  //     datetime: this.state.datetime,
+  //     location: this.state.location,
+  //     title: this.state.title
+  //   })
+  //     .then((response) => {
+  //       console.log(response)
+  //       alert('Event created')
+  //       this.setState({
+  //         datetime: '',
+  //         location: '',
+  //         title: ''
+  //       })
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   render() {
     return (
       <Container style={{ backgroundColor: '#fff' }}>
-      
+
         <View>
           <Text style={styles.logo}>Go Photer</Text>
         </View>
@@ -186,23 +210,16 @@ export default class Events extends Component {
 
             </CardItem>
           </Card>
-
-
-
         </Content>
         <TouchableOpacity onPress={() => this.selectPhoto()}>
-            <Image style={styles.image}
-              source={this.state.imageSource == null ? require('../../assets/Images/upload2.png') : this.state.imageSource}
-            />
-          </TouchableOpacity>
-         {this.renderUpload()}
-        <Button full info style={styles.button} onPress={() => this.handleSubmit()}>
+          <Image style={styles.image}
+            source={this.state.imageSource == null ? require('../../assets/Images/upload2.png') : this.state.imageSource}
+          />
+        </TouchableOpacity>
+        {this.renderUpload()}
+        {/* <Button full info style={styles.button} onPress={() => this.handleSubmit()}>
           <Text style={styles.submit}>Submit</Text>
-        </Button>
-  
-         
-      
-
+        </Button> */}
       </Container>
     );
   }
