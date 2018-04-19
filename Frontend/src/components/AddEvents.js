@@ -42,7 +42,6 @@ export default class Events extends Component {
       chosenDate: moment(datetime).format('MMM, Do YYYY HH:mm'),
       datetime: datetime
     })
-    alert('A date has been picked: ' + datetime);
     this._hideDateTimePicker();
   };
 
@@ -73,9 +72,7 @@ export default class Events extends Component {
     });
   }
 
-  async uploadPhoto() {
-    console.log('upload')
-      
+  async uploadPhoto() {  
     if (this.state.data != null && this.state.location != null && this.state.title != null && this.state.chosenDate != null) {
       this.setState({ loading: true });
       const resImage = await RNFetchBlob.fetch('POST', `http://10.0.2.2:3000/photos/${1}`, {
@@ -100,8 +97,6 @@ export default class Events extends Component {
           location: null,
           title: null
         })
-      
-
       // let promise2 = axios.post('http://10.0.2.2:3000/events', {
       //   hostId: 1,
       //   datetime: this.state.datetime,
@@ -140,12 +135,14 @@ export default class Events extends Component {
   renderUpload() {
     if (this.state.loading === false) {
       return (
-        <Button style={styles.button} full info onPress={() => this.uploadPhoto()}>
+        <Button full info style={styles.button} onPress={() => this.uploadPhoto()}>
           <Text style={styles.text}>Submit</Text>
         </Button>)
     }
     return <ActivityIndicator size="large" color="#00ff00" />;
-  }
+    }
+
+  
   // handleSubmit = () => {
   //   axios.post('http://10.0.2.2:3000/events', {
   //     hostId: 1,
@@ -174,10 +171,10 @@ export default class Events extends Component {
         <View>
           <Text style={styles.logo}>Go Photer</Text>
         </View>
-        <Content style={{ marginTop: 50 }}>
+        <Content style={{ marginTop: 30 }}>
           <Card style={{ flex: 1 }} >
 
-            <CardItem style={{ alignSelf: 'stretch' }}>
+            <CardItem style={{ alignSelf: 'stretch', paddingRight: 50 }}>
 
               <Icon name="ios-time" style={styles.icon} />
 
@@ -200,7 +197,7 @@ export default class Events extends Component {
 
             </CardItem>
 
-            <CardItem style={{ alignSelf: 'stretch' }}>
+            <CardItem style={{ alignSelf: 'stretch',  paddingRight: 50 }}>
 
               <Icon name="ios-navigate" style={styles.icon} />
 
@@ -213,7 +210,7 @@ export default class Events extends Component {
 
             </CardItem>
 
-            <CardItem style={{ alignSelf: 'stretch' }}>
+            <CardItem style={{ alignSelf: 'stretch', paddingRight: 50}}>
 
               <Icon name="ios-paper" style={styles.icon} />
 
@@ -225,17 +222,16 @@ export default class Events extends Component {
               </Body>
 
             </CardItem>
+            <CardItem>
+              <TouchableOpacity onPress={() => this.selectPhoto()}>
+                <Image style={styles.image}
+                  source={this.state.imageSource == null ? require('../../assets/Images/upload2.png') : this.state.imageSource}
+                />
+              </TouchableOpacity>
+            </CardItem>
+              {this.renderUpload()}
           </Card>
         </Content>
-        <TouchableOpacity onPress={() => this.selectPhoto()}>
-          <Image style={styles.image}
-            source={this.state.imageSource == null ? require('../../assets/Images/upload2.png') : this.state.imageSource}
-          />
-        </TouchableOpacity>
-        {this.renderUpload()}
-        {/* <Button full info style={styles.button} onPress={() => this.handleSubmit()}>
-          <Text style={styles.submit}>Submit</Text>
-        </Button> */}
       </Container>
     );
   }
@@ -269,14 +265,18 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#ff8396",
-    marginBottom: 0,
-    fontFamily: 'Montserrat-SemiBold'
+    marginTop: 30,
+    fontFamily: 'Montserrat-SemiBold',
+    alignSelf: 'center',
+    paddingLeft: 145,
+    paddingRight:145
   },
   textinput: {
     color: "#ff8396",
     fontSize: 20,
     alignSelf: 'stretch',
-    fontFamily: 'Montserrat-SemiBold'
+    fontFamily: 'Montserrat-SemiBold',
+    paddingRight: 20
   },
 
   submit: {
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
   image: {
     width: 170,
     height: 170,
-    alignSelf: 'center'
-
+    alignSelf: 'center',
+    marginLeft: 100
   }
 });

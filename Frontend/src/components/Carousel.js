@@ -262,7 +262,6 @@ export default class DeckSwiperExample extends Component {
     }
 }
 
-
 const styles = StyleSheet.create({
 
     modalbutton: {
