@@ -42,7 +42,6 @@ export default class Events extends Component {
       chosenDate: moment(datetime).format('MMM, Do YYYY HH:mm'),
       datetime: datetime
     })
-    alert('A date has been picked: ' + datetime);
     this._hideDateTimePicker();
   };
 
@@ -73,41 +72,55 @@ export default class Events extends Component {
     });
   }
 
-
   async uploadPhoto() {
-    console.log('upload')
     if (this.state.data != null && this.state.location != null && this.state.title != null && this.state.chosenDate != null) {
       this.setState({ loading: true });
-      let promise = RNFetchBlob.fetch('POST', `http://10.0.2.2:3000/photos/${1}`, {
+      const resImage = await RNFetchBlob.fetch('POST', `http://10.0.2.2:3000/photos/${1}`, {
         Authorization: "Bearer access-token",
         otherHeader: "foo",
         'Content-Type': 'multipart/form-data',
       }, [
           { name: 'image', filename: this.state.data.fileName, type: this.state.data.type, data: this.state.data.data }
         ]);
-
-      let promise2 = axios.post('http://10.0.2.2:3000/events', {
+      const res2 = await axios.post('http://10.0.2.2:3000/events', {
         hostId: 1,
         datetime: this.state.datetime,
         location: this.state.location,
-        title: this.state.title
+        title: this.state.title,
+        imgUrl: resImage.json()
       });
+      this.setState({
+        loading: false,
+        imageSource: null,
+        data: null,
+        datetime: null,
+        location: null,
+        title: null
+      })
 
-      Promise.all([promise, promise2])
-        .then(
-          this.setState({
-            loading: false,
-            imageSource: null,
-            data: null,
-            datetime: null,
-            location: null,
-            title: null
-          })
-        )
-        .catch((err) => {
-          console.log(err);
-          // ...
-        })
+
+      // let promise2 = axios.post('http://10.0.2.2:3000/events', {
+      //   hostId: 1,
+      //   datetime: this.state.datetime,
+      //   location: this.state.location,
+      //   title: this.state.title
+      // });
+
+      //   .then((res) => {
+
+      //   this.setState({
+      //     loading: false,
+      //     imageSource: null,
+      //     data: null,
+      //     datetime: null,
+      //     location: null,
+      //     title: null
+      //   })
+      // })
+      //   .catch((err) => {
+      //     console.log(err);
+      //     // ...
+      //   })
       //   .then((resp) => {
 
       //   this.setState({
@@ -124,12 +137,14 @@ export default class Events extends Component {
   renderUpload() {
     if (this.state.loading === false) {
       return (
-        <Button style={styles.button} full info onPress={() => this.uploadPhoto()}>
+        <Button full info style={styles.button} onPress={() => this.uploadPhoto()}>
           <Text style={styles.text}>Submit</Text>
         </Button>)
+    } else {
+      return <ActivityIndicator size="large" color="#00ff00" />;
     }
-    return <ActivityIndicator size="large" color="#00ff00" />;
   }
+
   // handleSubmit = () => {
   //   axios.post('http://10.0.2.2:3000/events', {
   //     hostId: 1,
@@ -152,16 +167,17 @@ export default class Events extends Component {
   // };
 
   render() {
+
     return (
       <Container style={{ backgroundColor: '#fff' }}>
 
         <View>
           <Text style={styles.logo}>Go Photer</Text>
         </View>
-        <Content style={{ marginTop: 50 }}>
+        <Content style={{ marginTop: 30 }}>
           <Card style={{ flex: 1 }} >
 
-            <CardItem style={{ alignSelf: 'stretch' }}>
+            <CardItem style={{ alignSelf: 'stretch', paddingRight: 50 }}>
 
               <Icon name="ios-time" style={styles.icon} />
 
@@ -184,7 +200,7 @@ export default class Events extends Component {
 
             </CardItem>
 
-            <CardItem style={{ alignSelf: 'stretch' }}>
+            <CardItem style={{ alignSelf: 'stretch', paddingRight: 50 }}>
 
               <Icon name="ios-navigate" style={styles.icon} />
 
@@ -197,7 +213,7 @@ export default class Events extends Component {
 
             </CardItem>
 
-            <CardItem style={{ alignSelf: 'stretch' }}>
+            <CardItem style={{ alignSelf: 'stretch', paddingRight: 50 }}>
 
               <Icon name="ios-paper" style={styles.icon} />
 
@@ -209,21 +225,20 @@ export default class Events extends Component {
               </Body>
 
             </CardItem>
+            <CardItem>
+              <TouchableOpacity onPress={() => this.selectPhoto()}>
+                <Image style={styles.image}
+                  source={this.state.imageSource == null ? require('../../assets/Images/upload2.png') : this.state.imageSource}
+                />
+              </TouchableOpacity>
+            </CardItem>
+            {this.renderUpload()}
           </Card>
         </Content>
-        <TouchableOpacity onPress={() => this.selectPhoto()}>
-          <Image style={styles.image}
-            source={this.state.imageSource == null ? require('../../assets/Images/upload2.png') : this.state.imageSource}
-          />
-        </TouchableOpacity>
-        {this.renderUpload()}
-        {/* <Button full info style={styles.button} onPress={() => this.handleSubmit()}>
-          <Text style={styles.submit}>Submit</Text>
-        </Button> */}
-      </Container>
-    );
+      </Container >
+    )
   }
-}
+};
 
 const styles = StyleSheet.create({
   logo: {
@@ -253,14 +268,18 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#ff8396",
-    marginBottom: 0,
-    fontFamily: 'Montserrat-SemiBold'
+    marginTop: 30,
+    fontFamily: 'Montserrat-SemiBold',
+    alignSelf: 'center',
+    paddingLeft: 145,
+    paddingRight: 145
   },
   textinput: {
     color: "#ff8396",
     fontSize: 20,
     alignSelf: 'stretch',
-    fontFamily: 'Montserrat-SemiBold'
+    fontFamily: 'Montserrat-SemiBold',
+    paddingRight: 20
   },
 
   submit: {
@@ -270,7 +289,8 @@ const styles = StyleSheet.create({
   image: {
     width: 170,
     height: 170,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    marginLeft: 100
 
   }
 });
