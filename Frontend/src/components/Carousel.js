@@ -56,9 +56,7 @@ import axios from 'axios';
 // ];
 export default class DeckSwiperExample extends Component {
     state = {
-        modalVisible: false,
-        cards: [],
-        userInfo: {}
+        modalVisible: false
     };
 
     // urls = [`http://10.0.2.2:3000/users/${1}`,
@@ -109,9 +107,6 @@ export default class DeckSwiperExample extends Component {
             return;
         }
     }
-
-
-
     renderDeckSwiper = () => {
         if (this.props.cards.length > 0) {
             return (
@@ -135,7 +130,7 @@ export default class DeckSwiperExample extends Component {
                                     <TouchableHighlight onPress={() => { this.handleGetDirections(item.latitude, item.longitude) }}>
                                         <Icon style={styles.icon} name="ios-navigate" />
                                     </TouchableHighlight>
-                                    <Text note>{Date(item.date)}</Text>
+                                    <Text note>15th May 21:15</Text>
                                 </Right>
                             </CardItem>
 
@@ -149,12 +144,8 @@ export default class DeckSwiperExample extends Component {
         } else {
             return;
         }
-
     }
     render() {
-        console.log(this.state.cards);
-
-
         return (
 
             <Container>
@@ -261,7 +252,6 @@ export default class DeckSwiperExample extends Component {
         );
     }
 }
-
 
 const styles = StyleSheet.create({
 
