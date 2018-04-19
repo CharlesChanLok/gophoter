@@ -61,22 +61,22 @@ export default class DeckSwiperExample extends Component {
         userInfo: {}
     };
 
-    urls = [`http://10.0.2.2:3000/users/${1}`,
-        `http://10.0.2.2:3000/events`
-    ];
+    // urls = [`http://10.0.2.2:3000/users/${1}`,
+    //     `http://10.0.2.2:3000/events`
+    // ];
 
-    componentWillMount() {
-        Promise.all(this.urls.map(url => {
-            return axios.get(url).then(res => res)
-        })).then(res => {
-            console.log(res[1].data)
-            console.log(res[0].data)
-            this.setState({
-                userInfo: res[0].data,
-                cards: res[1].data
-            })
-        })
-    }
+    // componentWillMount() {
+    //     Promise.all(this.urls.map(url => {
+    //         return axios.get(url).then(res => res)
+    //     })).then(res => {
+    //         console.log(res[1].data)
+    //         console.log(res[0].data)
+    //         this.setState({
+    //             userInfo: res[0].data,
+    //             cards: res[1].data
+    //         })
+    //     })
+    // }
 
     setModalVisible(visible) {
         this.setState({ modalVisible: visible });
@@ -93,48 +93,67 @@ export default class DeckSwiperExample extends Component {
         getDirections(data)
     }
 
-    renderDeckSwiper =  () => {
-        if (this.state.cards.length > 0) {
+    renderInfoList() {
+        if (this.props.cards.length > 0) {
+            return (this.props.cards.map(function (rec, i) {
+                return (
+                    <List>
+                        <ListItem noBorder>
+                            <Thumbnail source={{ uri: this.props.userInfo }} />
+                            <Text style={styles.attenders} >{this.props.userInfo.first_name} {this.props.userInfo.last_name}</Text>
+                        </ListItem>
+                    </List>
+                );
+            }, this));
+        } else {
+            return;
+        }
+    }
+
+
+
+    renderDeckSwiper = () => {
+        if (this.props.cards.length > 0) {
             return (
                 <DeckSwiper
-                dataSource={this.state.cards}
-                renderItem={item =>
-                    <Card style={{ elevation: this.state.cards.length }}>
-                        <CardItem cardBody>
-                            <Image style={styles.carouselimage} source={{ uri: item.img_url }} />
-                        </CardItem>
+                    dataSource={this.props.cards}
+                    renderItem={item =>
+                        <Card style={{ elevation: this.props.cards.length }}>
+                            <CardItem cardBody>
+                                <Image style={styles.carouselimage} source={{ uri: item.img_url }} />
+                            </CardItem>
 
-                        <CardItem>
-                            <Left>
-                                <Thumbnail source={{ uri: this.state.userInfo.profile_image }} />
-                                <Body>
-                                    <Text style={styles.name}>{this.state.userInfo.first_name} {this.state.userInfo.last_name}</Text>
-                                    <Text note style={styles.location}>{item.location}</Text>
-                                </Body>
-                            </Left>
-                            <Right>
-                                <TouchableHighlight onPress={() => { this.handleGetDirections(item.latitude, item.longitude) }}>
-                                    <Icon style={styles.icon} name="ios-navigate" />
-                                </TouchableHighlight>
-                                <Text note>15th May 21:15</Text>
-                            </Right>
-                        </CardItem>
-        
-                        <Button full info style={styles.button} onPress={() => this.setModalVisible(true)}>
-                            <Text style={{ fontFamily: 'Montserrat-SemiBold' }}>Info</Text>
-                        </Button>
-                    </Card>
-                }
-            />
+                            <CardItem>
+                                <Left>
+                                    <Thumbnail source={{ uri: this.props.userInfo.profile_image }} />
+                                    <Body>
+                                        <Text style={styles.name}>{this.props.userInfo.first_name} {this.props.userInfo.last_name}</Text>
+                                        <Text note style={styles.location}>{item.location}</Text>
+                                    </Body>
+                                </Left>
+                                <Right>
+                                    <TouchableHighlight onPress={() => { this.handleGetDirections(item.latitude, item.longitude) }}>
+                                        <Icon style={styles.icon} name="ios-navigate" />
+                                    </TouchableHighlight>
+                                    <Text note>{Date(item.date)}</Text>
+                                </Right>
+                            </CardItem>
+
+                            <Button full info style={styles.button} onPress={() => this.setModalVisible(true)}>
+                                <Text style={{ fontFamily: 'Montserrat-SemiBold' }}>Info</Text>
+                            </Button>
+                        </Card>
+                    }
+                />
             )
         } else {
-            return ;
+            return;
         }
-       
+
     }
     render() {
         console.log(this.state.cards);
-        
+
 
         return (
 
@@ -158,7 +177,8 @@ export default class DeckSwiperExample extends Component {
 
 
                             <View style={{ marginTop: 40, alignSelf: 'center', }}>
-                                <List>
+                                {this.renderInfoList()}
+                                {/* <List>
                                     <ListItem noBorder>
                                         <Thumbnail source={{ uri: 'https://instagram.fhkg3-1.fna.fbcdn.net/vp/78e1ab9d6d35eebdd2cde891e3a03cef/5B4FBC70/t51.2885-19/s150x150/26865485_161280891185375_4097005467279032320_n.jpg' }} />
                                         <Text style={styles.attenders} >Erik Hendenfalk</Text>
@@ -184,7 +204,7 @@ export default class DeckSwiperExample extends Component {
                                         <Thumbnail source={{ uri: 'https://instagram.fhkg3-1.fna.fbcdn.net/vp/a3e2f173acc623c0d281761abf692174/5B523277/t51.2885-19/s150x150/14031651_316214658727036_306004320_a.jpg' }} />
                                         <Text style={styles.attenders} >Alistair Lam</Text>
                                     </ListItem>
-                                </List>
+                                </List> */}
                             </View>
 
                             <View style={{ flexDirection: "row", alignSelf: "center", paddingTop: 30, paddingBottom: 30, marginTop: 50 }}>
