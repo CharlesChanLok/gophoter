@@ -2,62 +2,81 @@ import React, { Component } from 'react';
 import { Image, StyleSheet, Modal, ScrollView, TouchableHighlight } from 'react-native';
 import { View, DeckSwiper, Container, Card, CardItem, Thumbnail, Text, Left, Right, Body, Button, List, ListItem, Icon } from 'native-base';
 import getDirections from './ViewMap'
-const cards = [
-    {
-        text: 'Steve Divish',
-        description: 'Central Long Exposure',
-        name: 'One',
-        image: require('../../assets/Images/image4.jpg'),
-        latitude: 22.279453,
-        longitude: 114.166283
-    },
-    {
-        text: 'Virginia Nirgo',
-        description: 'East Shinjuku Shootout ',
-        name: 'Two',
-        image: require('../../assets/Images/image5.jpg'),
-        latitude: 35.695256,
-        longitude: 139.699706
-    },
-    {
-        text: 'Cloe Ferrnando',
-        description: 'Central Urban Shootout',
-        name: 'Three',
-        image: require('../../assets/Images/image6.jpg'),
-        latitude: 22.279626,
-        longitude: 114.160563
-    },
-    {
-        text: 'Jonathan Doku',
-        description: 'Victoria Habour Shootout',
-        name: 'Four',
-        image: require('../../assets/Images/image7.jpg'),
-        latitude: 22.282998,
-        longitude: 114.166177
-    },
-    {
-        text: 'Tommy Worden',
-        description: 'High West Peak Shootout',
-        name: 'Five',
-        image: require('../../assets/Images/image8.jpg'),
-        latitude: 22.269196,
-        longitude: 114.134274
-    },
-    {
-        text: 'Emily Boreel',
-        description: 'Roppongi Hills, Tokyo',
-        name: 'Six',
-        image: require('../../assets/Images/image9.jpg'),
-        latitude: 35.660464,
-        longitude: 139.729249
-    },
+import axios from 'axios';
+// const cards = [
+//     {
+//         text: 'Steve Divish',
+//         description: 'Central Long Exposure',
+//         name: 'One',
+//         image: require('../../assets/Images/image4.jpg'),
+//         latitude: 22.279453,
+//         longitude: 114.166283
+//     },
+//     {
+//         text: 'Virginia Nirgo',
+//         description: 'East Shinjuku Shootout ',
+//         name: 'Two',
+//         image: require('../../assets/Images/image5.jpg'),
+//         latitude: 35.695256,
+//         longitude: 139.699706
+//     },
+//     {
+//         text: 'Cloe Ferrnando',
+//         description: 'Central Urban Shootout',
+//         name: 'Three',
+//         image: require('../../assets/Images/image6.jpg'),
+//         latitude: 22.279626,
+//         longitude: 114.160563
+//     },
+//     {
+//         text: 'Jonathan Doku',
+//         description: 'Victoria Habour Shootout',
+//         name: 'Four',
+//         image: require('../../assets/Images/image7.jpg'),
+//         latitude: 22.282998,
+//         longitude: 114.166177
+//     },
+//     {
+//         text: 'Tommy Worden',
+//         description: 'High West Peak Shootout',
+//         name: 'Five',
+//         image: require('../../assets/Images/image8.jpg'),
+//         latitude: 22.269196,
+//         longitude: 114.134274
+//     },
+//     {
+//         text: 'Emily Boreel',
+//         description: 'Roppongi Hills, Tokyo',
+//         name: 'Six',
+//         image: require('../../assets/Images/image9.jpg'),
+//         latitude: 35.660464,
+//         longitude: 139.729249
+//     },
 
-];
+// ];
 export default class DeckSwiperExample extends Component {
-
     state = {
         modalVisible: false,
+        cards: [],
+        userInfo: {}
     };
+
+    urls = [`http://10.0.2.2:3000/users/${1}`,
+        `http://10.0.2.2:3000/events`
+    ];
+
+    componentWillMount() {
+        Promise.all(this.urls.map(url => {
+            return axios.get(url).then(res => res)
+        })).then(res => {
+            console.log(res[1].data)
+            console.log(res[0].data)
+            this.setState({
+                userInfo: res[0].data,
+                cards: res[1].data
+            })
+        })
+    }
 
     setModalVisible(visible) {
         this.setState({ modalVisible: visible });
@@ -74,7 +93,49 @@ export default class DeckSwiperExample extends Component {
         getDirections(data)
     }
 
+    renderDeckSwiper =  () => {
+        if (this.state.cards.length > 0) {
+            return (
+                <DeckSwiper
+                dataSource={this.state.cards}
+                renderItem={item =>
+                    <Card style={{ elevation: this.state.cards.length }}>
+                        <CardItem cardBody>
+                            <Image style={styles.carouselimage} source={{ uri: item.img_url }} />
+                        </CardItem>
+
+                        <CardItem>
+                            <Left>
+                                <Thumbnail source={{ uri: this.state.userInfo.profile_image }} />
+                                <Body>
+                                    <Text style={styles.name}>{this.state.userInfo.first_name} {this.state.userInfo.last_name}</Text>
+                                    <Text note style={styles.location}>{item.location}</Text>
+                                </Body>
+                            </Left>
+                            <Right>
+                                <TouchableHighlight onPress={() => { this.handleGetDirections(item.latitude, item.longitude) }}>
+                                    <Icon style={styles.icon} name="ios-navigate" />
+                                </TouchableHighlight>
+                                <Text note>15th May 21:15</Text>
+                            </Right>
+                        </CardItem>
+        
+                        <Button full info style={styles.button} onPress={() => this.setModalVisible(true)}>
+                            <Text style={{ fontFamily: 'Montserrat-SemiBold' }}>Info</Text>
+                        </Button>
+                    </Card>
+                }
+            />
+            )
+        } else {
+            return ;
+        }
+       
+    }
     render() {
+        console.log(this.state.cards);
+        
+
         return (
 
             <Container>
@@ -139,23 +200,23 @@ export default class DeckSwiperExample extends Component {
                         </ScrollView>
                     </Modal>
 
+                    {this.renderDeckSwiper()}
+                    {/* <DeckSwiper
+                        dataSource={this.state.cards}
 
-                    <DeckSwiper
-                        dataSource={cards}
-                        
                         renderItem={item =>
 
 
-                            <Card style={{ elevation: 6, }}>
+                            <Card style={{ elevation: this.state.cards.length }}>
 
 
 
                                 <CardItem cardBody>
-                                    <Image style={styles.carouselimage} source={item.image} />
+                                    <Image style={styles.carouselimage} source={{ uri: item.img_url }} />
                                 </CardItem>
                                 <CardItem>
                                     <Left>
-                                        <Thumbnail source={{ uri: 'https://instagram.fhkg3-1.fna.fbcdn.net/vp/ca75e7c9e0471c5ca6a6d1182670e19d/5B5CD445/t51.2885-19/s150x150/14262883_301061306925458_1843307609_a.jpg' }} />
+                                        <Thumbnail source={{ uri: this.state.userInfo.profile_image }} />
                                         <Body>
                                             <Text style={styles.name}>{item.text}</Text>
                                             <Text note style={styles.location}>{item.description}</Text>
@@ -170,11 +231,11 @@ export default class DeckSwiperExample extends Component {
                                 </CardItem>
 
                                 <Button full info style={styles.button} onPress={() => this.setModalVisible(true)}>
-                                    <Text style={{fontFamily: 'Montserrat-SemiBold'}}>Info</Text>
+                                    <Text style={{ fontFamily: 'Montserrat-SemiBold' }}>Info</Text>
                                 </Button>
                             </Card>
                         }
-                    />
+                    /> */}
                 </View>
             </Container>
         );

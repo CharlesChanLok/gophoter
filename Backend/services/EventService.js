@@ -7,12 +7,13 @@ module.exports = class EventService {
     }
 
     create(event) {
-        console.log('event');
+        console.log('event ser', event.imgUrl);
         return this.knex
             .insert({host_id: event.hostId, 
                 date: event.datetime, 
                 event_title: event.title,
-                location: event.location
+                location: event.location,
+                img_url: event.imgUrl[0]
             })
             .into(EVENTS)
             .returning("id");

@@ -33,7 +33,7 @@ module.exports = class EventRouter {
     }
 
     post(req, res) {
-        console.log(req.body)
+        console.log('event', req.body)
         return this.eventService.create(req.body)
             .then((event) => res.json(event))
             .catch((err) => res.status(500).json(err));

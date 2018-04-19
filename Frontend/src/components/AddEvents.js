@@ -1,20 +1,34 @@
 import React, { Component } from 'react';
 import { Container, Header, Content, List, ListItem, Text, Icon, Left, Body, Right, Switch, Button, Card, CardItem, } from 'native-base';
-import { TouchableOpacity, View, TextInput, StyleSheet } from "react-native";
+import { TouchableOpacity, ActivityIndicator, View, TextInput, StyleSheet, Image } from "react-native";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import axios from 'axios';
 import moment from 'moment'
+import ImagePicker from 'react-native-image-picker';
+import RNFetchBlob from 'react-native-fetch-blob';
+
+const options = {
+  title: 'Select a photo',
+  takePhotoButtonTitle: 'Take a photo',
+  chooseFromLibraryButtonTitle: 'Choose from gallery',
+  qality: 1
+
+};
+
 export default class Events extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      chosenDate: '',
+      chosenDate: null,
       timeStart: 0,
       timeEnd: 0,
       isDateTimePickerVisible: false,
-      datetime: '',
-      location: '',
-      title: ''
+      datetime: null,
+      location: null,
+      title: null,
+      imageSource: null,
+      data: null,
+      loading: false
     };
   }
 
@@ -28,37 +42,139 @@ export default class Events extends Component {
       chosenDate: moment(datetime).format('MMM, Do YYYY HH:mm'),
       datetime: datetime
     })
-    alert('A date has been picked: ' + datetime);
     this._hideDateTimePicker();
   };
 
-  handleSubmit = () => {
-    axios.post('http://10.0.2.2:3000/events', {
-      hostId: 1,
-      datetime: this.state.datetime,
-      location: this.state.location,
-      title: this.state.title
-    })
-      .then((response) => {
-        console.log(response)
-        alert('Event created')
+  selectPhoto() {
+    this.setState({ loading: false })
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      }
+      else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      }
+      else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      }
+      else {
+        let source = { uri: response.uri };
+
+        // You can also display the image using data:
+        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
         this.setState({
-          datetime: '',
-          location: '',
-          title: ''
-        })
-      })
-      .catch((error) => {
-        console.log(error);
+          imageSource: source,
+          data: response
+        });
+      }
+    });
+  }
+
+  async uploadPhoto() {
+    console.log('upload')
+
+    if (this.state.data != null && this.state.location != null && this.state.title != null && this.state.chosenDate != null) {
+      this.setState({ loading: true });
+      const resImage = await RNFetchBlob.fetch('POST', `http://10.0.2.2:3000/photos/${1}`, {
+        Authorization: "Bearer access-token",
+        otherHeader: "foo",
+        'Content-Type': 'multipart/form-data',
+      }, [
+          { name: 'image', filename: this.state.data.fileName, type: this.state.data.type, data: this.state.data.data }
+        ]);
+      const res2 = await axios.post('http://10.0.2.2:3000/events', {
+        hostId: 1,
+        datetime: this.state.datetime,
+        location: this.state.location,
+        title: this.state.title,
+        imgUrl: resImage.json()
       });
-  };
+      this.setState({
+        loading: false,
+        imageSource: null,
+        data: null,
+        datetime: null,
+        location: null,
+        title: null
+      })
+
+
+      // let promise2 = axios.post('http://10.0.2.2:3000/events', {
+      //   hostId: 1,
+      //   datetime: this.state.datetime,
+      //   location: this.state.location,
+      //   title: this.state.title
+      // });
+
+      //   .then((res) => {
+
+      //   this.setState({
+      //     loading: false,
+      //     imageSource: null,
+      //     data: null,
+      //     datetime: null,
+      //     location: null,
+      //     title: null
+      //   })
+      // })
+      //   .catch((err) => {
+      //     console.log(err);
+      //     // ...
+      //   })
+      //   .then((resp) => {
+
+      //   this.setState({
+      //     loading: false,
+      //     imageSource: null,
+      //     data: null
+      //   })
+      // }).catch((err) => {
+
+      // })
+    }
+  }
+
+  renderUpload() {
+    if (this.state.loading === false) {
+      return (
+
+        <Button full info style={styles.button} onPress={() => this.uploadPhoto()}>
+          <Text style={styles.text}>Submit</Text>
+        </Button>)
+    }
+  //return <ActivityIndicator size="large" color="#00ff00" />;
+  }
+  // handleSubmit = () => {
+  //   axios.post('http://10.0.2.2:3000/events', {
+  //     hostId: 1,
+  //     datetime: this.state.datetime,
+  //     location: this.state.location,
+  //     title: this.state.title
+  //   })
+  //     .then((response) => {
+  //       console.log(response)
+  //       alert('Event created')
+  //       this.setState({
+  //         datetime: '',
+  //         location: '',
+  //         title: ''
+  //       })
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
+
   render() {
     return (
       <Container style={{ backgroundColor: '#fff' }}>
+
         <View>
           <Text style={styles.logo}>Go Photer</Text>
         </View>
-        <Content style={{ marginTop: 50 }}>
+        <Content style={{ marginTop: 30 }}>
           <Card style={{ flex: 1 }} >
 
             <CardItem style={{ alignSelf: 'stretch' }}>
@@ -109,13 +225,19 @@ export default class Events extends Component {
               </Body>
 
             </CardItem>
+            <CardItem>
+              <TouchableOpacity onPress={() => this.selectPhoto()}>
+                <Image style={styles.image}
+                  source={this.state.imageSource == null ? require('../../assets/Images/upload2.png') : this.state.imageSource}
+                />
+              </TouchableOpacity>
+            </CardItem>
+              {this.renderUpload()}
           </Card>
         </Content>
 
-        <Button full info style={styles.button} onPress={() => this.handleSubmit()}>
-          <Text style={styles.submit}>Submit</Text>
-        </Button>
-
+            
+        
       </Container>
     );
   }
@@ -149,8 +271,11 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#ff8396",
-    marginBottom: 0,
-    fontFamily: 'Montserrat-SemiBold'
+    marginTop: 30,
+    fontFamily: 'Montserrat-SemiBold',
+    alignSelf: 'center',
+    paddingLeft: 145,
+    paddingRight:145
   },
   textinput: {
     color: "#ff8396",
@@ -161,5 +286,13 @@ const styles = StyleSheet.create({
 
   submit: {
     fontFamily: 'Montserrat-SemiBold'
+  },
+
+  image: {
+    width: 170,
+    height: 170,
+    alignSelf: 'center',
+    marginLeft: 100
+
   }
 });

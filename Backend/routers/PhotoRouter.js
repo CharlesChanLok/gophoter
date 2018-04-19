@@ -52,7 +52,7 @@ module.exports = class PhotoRouter {
         console.log('file', data)
         return this.photoService.create(data)
             .then((photo) => {
-                // console.log(photo); 
+                 console.log('photot', photo); 
                 return res.json(photo)
             })
             .catch((err) => res.status(500).json(err));
