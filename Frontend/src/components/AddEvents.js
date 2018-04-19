@@ -177,7 +177,7 @@ export default class Events extends Component {
         <Content style={{ marginTop: 30 }}>
           <Card style={{ flex: 1 }} >
 
-            <CardItem style={{ alignSelf: 'stretch' }}>
+            <CardItem style={{ alignSelf: 'stretch', paddingRight: 50 }}>
 
               <Icon name="ios-time" style={styles.icon} />
 
@@ -200,7 +200,7 @@ export default class Events extends Component {
 
             </CardItem>
 
-            <CardItem style={{ alignSelf: 'stretch' }}>
+            <CardItem style={{ alignSelf: 'stretch',  paddingRight: 50 }}>
 
               <Icon name="ios-navigate" style={styles.icon} />
 
@@ -213,7 +213,7 @@ export default class Events extends Component {
 
             </CardItem>
 
-            <CardItem style={{ alignSelf: 'stretch' }}>
+            <CardItem style={{ alignSelf: 'stretch', paddingRight: 50}}>
 
               <Icon name="ios-paper" style={styles.icon} />
 
@@ -281,7 +281,8 @@ const styles = StyleSheet.create({
     color: "#ff8396",
     fontSize: 20,
     alignSelf: 'stretch',
-    fontFamily: 'Montserrat-SemiBold'
+    fontFamily: 'Montserrat-SemiBold',
+    paddingRight: 20
   },
 
   submit: {
