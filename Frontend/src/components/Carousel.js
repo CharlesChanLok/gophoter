@@ -130,7 +130,7 @@ export default class DeckSwiperExample extends Component {
                                     <TouchableHighlight onPress={() => { this.handleGetDirections(item.latitude, item.longitude) }}>
                                         <Icon style={styles.icon} name="ios-navigate" />
                                     </TouchableHighlight>
-                                    <Text note>15th May 21:15</Text>
+                                    <Text note>{Date(item.date)}</Text>
                                 </Right>
                             </CardItem>
 
