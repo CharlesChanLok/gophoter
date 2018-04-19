@@ -60,7 +60,6 @@ export default class Events extends Component {
   }
 
   uploadPhoto() {
-    console.log('upload')
     if (this.state.data != null) {
       this.setState({ loading: true });
       RNFetchBlob.fetch('POST', `http://10.0.2.2:3000/photos/${1}`, {
