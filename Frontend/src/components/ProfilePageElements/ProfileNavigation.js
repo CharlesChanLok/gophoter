@@ -13,7 +13,6 @@ class ProfileNavigation extends Component {
 
   render() {
     return (
-
         <Container>
           <Tabs>
             <Tab heading={<TabHeading><Text>Photos</Text></TabHeading>}>
@@ -24,7 +23,6 @@ class ProfileNavigation extends Component {
             </Tab>
           </Tabs>
         </Container>
-
     );
   }
 }

@@ -2,17 +2,15 @@ import React, { Component } from 'react';
 // import { Container, Content, List, ListItem, Thumbnail, Text, Body, Right, Button } from 'native-base';
 import { Image, StyleSheet, Modal, ScrollView } from 'react-native';
 import { View, DeckSwiper, Container, Content, Card, CardItem, Thumbnail, Text, Left, Right, Body, Button, List, ListItem, Icon } from 'native-base';
-
-export default class Events extends Component {
-
+import { setprofile, setid, setevent } from '../../store/actions/users';
+import { connect } from 'react-redux';
+class Events extends Component {
   state = {
     modalVisible: false,
   };
-
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
-
   render() {
     return (
       <Container>
@@ -212,6 +210,11 @@ const styles = StyleSheet.create({
   viewbutton: {
     color: '#ff8396',
   }
-
-
 });
+
+const mapStateToProps = (state) => ({
+  profile: state.numbers.profile,
+  id: state.numbers.id,
+  addevent: state.numbers.info
+});
+export default connect(mapStateToProps)(Events)

@@ -13,7 +13,7 @@ module.exports = class UserRouter {
     
     getRouter() {
         let router = express.Router();
-        router.get("/test", this.get.bind(this));
+        router.get("/userlist", this.get.bind(this));
         router.get('/:id', this.getUser.bind(this));
         return router;
     }

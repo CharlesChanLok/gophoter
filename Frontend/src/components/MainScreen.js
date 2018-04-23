@@ -14,7 +14,7 @@ import SearchScreen from './SearchScreen';
 import HomeTab from './AppTabNavigator/HomeTab';
 import AddTab from './AppTabNavigator/AddTab';
 import RecommendationsTab from './AppTabNavigator/RecommendationsTab';
-import UploadTab from './AppTabNavigator/UploadTab';
+// import UploadTab from './AppTabNavigator/UploadTab';
 import LoginScreen from './LoginScreen';
 
 
@@ -44,24 +44,6 @@ class MainScreen extends Component {
 
 export default MainScreen;
 
-
-// const AppStackNavigator = StackNavigator({
-//     Main: {
-//         screen: MainScreen
-//     },
-//     Profile: {
-//         screen: ProfileScreen
-//     },
-//     Search: {
-//         screen: SearchScreen
-//     },
-//     Login: {
-//         screen: LoginScreen
-//     }
-// },
-//     { initialRouteName: 'Main' });
-
-
 const AppTabNavigator = TabNavigator({
 
     HomeTab: {
@@ -78,12 +60,6 @@ const AppTabNavigator = TabNavigator({
             tabBarIcon: ({ tintColor }) => { return (<Icon name="ios-paper" />) }
         }
     },
-    // UploadTab: {
-    //     screen: UploadTab,
-    //     navigationOptions: {
-    //         tabBarIcon: ({ tintColor }) => { return (<Icon name="ios-camera" />) }
-    //     }
-    // },
     RecommendationsTab: {
         screen: RecommendationsTab,
         navigationOptions: {

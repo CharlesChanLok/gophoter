@@ -40,7 +40,6 @@ module.exports = class EventService {
             .update(event)
             .where("id", id);
     }
-
     search(searchCriteria, limit = 100, offset = 0) {
         return this.knex
             .select("*")
@@ -48,11 +47,11 @@ module.exports = class EventService {
             .where(searchCriteria)
             .limit(limit).offset(offset);
     }
-
     list(limit = 20, offset = 0) {
         return this.knex
-            .select("*")
+            .select("*","users.id", "users.gmail", "users.profile_image", "users.first_name", "users.last_name")
             .from(EVENTS)
+            .join("users", "users.id", "=", "events.host_id")
             .limit(limit).offset(offset);
     }
 }

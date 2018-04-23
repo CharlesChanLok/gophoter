@@ -16,9 +16,6 @@ class RecommendationsTab extends Component {
       <ScrollView>
         <Recommendations />
       </ScrollView>
-
-
-
     );
   }
 }

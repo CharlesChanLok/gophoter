@@ -42,5 +42,5 @@ app.use('/auth', AuthPath.getRouter());
 app.get('/', (req, res) => {
     res.send('working');
 })
-app.listen(PORT, () => console.log('Listening on :', PORT));
+app.listen(PORT, () => console.log('Listening on', PORT));
 

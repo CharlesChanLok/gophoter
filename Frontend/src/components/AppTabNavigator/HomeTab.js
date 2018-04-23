@@ -8,30 +8,18 @@ import {
   ScrollView
 } from 'react-native';
 import { Icon } from 'native-base';
-import Carousel from '../Carousel'
-
+import Carousel from '../Carousel';
+import { connect, dispatch } from 'react-redux';
+import { serverevent } from '../../store/actions/users';
 
 class HomeTab extends Component {
-  state = {
-    userInfo: {},
-    cards: []
-  }
-
-  urls = [`http://10.0.2.2:3000/users/${1}`,
-    `http://10.0.2.2:3000/events`
-  ];
-
   componentWillMount() {
-    Promise.all(this.urls.map(url => {
-      return axios.get(url).then(res => res)
-    })).then(res => {
-      console.log(res[1].data)
-      console.log(res[0].data)
-      this.setState({
-        userInfo: res[0].data,
-        cards: res[1].data
+    axios.get("http://10.0.2.2:3000/events")
+      .then(res => {
+        console.log("EVENT DATA", res.data) // current new events
+        this.props.item(res.data);
       })
-    })
+      .catch((err) => { alert("Something Went wrong "+ err) });
   }
   static navigatorOptions = {
 
@@ -42,13 +30,10 @@ class HomeTab extends Component {
 
   render() {
     return (
-      <Carousel userInfo={this.state.userInfo} cards={this.state.cards}/>
+      <Carousel />
     );
   }
 }
-
-export default HomeTab;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -56,3 +41,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+const mapDispatchToProps = (dispatch) => ({
+  item: (items) => dispatch(serverevent(items))
+});
+
+export default connect(state => ({
+  profile: state.numbers.profile,
+  id: state.numbers.id,
+}), mapDispatchToProps)(HomeTab)

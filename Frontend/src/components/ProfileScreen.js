@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
 import {
   Platform,
   StyleSheet,
@@ -12,37 +11,24 @@ import Photos from './ProfilePageElements/Photos';
 import Events from './ProfilePageElements/Events';
 import HeaderStatic from './ProfilePageElements/HeaderStatic';
 import Spots from './ProfilePageElements/Spots';
-
+import { connect, dispatch } from 'react-redux';
+import { userphotos } from '../store/actions/users';
 class ProfileScreen extends Component {
-  state = { userInfo: {}, userImages: [] };
-  urls = [`http://10.0.2.2:3000/users/${1}`,
-  `http://10.0.2.2:3000/photos/${1}`
-  ];
-  componentWillMount() {
-    Promise.all(this.urls.map(url => {
-      return axios.get(url).then(res => res)
-    })).then(res => {
-      console.log(res[1].data)
-      console.log(res[0].data)
-      this.setState({
-        userInfo: res[0].data,
-        userImages: res[1].data
+  async componentWillMount() {
+    axios.get(`http://10.0.2.2:3000/photos/${this.props.id}`)
+      .then((res) => {
+        this.props.userspicture(JSON.parse(res));
       })
-    })
-
-    //  axios.get(`http://10.0.2.2:3000/users/${1}`)
-    //     .then(res => {
-    //       this.setState({ userInfo: res.data})}
-    //   );
+      .catch((err)=>"Something went wrong " + err);
   }
   render() {
     return (
       <View style={{ flexGrow: 1 }}>
-        <HeaderStatic userInfo={this.state.userInfo} />
+        <HeaderStatic/>
         <Container style={{ flex: 1 }}>
           <Tabs>
             <Tab heading={<TabHeading style={styles.heading}><Icon name="ios-camera" style={styles.icon} /><Text style={styles.text}>Photos</Text></TabHeading>}>
-              <Photos userInfo={this.state.userInfo} userImages={this.state.userImages}/>
+              <Photos/>
             </Tab>
             <Tab heading={<TabHeading style={styles.heading}><Icon name="ios-bookmarks" style={styles.icon} /><Text style={styles.text}>Events</Text></TabHeading>}>
               <Events />
@@ -57,8 +43,6 @@ class ProfileScreen extends Component {
   }
 }
 
-export default ProfileScreen;
-
 const styles = StyleSheet.create({
   heading: {
     backgroundColor: "#FFF"
@@ -71,3 +55,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-SemiBold'
   }
 });
+const mapDispatchToProps = (dispatch) => ({
+  userspicture: (photo) => dispatch(userphotos(photo)),
+});
+const mapStatetoProps = (state) => ({
+  id: state.numbers.id
+})
+export default connect(mapStatetoProps, mapDispatchToProps)(ProfileScreen)

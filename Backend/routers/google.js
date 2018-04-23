@@ -28,19 +28,19 @@ class AuthRouter{
             if(authResult.data.error) {
                 res.sendStatus(401);
             }
-            else if(Userservice.findid(authResult.data.email) == null || undefined){
+            else{
                 let userid = Userservice.create(authResult.data);
                 let token = jwtSimple.encode({ id: accessToken, info: authResult.data }, config.jwtSecret);
-                res.json({token: token , UserProfile: authResult.data, id: userid});
+                res.json({token: token , profile: authResult.data, id: userid});
             }
-            else if(Userservice.findid(authResult.data.email != null || undefined)){
-                let user = Userservice.findid(authResult.data.email)
-                user.then((id)=>{
-                let token = jwtSimple.encode({id: accessToken, info: authResult.data }, config.jwtSecret);
-                console.log( authResult.data);
-                res.json({token: token , profile: authResult.data, id: id});
-                })
-                }            
+            // else if(Userservice.findid(authResult.data.email != null || undefined)){
+            //     let user = Userservice.findid(authResult.data.email)
+            //     user.then((id)=>{
+            //     let token = jwtSimple.encode({id: accessToken, info: authResult.data }, config.jwtSecret);
+            //     console.log( authResult.data);
+            //     res.json({token: token , profile: authResult.data, id: JSON.stringify( id[0].id )});
+            //     })
+            //     }            
         } catch(err) {
             console.log("ERROR ", err);
             res.sendStatus(401);

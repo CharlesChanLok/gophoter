@@ -9,50 +9,9 @@ import {
   TouchableHighlight
 } from 'react-native';
 import { Content, Card, CardItem, Text, Icon, Button, Thumbnail, Body, Left } from 'native-base';
-import AutoHeightImage from 'react-native-auto-height-image'
-
-// let images = [
-//   require('../../../assets/Images/image1.jpg'),
-//   require('../../../assets/Images/image2.jpg'),
-//   require('../../../assets/Images/image3.jpg'),
-//   require('../../../assets/Images/image4.jpg'),
-//   require('../../../assets/Images/image5.jpg'),
-//   require('../../../assets/Images/image6.jpg'),
-//   require('../../../assets/Images/image7.jpg'),
-//   require('../../../assets/Images/image8.jpg'),
-//   require('../../../assets/Images/image9.jpg'),
-//   require('../../../assets/Images/image1.jpg'),
-//   require('../../../assets/Images/image2.jpg'),
-//   require('../../../assets/Images/image3.jpg'),
-//   require('../../../assets/Images/image4.jpg'),
-//   require('../../../assets/Images/image5.jpg'),
-//   require('../../../assets/Images/image6.jpg'),
-//   require('../../../assets/Images/image7.jpg'),
-//   require('../../../assets/Images/image8.jpg'),
-//   require('../../../assets/Images/image9.jpg'),
-//   require('../../../assets/Images/image1.jpg'),
-//   require('../../../assets/Images/image2.jpg'),
-//   require('../../../assets/Images/image3.jpg'),
-//   require('../../../assets/Images/image4.jpg'),
-//   require('../../../assets/Images/image5.jpg'),
-//   require('../../../assets/Images/image6.jpg'),
-//   require('../../../assets/Images/image7.jpg'),
-//   require('../../../assets/Images/image8.jpg'),
-//   require('../../../assets/Images/image9.jpg'),
-//   require('../../../assets/Images/image1.jpg'),
-//   require('../../../assets/Images/image2.jpg'),
-//   require('../../../assets/Images/image3.jpg'),
-//   require('../../../assets/Images/image4.jpg'),
-//   require('../../../assets/Images/image5.jpg'),
-//   require('../../../assets/Images/image6.jpg'),
-//   require('../../../assets/Images/image7.jpg'),
-//   require('../../../assets/Images/image8.jpg'),
-//   require('../../../assets/Images/image9.jpg'),
-
-// ]
-
+import AutoHeightImage from 'react-native-auto-height-image';
+import { connect } from 'react-redux';
 let { width, height } = Dimensions.get('window');
-
 
 class Photos extends Component {
 
@@ -68,8 +27,7 @@ class Photos extends Component {
 
   imageRender = () =>
 
-    this.props.userImages.map((image, index) => {
-      console.log(image);
+    this.props.userspicture.map((image, index) => {
       return (
 
         <TouchableHighlight onPress={() => this.setModalVisible(true, index)}>
@@ -96,8 +54,8 @@ class Photos extends Component {
           visible={this.state.modalVisible}
         >
           <AutoHeightImage width={width}
-            source={this.props.userImages.length > 0 ?
-              { uri: this.props.userImages[this.state.Objnumber].img_url } :
+            source={this.props.userspicture.length > 0 ?
+              { uri: this.props.userspicture[this.state.Objnumber].img_url } :
               { uri: '' }
             }
           />
@@ -106,9 +64,9 @@ class Photos extends Component {
               Photo Taken By
           </Text>
             <Text note style={styles.textnote2}>
-              {this.props.userInfo.first_name} {this.props.userInfo.last_name}
+              {this.props.profile.name}
             </Text>
-            <Thumbnail style={styles.thumbnail} source={{ uri: this.props.userInfo.profile_image }} />
+            <Thumbnail style={styles.thumbnail} source={{ uri: this.props.profile.picture }} />
           </Left>
           <Button style={styles.modalbutton} full info onPress={() => {
             this.setModalVisible(false, 0);
@@ -136,8 +94,6 @@ class Photos extends Component {
     );
   }
 }
-
-export default Photos;
 
 
 const styles = StyleSheet.create({
@@ -179,3 +135,8 @@ const styles = StyleSheet.create({
     marginTop: 10
   }
 });
+const mapStateToProps = state => ({
+  userspicture: state.numbers.userspicture,
+  profile: state.numbers.profile
+});
+export default connect(mapStateToProps)(Photos)

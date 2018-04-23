@@ -3,19 +3,20 @@ import { Container, Header, Content, List, ListItem, Text, Icon, Left, Body, Rig
 import { TouchableOpacity, ActivityIndicator, View, TextInput, StyleSheet, Image } from "react-native";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import axios from 'axios';
-import moment from 'moment'
+import moment from 'moment';
 import ImagePicker from 'react-native-image-picker';
 import RNFetchBlob from 'react-native-fetch-blob';
+import { addevent } from '../store/actions/users';
+import { connect } from 'react-redux';
 
 const options = {
   title: 'Select a photo',
   takePhotoButtonTitle: 'Take a photo',
   chooseFromLibraryButtonTitle: 'Choose from gallery',
   qality: 1
-
 };
 
-export default class Events extends Component {
+class Events extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -65,9 +66,11 @@ export default class Events extends Component {
         // You can also display the image using data:
         // let source = { uri: 'data:image/jpeg;base64,' + response.data };
         this.setState({
-          imageSource: source,
-          data: response
+          imageSource: source, //Phone Image Source
+          data: response   //data.data is the photo image
         });
+
+
       }
     });
   }
@@ -75,7 +78,7 @@ export default class Events extends Component {
   async uploadPhoto() {
     if (this.state.data != null && this.state.location != null && this.state.title != null && this.state.chosenDate != null) {
       this.setState({ loading: true });
-      const resImage = await RNFetchBlob.fetch('POST', `http://10.0.2.2:3000/photos/${1}`, {
+      const resImage = await RNFetchBlob.fetch('POST', `http://10.0.2.2:3000/photos/${this.props.id}`, {
         Authorization: "Bearer access-token",
         otherHeader: "foo",
         'Content-Type': 'multipart/form-data',
@@ -89,6 +92,14 @@ export default class Events extends Component {
         title: this.state.title,
         imgUrl: resImage.json()
       });
+      this.prop.addevent(dispatch({
+        hostId: this.props.id,
+        datetime: this.state.datetime,
+        location: this.state.location,
+        title: this.state.title,
+        img_link: data.data}
+      ));
+
       this.setState({
         loading: false,
         imageSource: null,
@@ -97,40 +108,6 @@ export default class Events extends Component {
         location: null,
         title: null
       })
-
-
-      // let promise2 = axios.post('http://10.0.2.2:3000/events', {
-      //   hostId: 1,
-      //   datetime: this.state.datetime,
-      //   location: this.state.location,
-      //   title: this.state.title
-      // });
-
-      //   .then((res) => {
-
-      //   this.setState({
-      //     loading: false,
-      //     imageSource: null,
-      //     data: null,
-      //     datetime: null,
-      //     location: null,
-      //     title: null
-      //   })
-      // })
-      //   .catch((err) => {
-      //     console.log(err);
-      //     // ...
-      //   })
-      //   .then((resp) => {
-
-      //   this.setState({
-      //     loading: false,
-      //     imageSource: null,
-      //     data: null
-      //   })
-      // }).catch((err) => {
-
-      // })
     }
   }
 
@@ -144,28 +121,6 @@ export default class Events extends Component {
       return <ActivityIndicator size="large" color="#00ff00" />;
     }
   }
-
-  // handleSubmit = () => {
-  //   axios.post('http://10.0.2.2:3000/events', {
-  //     hostId: 1,
-  //     datetime: this.state.datetime,
-  //     location: this.state.location,
-  //     title: this.state.title
-  //   })
-  //     .then((response) => {
-  //       console.log(response)
-  //       alert('Event created')
-  //       this.setState({
-  //         datetime: '',
-  //         location: '',
-  //         title: ''
-  //       })
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-
   render() {
 
     return (
@@ -294,3 +249,11 @@ const styles = StyleSheet.create({
 
   }
 });
+const mapDispatchToProps = (dispatch) => ({
+    addevent: (info) => dispatch(addevent(info))
+  });
+const mapStateToProps = (state) => ({
+  id: state.numbers.id,
+  event: state.numbers.info
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Events)

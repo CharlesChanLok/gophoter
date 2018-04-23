@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
 import { StyleSheet, View,  } from 'react-native';
 import { Container, Header, Item, Input, Icon, Button, Text, List, ListItem } from 'native-base';
-export default class SearchScreen extends Component {
+import {connect} from 'react-redux';
+import { userlist } from '../store/actions/users';
+class SearchScreen extends Component {
+    urls = [`http://10.0.2.2:3000/events`];
     state={
-      initial:['Hugo', 'Telford', 'Charles', 'Seamus'],
       text:'',
       filter:[]
     }
+  componentWillMount() {
+    axios.get(url)
+    .then(res => {
+      this.props.userlist(res.data);
+      });
+  }
     setSearchText(event){
       var searchText = event.nativeEvent.text;
-      var data  = this.state.initial;
+      var data  = this.props.userlist;
       var searchText = searchText.trim().toLowerCase();
       data = data.filter(l => {
       return l.toLowerCase().match( searchText );
@@ -63,3 +71,10 @@ const styles = StyleSheet.create({
   },
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  userlist: (data) => dispatch(userlist(data)),
+});
+const mapStateToProps = (state) => ({
+  userlist: state.numbers.userlist
+});
+export default connect(mapStateToProps,mapDispatchToProps)(SearchScreen);

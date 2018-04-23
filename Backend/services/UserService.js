@@ -17,7 +17,12 @@ module.exports = class userservice {
                     .into(users)
                     .returning("id");
             } else {
-                return null;
+                return null
+                //  this.knex
+                //     .select("id")
+                //     .from(users)
+                //     .first()
+                //     .where("gmail", user.email)
             }
         })
     }
