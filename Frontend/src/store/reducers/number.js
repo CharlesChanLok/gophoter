@@ -23,23 +23,23 @@ const reducer = (state = initialState, action) => {
             }
         case ADDEVENT:
             return {
-                // ...state,
+                ...state,
                 event: state.event.concat([action.info])
                 //event: [...state.event, action.info]
             };
         case USERLIST:
             return {
-                // ...state,
+                ...state,
                 userlist: state.userlist.concat([action.inital])
             };
         case SEVEREVENTS:
             return {
-                // ...state,
+                ...state,
                 items: state.items.concat([action.items])
             }
         case USERSPHOTOS:
             return {
-                // ...state,
+                ...state,
                 userspicture: state.userspicture.concat([action.photo])
             }
         default:

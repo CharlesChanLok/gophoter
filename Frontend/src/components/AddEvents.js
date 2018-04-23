@@ -92,14 +92,6 @@ class Events extends Component {
         title: this.state.title,
         imgUrl: resImage.json()
       });
-      this.prop.addevent(dispatch({
-        hostId: this.props.id,
-        datetime: this.state.datetime,
-        location: this.state.location,
-        title: this.state.title,
-        img_link: data.data}
-      ));
-
       this.setState({
         loading: false,
         imageSource: null,
@@ -108,6 +100,13 @@ class Events extends Component {
         location: null,
         title: null
       })
+      this.prop.addevent(dispatch({
+        hostId: this.props.id,
+        datetime: this.state.datetime,
+        location: this.state.location,
+        title: this.state.title,
+        img_link: data.data}
+      ));
     }
   }
 

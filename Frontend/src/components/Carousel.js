@@ -3,12 +3,14 @@ import { Image, StyleSheet, Modal, ScrollView, TouchableHighlight } from 'react-
 import { View, DeckSwiper, Container, Card, CardItem, Thumbnail, Text, Left, Right, Body, Button, List, ListItem, Icon } from 'native-base';
 import getDirections from './ViewMap';
 import axios from 'axios';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 class DeckSwiperExample extends Component {
     state = {
         modalVisible: false
     };
-
+    componentDidMount(){
+        console.log("This has been rendered");
+    }
     setModalVisible(visible) {
         this.setState({ modalVisible: visible });
     }
@@ -30,8 +32,8 @@ class DeckSwiperExample extends Component {
                 return (
                     <List>
                         <ListItem noBorder>
-                            <Thumbnail source={this.props.profile.picture } />
-                            <Text style={styles.attenders} >{this.props.profile.name}</Text>
+                            {/* <Thumbnail source={{ uri: this.props.profile.picture }} />
+                            <Text style={styles.attenders} >{this.props.profile.name}</Text> */}
                         </ListItem>
                     </List>
                 );
@@ -220,4 +222,4 @@ const mapStateToProps = state => ({
     profile: state.numbers.profile,
     items: state.numbers.items
   });
-  export default connect(mapStateToProps)(DeckSwiperExample);
+  export default connect(mapStateToProps, null)(DeckSwiperExample);

@@ -17,7 +17,7 @@ class ProfileScreen extends Component {
   async componentWillMount() {
     axios.get(`http://10.0.2.2:3000/photos/${this.props.id}`)
       .then((res) => {
-        this.props.userspicture(JSON.parse(res));
+        this.props.userspicture(res);
       })
       .catch((err)=>"Something went wrong " + err);
   }

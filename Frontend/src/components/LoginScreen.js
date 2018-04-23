@@ -20,7 +20,7 @@ import ProfileScreen from './ProfileScreen';
 import SearchScreen from './SearchScreen';
 import { setjwtToken } from '../store/actions/actionTypes';
 import { setprofile, setid, setevent } from '../store/actions/users';
-import configStore from '../store/configstore'
+import configStore from '../store/configstore';
 class LoginScreen extends Component {
   state = {
     jwtToken: undefined
@@ -43,8 +43,8 @@ class LoginScreen extends Component {
       const jsonQuery = qs.parse(query);
       const response = await axios.post('http://10.0.2.2:3000/auth/verify/google', { accessToken: jsonQuery.access_token });
       const data = response.data;
-      AsyncStorage.setItem('jwtToken', JSON.stringify(data.token));
-      this.props.setprofile(data.UserProfile);
+      AsyncStorage.setItem('jwtToken', data.token);
+      this.props.setprofile(data.profile);
       this.props.setid(data.id);
       this.props.navigation.navigate('Main');
       }
@@ -133,10 +133,4 @@ const mapDispatchToProps = (dispatch) => ({
     setprofile: (data) => dispatch(setprofile(data)),
     setid: (num) => dispatch(setid(num))
 });
-export default connect(
-  state=>({
-  profile: state.numbers.profile,
-  id: state.numbers.id
-  }),
-  mapDispatchToProps
-)(LoginScreen);
+export default connect(null, mapDispatchToProps)(LoginScreen);

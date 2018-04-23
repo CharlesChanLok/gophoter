@@ -30,7 +30,7 @@ class HomeTab extends Component {
 
   render() {
     return (
-      <Carousel />
+      <Carousel/>
     );
   }
 }

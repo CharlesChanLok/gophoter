@@ -25,9 +25,10 @@ class Photos extends Component {
     this.state.Objnumber = i
   }
 
-  imageRender = () =>
-
+imageRender = () =>{
+  console.log("Image Rendered" + JSON.stringify(this.props.userspicture));
     this.props.userspicture.map((image, index) => {
+      console.log("Image Links: " + image.img_url);
       return (
 
         <TouchableHighlight onPress={() => this.setModalVisible(true, index)}>
@@ -44,6 +45,7 @@ class Photos extends Component {
       )
     }
     )
+  }
   render() {
     return (
 

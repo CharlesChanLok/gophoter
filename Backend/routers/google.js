@@ -28,19 +28,21 @@ class AuthRouter{
             if(authResult.data.error) {
                 res.sendStatus(401);
             }
-            else{
+            else if(Userservice.findid(authResult.data.email) == null || undefined){
                 let userid = Userservice.create(authResult.data);
                 let token = jwtSimple.encode({ id: accessToken, info: authResult.data }, config.jwtSecret);
-                res.json({token: token , profile: authResult.data, id: userid});
+                res.json({token: token , profile: authResult.data, id: JSON.stringify( id[0].id )});
             }
-            // else if(Userservice.findid(authResult.data.email != null || undefined)){
-            //     let user = Userservice.findid(authResult.data.email)
-            //     user.then((id)=>{
-            //     let token = jwtSimple.encode({id: accessToken, info: authResult.data }, config.jwtSecret);
-            //     console.log( authResult.data);
-            //     res.json({token: token , profile: authResult.data, id: JSON.stringify( id[0].id )});
-            //     })
-            //     }            
+            else{
+                let user = Userservice.findid(authResult.data.email)
+                user.then((id)=>{
+                let token = jwtSimple.encode({id: accessToken, info: authResult.data }, config.jwtSecret);
+                console.log( authResult.data);
+                console.log(id[0].id);
+                console.log(authResult.data);
+                res.json({token: token , profile:authResult.data, id:id[0].id });
+                })
+                }            
         } catch(err) {
             console.log("ERROR ", err);
             res.sendStatus(401);

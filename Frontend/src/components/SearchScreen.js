@@ -3,6 +3,7 @@ import { StyleSheet, View,  } from 'react-native';
 import { Container, Header, Item, Input, Icon, Button, Text, List, ListItem } from 'native-base';
 import {connect} from 'react-redux';
 import { userlist } from '../store/actions/users';
+import axios from 'axios';
 class SearchScreen extends Component {
     urls = [`http://10.0.2.2:3000/events`];
     state={
