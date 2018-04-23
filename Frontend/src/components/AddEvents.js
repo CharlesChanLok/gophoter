@@ -206,7 +206,7 @@ export default class Events extends Component {
 
               <Body style={styles.body}>
                 <TextInput style={styles.textinput} underlineColorAndroid={'rgba(0,0,0,0)'}
-                  placeholder="Loction"
+                  placeholder="Location"
                   onChangeText={(location) => this.setState({ location: location })}
                 />
               </Body>

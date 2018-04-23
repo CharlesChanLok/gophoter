@@ -30,6 +30,7 @@ module.exports = class PhotoRouter {
     }
 
     router() {
+        console.log('photo router');
         let router = express.Router();
         router.get('/', this.upload.single('image'), this.get.bind(this));
         router.get('/:id', this.upload.single('image'), this.getPhotosByUser.bind(this));
@@ -43,7 +44,6 @@ module.exports = class PhotoRouter {
             .then((photo) => res.json(photo))
             .catch((err) => res.status(500).json(err));
     }
-
     post(req, res) {
         let data = {
             userId: req.params.id,

@@ -28,12 +28,12 @@ class AuthRouter{
             if(authResult.data.error) {
                 res.sendStatus(401);
             }
-            else if(Userservice.findid(authResult.data.email) == null || undefined){
+            else if (Userservice.findid(authResult.data.email) == null || Userservice.findid(authResult.data.email) == undefined){
                 let userid = Userservice.create(authResult.data);
                 let token = jwtSimple.encode({ id: accessToken, info: authResult.data }, config.jwtSecret);
                 res.json({token: token , UserProfile: authResult.data, id: userid});
             }
-            else if(Userservice.findid(authResult.data.email != null || undefined)){
+            else {
                 let user = Userservice.findid(authResult.data.email)
                 user.then((id)=>{
                 let token = jwtSimple.encode({id: accessToken, info: authResult.data }, config.jwtSecret);
