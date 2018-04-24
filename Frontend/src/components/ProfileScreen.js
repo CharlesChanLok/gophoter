@@ -15,7 +15,7 @@ import { connect, dispatch } from 'react-redux';
 import { userphotos } from '../store/actions/users';
 class ProfileScreen extends Component {
   async componentWillMount() {
-    axios.get(`http://10.0.2.2:3000/photos/${this.props.id}`)
+    axios.get(`http://159.65.133.33/photos/${this.props.id}`)
       .then((res) => {
         this.props.userspicture(res);
       })

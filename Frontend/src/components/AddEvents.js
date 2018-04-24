@@ -78,14 +78,14 @@ class Events extends Component {
   async uploadPhoto() {
     if (this.state.data != null && this.state.location != null && this.state.title != null && this.state.chosenDate != null) {
       this.setState({ loading: true });
-      const resImage = await RNFetchBlob.fetch('POST', `http://10.0.2.2:3000/photos/${this.props.id}`, {
+      const resImage = await RNFetchBlob.fetch('POST', `http://159.65.133.33/photos/${this.props.id}`, {
         Authorization: "Bearer access-token",
         otherHeader: "foo",
         'Content-Type': 'multipart/form-data',
       }, [
           { name: 'image', filename: this.state.data.fileName, type: this.state.data.type, data: this.state.data.data }
         ]);
-      const res2 = await axios.post('http://10.0.2.2:3000/events', {
+      const res2 = await axios.post('http://159.65.133.33/events', {
         hostId: 1,
         datetime: this.state.datetime,
         location: this.state.location,

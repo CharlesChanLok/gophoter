@@ -41,7 +41,7 @@ class LoginScreen extends Component {
     try {
       var [, query] = event.match(/\#(.*)/)
       const jsonQuery = qs.parse(query);
-      const response = await axios.post('http://10.0.2.2:3000/auth/verify/google', { accessToken: jsonQuery.access_token });
+      const response = await axios.post('http://159.65.133.33/auth/verify/google', { accessToken: jsonQuery.access_token });
       const data = response.data;
       AsyncStorage.setItem('jwtToken', data.token);
       this.props.setprofile(data.profile);

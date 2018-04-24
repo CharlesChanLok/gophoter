@@ -44,7 +44,7 @@ class DeckSwiperExample extends Component {
     }
     renderDeckSwiper = () => {
         console.log("itmes information :" + this.props.items);
-        if (this.props.items.length > 0) {
+        if (this.props.items.length >= 0) {
             return (
                 <DeckSwiper
                     dataSource={this.props.items}

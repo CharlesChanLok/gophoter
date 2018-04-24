@@ -1,30 +1,32 @@
 import React, { Component } from 'react';
 import { StyleSheet, View,  } from 'react-native';
 import { Container, Header, Item, Input, Icon, Button, Text, List, ListItem } from 'native-base';
-import {connect} from 'react-redux';
+import {connect, dispatch} from 'react-redux';
 import { userlist } from '../store/actions/users';
 import axios from 'axios';
 class SearchScreen extends Component {
-    urls = [`http://10.0.2.2:3000/events`];
     state={
       text:'',
       filter:[]
     }
   componentWillMount() {
+    url = `http://159.65.133.33/user/userlist`;
     axios.get(url)
     .then(res => {
-      this.props.userlist(res.data);
-      });
+      this.props.userlists(res.data);
+      })
+    .catch((err)=> {throw err})
   }
     setSearchText(event){
       var searchText = event.nativeEvent.text;
       var data  = this.props.userlist;
+      console.log("DATA FROM userlist: " + data);
       var searchText = searchText.trim().toLowerCase();
-      data = data.filter(l => {
+      var filtered = data.filter(l => {
       return l.toLowerCase().match( searchText );
      });
       this.setState({
-       filter : data
+       filter: filtered
       // var list = this.state.initial.slice();
       // this.setState({ filter: list });
       // var filter = this.state.filter.slice();
@@ -73,7 +75,7 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  userlist: (data) => dispatch(userlist(data)),
+  userlists: (data) => dispatch(userlist(data)),
 });
 const mapStateToProps = (state) => ({
   userlist: state.numbers.userlist

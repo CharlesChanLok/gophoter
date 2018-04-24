@@ -14,7 +14,7 @@ import { serverevent } from '../../store/actions/users';
 
 class HomeTab extends Component {
   componentWillMount() {
-    axios.get("http://10.0.2.2:3000/events")
+    axios.get("http://159.65.133.33/events")
       .then(res => {
         console.log("EVENT DATA", res.data) // current new events
         this.props.item(res.data);
