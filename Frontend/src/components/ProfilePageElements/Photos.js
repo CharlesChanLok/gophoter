@@ -90,7 +90,7 @@ class Photos extends Component {
     return (
 
       <View>
-        <Modal
+        <Modal 
           animationType="slide"
           transparent={false}
           visible={this.state.modalVisible}
@@ -116,6 +116,7 @@ class Photos extends Component {
             <Icon name="arrow-back" />
             <Text>Profile</Text>
           </Button>
+          <Text style={styles.logo}>Go Photer</Text>
 
 
 

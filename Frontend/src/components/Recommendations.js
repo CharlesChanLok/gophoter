@@ -259,7 +259,6 @@ const styles = StyleSheet.create({
         height: 200,
         flex: 1,
         opacity: 0.9,
-
     },
     modalimage: {
         height: 450,

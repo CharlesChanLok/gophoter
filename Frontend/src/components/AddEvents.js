@@ -73,8 +73,6 @@ export default class Events extends Component {
   }
 
   async uploadPhoto() {
-    console.log('upload')
-
     if (this.state.data != null && this.state.location != null && this.state.title != null && this.state.chosenDate != null) {
       this.setState({ loading: true });
       const resImage = await RNFetchBlob.fetch('POST', `http://10.0.2.2:3000/photos/${1}`, {
@@ -139,13 +137,14 @@ export default class Events extends Component {
   renderUpload() {
     if (this.state.loading === false) {
       return (
-
         <Button full info style={styles.button} onPress={() => this.uploadPhoto()}>
           <Text style={styles.text}>Submit</Text>
         </Button>)
+    } else {
+      return <ActivityIndicator size="large" color="#00ff00" />;
     }
-  //return <ActivityIndicator size="large" color="#00ff00" />;
   }
+
   // handleSubmit = () => {
   //   axios.post('http://10.0.2.2:3000/events', {
   //     hostId: 1,
@@ -168,6 +167,7 @@ export default class Events extends Component {
   // };
 
   render() {
+
     return (
       <Container style={{ backgroundColor: '#fff' }}>
 
@@ -200,7 +200,7 @@ export default class Events extends Component {
 
             </CardItem>
 
-            <CardItem style={{ alignSelf: 'stretch',  paddingRight: 50 }}>
+            <CardItem style={{ alignSelf: 'stretch', paddingRight: 50 }}>
 
               <Icon name="ios-navigate" style={styles.icon} />
 
@@ -213,7 +213,7 @@ export default class Events extends Component {
 
             </CardItem>
 
-            <CardItem style={{ alignSelf: 'stretch', paddingRight: 50}}>
+            <CardItem style={{ alignSelf: 'stretch', paddingRight: 50 }}>
 
               <Icon name="ios-paper" style={styles.icon} />
 
@@ -232,16 +232,13 @@ export default class Events extends Component {
                 />
               </TouchableOpacity>
             </CardItem>
-              {this.renderUpload()}
+            {this.renderUpload()}
           </Card>
         </Content>
-
-            
-        
-      </Container>
-    );
+      </Container >
+    )
   }
-}
+};
 
 const styles = StyleSheet.create({
   logo: {
@@ -275,7 +272,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-SemiBold',
     alignSelf: 'center',
     paddingLeft: 145,
-    paddingRight:145
+    paddingRight: 145
   },
   textinput: {
     color: "#ff8396",

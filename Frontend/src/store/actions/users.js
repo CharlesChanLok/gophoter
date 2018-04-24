@@ -1,22 +1,14 @@
-import { setemail, setname, setjwtToken, setid } from './actionTypes'
+import { SETPROFILE, SETID } from './actionTypes'
 
-export const setemail = () => {
+export const setprofile = (profile) => {
     return{
-    type: setemail
+    type: SETPROFILE,
+    profile
     }
 }
-export const setname = () => {
+export const setid = (id) => {
     return{
-    type: setname
-    }
-}
-export const settoken = () => {
-    return{
-    type: setjwtToken
-    }
-}
-export const setid = () => {
-    return{
-    type: setid
+    type: SETID,
+    id
     }
 }

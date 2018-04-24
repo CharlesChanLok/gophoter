@@ -1,26 +1,29 @@
-import React, { Component } from 'react';
+import React, { Component} from 'react';
 import {
   StyleSheet,
   Text,
   ImageBackground,
   View,
   Alert,
-  Linking
+  Linking,
+  AsyncStorage 
 } from 'react-native';
+import { connect, dispatch } from 'react-redux';
 import { Button } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import qs from 'qs';
 import { StackNavigator } from 'react-navigation';
 import { TabNavigator, TabView, TabBarTop } from 'react-navigation';
-import  MainScreen  from './MainScreen';
+import MainScreen from './MainScreen';
 import ProfileScreen from './ProfileScreen';
 import SearchScreen from './SearchScreen';
-export default class LoginScreen extends Component {
-
+import { setjwtToken } from '../store/actions/actionTypes';
+import { setprofile, setid } from '../store/actions/users';
+import configStore from '../store/configstore'
+class LoginScreen extends Component {
   state = {
-    jwtToken: undefined,
-    checkLoggedIn: false
+    jwtToken: undefined
   }
   componentDidMount() {
     Linking.addEventListener('url', this._handleURL);
@@ -29,31 +32,27 @@ export default class LoginScreen extends Component {
         this._handleURL(url);
       }
     });
-    // Linking.addEventListener('url', this.test);
-    // Linking.getInitialURL().then((url) => {
-    //   if (url) {
-    //     this._handleURL(url);
-    //   }
-    // });
   }
 
   componentWillUnmount() {
     Linking.removeEventListener('url', this._handleURL);
-    Linking.removeEventListener('url', this.test);
   }
-
-  async _handleURL(event) {
+  _handleURL = async (event) => {
     try {
       var [, query] = event.match(/\#(.*)/)
       const jsonQuery = qs.parse(query);
       const response = await axios.post('http://10.0.2.2:3000/auth/verify/google', { accessToken: jsonQuery.access_token });
-      const serverReturn = response.data;
-      this.setState({ jwtToken: serverReturn.token });
-      this.props.navigation.navigate('Main')
-    } catch (err) {
-      alert("Error ", err);
+      const data = response.data;
+      AsyncStorage.setItem('jwtToken', JSON.stringify(data.token));
+      this.props.setprofile(data.profile);
+      this.props.setid(data.id);
+      this.props.navigation.navigate('Main');
+      }
+    catch (err) {
+      alert("Error " + err.message);
     }
   }
+  
   loginGoogle = () => {
     //change it and save it somewhere else.
     const CLIENT_ID = "606784332815-el05u272910hau6jlvnmnn4nul21enus.apps.googleusercontent.com";
@@ -69,7 +68,7 @@ export default class LoginScreen extends Component {
     Linking.openURL(GOOGLE_AUTH_URL);
   }
   render() {
-    return(<ImageBackground source={require('../../DSC06107.jpg')} style={styles.backgroundImage}>
+    return (<ImageBackground source={require('../../DSC06107.jpg')} style={styles.backgroundImage}>
       <View style={styles.top}>
         <Text style={styles.header}>GO Photer</Text>
       </View>
@@ -122,7 +121,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     padding: 80,
-    
+
   },
   loginButton: {
     width: '40%',
@@ -135,3 +134,16 @@ const styles = StyleSheet.create({
     color: '#fff'
   }
 });
+function mapDispatchToProps(dispatch) {
+  return {
+    setprofile: (data) => dispatch(setprofile(data)),
+    setid: (num) => dispatch(setid(num))
+  }
+}
+export default connect(
+  state=>({
+  profile: state.profile,
+  id: state.id,
+  }),
+  mapDispatchToProps
+)(LoginScreen);

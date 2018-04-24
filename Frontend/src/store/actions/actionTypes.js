@@ -1,4 +1,2 @@
-export const setemail = 'setemail'
-export const setname = 'setname'
-export const setjwtToken = 'setjwtToken'
-export const setid = 'setid'
+export const SETPROFILE = 'setprofile';
+export const SETID = 'setid';
