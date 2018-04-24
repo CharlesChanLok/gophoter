@@ -25,27 +25,23 @@ class Photos extends Component {
     this.state.Objnumber = i
   }
 
-imageRender = () =>{
-  console.log("Image Rendered" + JSON.stringify(this.props.userspicture));
-    this.props.userspicture.map((image, index) => {
-      console.log("Image Links: " + image.img_url);
+imageRender = () =>{{
+  console.log("IMAGE DATA" + JSON.stringify(this.props.userspicture));
+  this.props.userspicture.map((image, index) => {
       return (
-
         <TouchableHighlight onPress={() => this.setModalVisible(true, index)}>
 
           <View style={[{ width: (width) / 3 }, { height: (width) / 3 },
           index % 3 !== 0 ? { paddingLeft: 2 } : { paddingTop: 2 }
           ]} >
-
             <Image style={{ flex: 1, width: undefined, height: undefined }}
               source={{ uri: image.img_url }} />
-
           </View>
         </TouchableHighlight>
       )
     }
     )
-  }
+  }}
   render() {
     return (
 

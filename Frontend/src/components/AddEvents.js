@@ -91,22 +91,22 @@ class Events extends Component {
         location: this.state.location,
         title: this.state.title,
         imgUrl: resImage.json()
-      });
-      this.setState({
-        loading: false,
-        imageSource: null,
-        data: null,
-        datetime: null,
-        location: null,
-        title: null
       })
-      this.prop.addevent(dispatch({
+      res3 = await this.prop.addevent(dispatch({
         hostId: this.props.id,
         datetime: this.state.datetime,
         location: this.state.location,
         title: this.state.title,
         img_link: data.data}
       ));
+      res4 = await this.setState({
+        loading: false,
+        imageSource: null,
+        data: null,
+        datetime: null,
+        location: null,
+        title: null
+        });
     }
   }
 

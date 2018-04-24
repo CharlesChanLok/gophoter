@@ -18,10 +18,10 @@ export const addevent = (info) => {
         info
     }
 }
-export const serverevent = (items) => {
+export const serverevent = (item) => {
     return {
         type: SEVEREVENTS,
-        items
+        item
     }
 }
 export const userlist = (initial) => {

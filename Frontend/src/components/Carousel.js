@@ -8,9 +8,7 @@ class DeckSwiperExample extends Component {
     state = {
         modalVisible: false
     };
-    componentDidMount(){
-        console.log("This has been rendered");
-    }
+
     setModalVisible(visible) {
         this.setState({ modalVisible: visible });
     }
@@ -27,13 +25,13 @@ class DeckSwiperExample extends Component {
     }
 
     renderInfoList() {
-        if (this.props.items.length > 0) {
-            return (this.props.items.map(function (rec, i) {
+        if (this.props.item.length > 0) {
+            return (this.props.item.map(function (rec, i) {
                 return (
                     <List>
                         <ListItem noBorder>
-                            {/* <Thumbnail source={{ uri: this.props.profile.picture }} />
-                            <Text style={styles.attenders} >{this.props.profile.name}</Text> */}
+                            <Thumbnail source={{ uri: this.props.profile.picture }} />
+                            <Text style={styles.attenders} >{this.props.profile.name}</Text>
                         </ListItem>
                     </List>
                 );
@@ -43,15 +41,15 @@ class DeckSwiperExample extends Component {
         }
     }
     renderDeckSwiper = () => {
-        console.log("itmes information :" + this.props.items);
-        if (this.props.items.length >= 0) {
+        console.log("ites information :" + JSON.stringify(this.props.item));
+        if (this.props.item.length > 0) {
             return (
                 <DeckSwiper
-                    dataSource={this.props.items}
-                    renderItem={items =>
-                        <Card style={{ elevation: this.props.items.length }}>
+                    dataSource={this.props.item}
+                    renderItem={item =>
+                        <Card style={{ elevation: this.props.item.length }}>
                             <CardItem cardBody>
-                                <Image style={styles.carouselimage} source={{ uri: items.imgUrl }} />
+                                <Image style={styles.carouselimage} source={{ uri: item.img_url }} />
                             </CardItem>
 
                             <CardItem>
@@ -59,14 +57,14 @@ class DeckSwiperExample extends Component {
                                     <Thumbnail source={{ uri: this.props.profile.picture }} />
                                     <Body>
                                         <Text style={styles.name}>{this.props.profile.name}</Text>
-                                        <Text note style={styles.location}>{items.location}</Text>
+                                        <Text note style={styles.location}>{item.location}</Text>
                                     </Body>
                                 </Left>
                                 <Right>
-                                    <TouchableHighlight onPress={() => { this.handleGetDirections(items.latitude, items.longitude) }}>
+                                    <TouchableHighlight onPress={() => { this.handleGetDirections(item.latitude, item.longitude) }}>
                                         <Icon style={styles.icon} name="ios-navigate" />
                                     </TouchableHighlight>
-                                    <Text note>{Date(items.date)}</Text>
+                                    <Text note>{Date(item.date)}</Text>
                                 </Right>
                             </CardItem>
 
@@ -220,6 +218,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     profile: state.numbers.profile,
-    items: state.numbers.items
+    item: state.numbers.items
   });
   export default connect(mapStateToProps, null)(DeckSwiperExample);

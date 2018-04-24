@@ -35,12 +35,12 @@ const reducer = (state = initialState, action) => {
         case SEVEREVENTS:
             return {
                 ...state,
-                items: state.items.concat([action.items])
+                items: state.items.concat(action.item)
             }
         case USERSPHOTOS:
             return {
                 ...state,
-                userspicture: state.userspicture.concat([action.photo])
+                userspicture: state.userspicture.concat(action.photo)
             }
         default:
             return state

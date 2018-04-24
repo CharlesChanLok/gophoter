@@ -13,5 +13,5 @@ const AppWithRedux = () => (
         <App />
     </Provider>
 );
-
+console.disableYellowBox = true;
 AppRegistry.registerComponent('betaproject', () => AppWithRedux);

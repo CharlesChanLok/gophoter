@@ -9,20 +9,19 @@ module.exports = class userservice {
     }
 
     create(user) {
-        let query = this.knex.table(users).first('gmail').where('gmail', user.email);
+        var query = this.knex.select().first("gmail").where('gmail', user.email).from(users)
         return query.then((u) => {
             if (!u) {
                 return this.knex
                     .insert({ gmail: user.email, profile_image: user.picture, first_name: user.given_name, last_name: user.family_name })
                     .into(users)
-                    .returning("id");
+                    .returning("id")
             } else {
-                return null
-                //  this.knex
-                //     .select("id")
-                //     .from(users)
-                //     .first()
-                //     .where("gmail", user.email)
+                return this.knex
+                    .select()
+                    .from(users)
+                    .where("gmail", user.email)
+                    .returning('id');
             }
         })
     }
@@ -54,8 +53,9 @@ module.exports = class userservice {
     }
     findid(email) {
         return this.knex
-            .select("id")
+            .select("*")
             .from(users)
             .where("gmail", email)
+            .returning("id")
     }
 }

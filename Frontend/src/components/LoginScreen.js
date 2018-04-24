@@ -45,7 +45,7 @@ class LoginScreen extends Component {
       const data = response.data;
       AsyncStorage.setItem('jwtToken', data.token);
       this.props.setprofile(data.profile);
-      this.props.setid(data.id);
+      this.props.setid(data.id[0].id);
       this.props.navigation.navigate('Main');
       }
     catch (err) {
